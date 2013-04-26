@@ -5,7 +5,7 @@
     if ($spiceData->num_rows() > 0) {
         foreach ($spiceData->result() as $spice) {
             if ($spiceType == "themes") {
-                $json[$spice->uuid] = array(
+                $json[$spice->id] = array(
                     'spices-id' => $spice->id,                    
                     'name' => $spice->name,
                     'description' => $spice->description,
