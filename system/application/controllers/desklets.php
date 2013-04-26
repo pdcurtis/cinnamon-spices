@@ -63,6 +63,14 @@ class Desklets extends Controller{
 			$this->load->view("footer");
 		}
 	}
+
+	function json() {
+		$this->db->select('desklets.*, users.id as user_id, users.username, users.signature, users.biography');
+		$this->db->join('users', 'users.id = desklets.user');
+		$data['spiceData'] = $this->db->get('desklets');
+		$data['spiceType'] = 'desklets';
+		$this->load->view('json', $data);
+	}
 	
 	function rate($id, $rating) {
 		$id = intval($id);

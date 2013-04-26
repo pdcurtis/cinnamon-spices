@@ -64,11 +64,12 @@ class Applets extends Controller{
 		}
 	}
     
-    function json() {
+	function json() {
 		$this->db->select('applets.*, users.id as user_id, users.username, users.signature, users.biography');
 		$this->db->join('users', 'users.id = applets.user');
-		$data['applets'] = $this->db->get('applets');
-		$this->load->view('applets_json', $data);
+		$data['spiceData'] = $this->db->get('applets');
+	    $data['spiceType'] = 'applets';
+		$this->load->view('json', $data);
 	}
 	
 	function rate($id, $rating) {

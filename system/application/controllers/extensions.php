@@ -73,6 +73,14 @@ class Extensions extends Controller{
 			$this->load->view("footer");
 		}
 	}
+
+	function json() {
+		$this->db->select('extensions.*, users.id as user_id, users.username, users.signature, users.biography');
+		$this->db->join('users', 'users.id = extensions.user');
+		$data['spiceData'] = $this->db->get('extensions');
+		$data['spiceType'] = 'extensions';
+		$this->load->view('json', $data);
+	}
 	
 	function rate($id, $rating) {
 		$id = intval($id);

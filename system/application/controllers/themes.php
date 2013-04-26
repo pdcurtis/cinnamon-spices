@@ -119,6 +119,14 @@ class Themes extends Controller{
 	  // close the directory
 	  closedir( $dir );
 	}
+
+	function json() {
+		$this->db->select('themes.*, users.id as user_id, users.username, users.signature, users.biography');
+		$this->db->join('users', 'users.id = themes.user');
+		$data['spiceData'] = $this->db->get('themes');
+		$data['spiceType'] = 'themes';
+		$this->load->view('json', $data);
+	}
 	
 	function rate($id, $rating) {
 		$id = intval($id);
