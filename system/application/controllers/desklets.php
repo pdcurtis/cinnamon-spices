@@ -101,7 +101,7 @@ class Desklets extends Controller{
 			$this->db->set('rating', $rating);
 			$this->db->insert('desklets_ratings');			
 			$this->db->query("UPDATE desklets SET score = (SELECT SUM(rating-3) FROM desklets_ratings WHERE desklet = $id) WHERE id = $id");
-			this->_json();
+			$this->_json();
 		}
 		redirect("/desklets/view/$id", "location");
 	}
@@ -223,7 +223,7 @@ class Desklets extends Controller{
 					}
 				}
 
-				this->_json();					
+				$this->_json();					
 			}	                                            					                                                
         }
         redirect("/desklets/view/$id", "location");
@@ -250,7 +250,7 @@ class Desklets extends Controller{
 				$this->db->where('user', $this->dx_auth->get_user_id());
 				$this->db->delete('desklets');
 
-				this->_json();
+				$this->_json();
 			}		
 		}
 		redirect("/desklets", "location");
@@ -387,7 +387,7 @@ class Desklets extends Controller{
 						$this->db->insert("desklets");				
 						$id = $this->db->insert_id();		
 
-						this->_json();
+						$this->_json();
 												
 						redirect("/desklets/view/$id", "location");
 					}

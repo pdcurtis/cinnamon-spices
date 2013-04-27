@@ -101,7 +101,7 @@ class Applets extends Controller{
 			$this->db->set('rating', $rating);
 			$this->db->insert('applets_ratings');			
 			$this->db->query("UPDATE applets SET score = (SELECT SUM(rating-3) FROM applets_ratings WHERE applet = $id) WHERE id = $id");
-			this->_json();
+			$this->_json();
 		}
 		redirect("/applets/view/$id", "location");
 	}
@@ -222,7 +222,7 @@ class Applets extends Controller{
 						$this->db->update('applets');
 					}
 				}
-				this->_json();					
+				$this->_json();					
 			}	                                            					                                                
         }
         redirect("/applets/view/$id", "location");
@@ -249,7 +249,7 @@ class Applets extends Controller{
 				$this->db->where('user', $this->dx_auth->get_user_id());
 				$this->db->delete('applets');
 
-				this->_json();
+				$this->_json();
 			}		
 		}
 		redirect("/applets", "location");
@@ -386,7 +386,7 @@ class Applets extends Controller{
 						$this->db->insert("applets");				
 						$id = $this->db->insert_id();			
 
-						this->_json();
+						$this->_json();
 											
 						redirect("/applets/view/$id", "location");
 					}

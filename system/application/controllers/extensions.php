@@ -111,7 +111,7 @@ class Extensions extends Controller{
 			$this->db->set('rating', $rating);
 			$this->db->insert('extensions_ratings');			
 			$this->db->query("UPDATE extensions SET score = (SELECT SUM(rating-3) FROM extensions_ratings WHERE extension = $id) WHERE id = $id");
-			this->_json();
+			$this->_json();
 		}
 		redirect("/extensions/view/$id", "location");
 	}
@@ -233,7 +233,7 @@ class Extensions extends Controller{
 					}
 				}		
 
-				this->_json();
+				$this->_json();
 
 			}	                                            					                                                
         }
@@ -261,7 +261,7 @@ class Extensions extends Controller{
 				$this->db->where('user', $this->dx_auth->get_user_id());
 				$this->db->delete('extensions');
 
-				this->_json();
+				$this->_json();
 			}		
 		}
 		redirect("/extensions", "location");
@@ -398,7 +398,7 @@ class Extensions extends Controller{
 						$this->db->insert("extensions");				
 						$id = $this->db->insert_id();		
 
-						this->_json();
+						$this->_json();
 
 												
 						redirect("/extensions/view/$id", "location");
