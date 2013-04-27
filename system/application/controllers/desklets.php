@@ -64,12 +64,29 @@ class Desklets extends Controller{
 		}
 	}
 
-	function json() {
+	function _json() {
 		$this->db->select('desklets.*, users.id as user_id, users.username, users.signature, users.biography');
 		$this->db->join('users', 'users.id = desklets.user');
-		$data['spiceData'] = $this->db->get('desklets');
-		$data['spiceType'] = 'desklets';
-		$this->load->view('json', $data);
+		$spices = $this->db->get('desklets');
+		foreach ($spices->result() as $spice) {
+            $json[$spice->uuid] = array(
+                'spices-id' => $spice->id,
+                'uuid' => $spice->uuid,
+                'name' => $spice->name,
+                'description' => $spice->description,
+                'score' => $spice->score,
+                'created' => $spice->created,
+                'last_edited' => $spice->last_edited,
+                'file' => $spice->file,
+                'icon' => $spice->icon,
+                'screenshot' => $spice->screenshot,
+                'author_id' => $spice->user,
+                'author_user' => $spice->username
+            );
+        }
+		$fp = fopen('/var/www/cinnamon-spices.linuxmint.com/json/desklets.json', 'w');
+		fwrite($fp, json_encode($json));
+		fclose($fp);		
 	}
 	
 	function rate($id, $rating) {
@@ -84,6 +101,7 @@ class Desklets extends Controller{
 			$this->db->set('rating', $rating);
 			$this->db->insert('desklets_ratings');			
 			$this->db->query("UPDATE desklets SET score = (SELECT SUM(rating-3) FROM desklets_ratings WHERE desklet = $id) WHERE id = $id");
+			this->_json();
 		}
 		redirect("/desklets/view/$id", "location");
 	}
@@ -203,7 +221,9 @@ class Desklets extends Controller{
 						$this->db->set('icon', "/uploads/desklets/".$filename);
 						$this->db->update('desklets');
 					}
-				}					
+				}
+
+				this->_json();					
 			}	                                            					                                                
         }
         redirect("/desklets/view/$id", "location");
@@ -229,6 +249,8 @@ class Desklets extends Controller{
 				$this->db->where('id', $id);
 				$this->db->where('user', $this->dx_auth->get_user_id());
 				$this->db->delete('desklets');
+
+				this->_json();
 			}		
 		}
 		redirect("/desklets", "location");
@@ -363,7 +385,10 @@ class Desklets extends Controller{
 						$this->db->set("created", now());
 						$this->db->set("last_edited", now());
 						$this->db->insert("desklets");				
-						$id = $this->db->insert_id();								
+						$id = $this->db->insert_id();		
+
+						this->_json();
+												
 						redirect("/desklets/view/$id", "location");
 					}
 				}										

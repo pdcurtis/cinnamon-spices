@@ -74,12 +74,29 @@ class Extensions extends Controller{
 		}
 	}
 
-	function json() {
+	function _json() {
 		$this->db->select('extensions.*, users.id as user_id, users.username, users.signature, users.biography');
 		$this->db->join('users', 'users.id = extensions.user');
-		$data['spiceData'] = $this->db->get('extensions');
-		$data['spiceType'] = 'extensions';
-		$this->load->view('json', $data);
+		$spices = $this->db->get('extensions');
+		foreach ($spices->result() as $spice) {
+            $json[$spice->uuid] = array(
+                'spices-id' => $spice->id,
+                'uuid' => $spice->uuid,
+                'name' => $spice->name,
+                'description' => $spice->description,
+                'score' => $spice->score,
+                'created' => $spice->created,
+                'last_edited' => $spice->last_edited,
+                'file' => $spice->file,
+                'icon' => $spice->icon,
+                'screenshot' => $spice->screenshot,
+                'author_id' => $spice->user,
+                'author_user' => $spice->username
+            );
+        }
+		$fp = fopen('/var/www/cinnamon-spices.linuxmint.com/json/extensions.json', 'w');
+		fwrite($fp, json_encode($json));
+		fclose($fp);
 	}
 	
 	function rate($id, $rating) {
@@ -94,6 +111,7 @@ class Extensions extends Controller{
 			$this->db->set('rating', $rating);
 			$this->db->insert('extensions_ratings');			
 			$this->db->query("UPDATE extensions SET score = (SELECT SUM(rating-3) FROM extensions_ratings WHERE extension = $id) WHERE id = $id");
+			this->_json();
 		}
 		redirect("/extensions/view/$id", "location");
 	}
@@ -213,7 +231,10 @@ class Extensions extends Controller{
 						$this->db->set('icon', "/uploads/extensions/".$filename);
 						$this->db->update('extensions');
 					}
-				}					
+				}		
+
+				this->_json();
+
 			}	                                            					                                                
         }
         redirect("/extensions/view/$id", "location");
@@ -239,6 +260,8 @@ class Extensions extends Controller{
 				$this->db->where('id', $id);
 				$this->db->where('user', $this->dx_auth->get_user_id());
 				$this->db->delete('extensions');
+
+				this->_json();
 			}		
 		}
 		redirect("/extensions", "location");
@@ -373,7 +396,11 @@ class Extensions extends Controller{
 						$this->db->set("created", now());
 						$this->db->set("last_edited", now());
 						$this->db->insert("extensions");				
-						$id = $this->db->insert_id();								
+						$id = $this->db->insert_id();		
+
+						this->_json();
+
+												
 						redirect("/extensions/view/$id", "location");
 					}
 				}										

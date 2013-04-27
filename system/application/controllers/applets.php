@@ -64,12 +64,29 @@ class Applets extends Controller{
 		}
 	}
     
-	function json() {
+	function _json() {
 		$this->db->select('applets.*, users.id as user_id, users.username, users.signature, users.biography');
 		$this->db->join('users', 'users.id = applets.user');
-		$data['spiceData'] = $this->db->get('applets');
-	    $data['spiceType'] = 'applets';
-		$this->load->view('json', $data);
+		$spices = $this->db->get('applets');
+		foreach ($spices->result() as $spice) {
+            $json[$spice->uuid] = array(
+                'spices-id' => $spice->id,
+                'uuid' => $spice->uuid,
+                'name' => $spice->name,
+                'description' => $spice->description,
+                'score' => $spice->score,
+                'created' => $spice->created,
+                'last_edited' => $spice->last_edited,
+                'file' => $spice->file,
+                'icon' => $spice->icon,
+                'screenshot' => $spice->screenshot,
+                'author_id' => $spice->user,
+                'author_user' => $spice->username
+            );
+        }
+		$fp = fopen('/var/www/cinnamon-spices.linuxmint.com/json/applets.json', 'w');
+		fwrite($fp, json_encode($json));
+		fclose($fp);
 	}
 	
 	function rate($id, $rating) {
@@ -84,6 +101,7 @@ class Applets extends Controller{
 			$this->db->set('rating', $rating);
 			$this->db->insert('applets_ratings');			
 			$this->db->query("UPDATE applets SET score = (SELECT SUM(rating-3) FROM applets_ratings WHERE applet = $id) WHERE id = $id");
+			this->_json();
 		}
 		redirect("/applets/view/$id", "location");
 	}
@@ -203,7 +221,8 @@ class Applets extends Controller{
 						$this->db->set('icon', "/uploads/applets/".$filename);
 						$this->db->update('applets');
 					}
-				}					
+				}
+				this->_json();					
 			}	                                            					                                                
         }
         redirect("/applets/view/$id", "location");
@@ -229,6 +248,8 @@ class Applets extends Controller{
 				$this->db->where('id', $id);
 				$this->db->where('user', $this->dx_auth->get_user_id());
 				$this->db->delete('applets');
+
+				this->_json();
 			}		
 		}
 		redirect("/applets", "location");
@@ -363,7 +384,10 @@ class Applets extends Controller{
 						$this->db->set("created", now());
 						$this->db->set("last_edited", now());
 						$this->db->insert("applets");				
-						$id = $this->db->insert_id();								
+						$id = $this->db->insert_id();			
+
+						this->_json();
+											
 						redirect("/applets/view/$id", "location");
 					}
 				}										

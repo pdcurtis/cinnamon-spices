@@ -125,19 +125,19 @@ class Themes extends Controller{
 		$this->db->join('users', 'users.id = themes.user');
 		$spices = $this->db->get('themes');
 		foreach ($spices->result() as $spice) {
-	                $json[$spice->id] = array(
-        	            'spices-id' => $spice->id,
-                	    'name' => $spice->name,
-	                    'description' => $spice->description,
-        	            'score' => $spice->score,
-                	    'created' => $spice->created,
-	                    'last_edited' => $spice->last_edited,
-        	            'file' => $spice->file,
-	                    'screenshot' => $spice->screenshot,
-        	            'author_id' => $spice->user,
-                	    'author_user' => $spice->username
-	                );
-        	}
+            $json[$spice->id] = array(
+	            'spices-id' => $spice->id,
+        	    'name' => $spice->name,
+                'description' => $spice->description,
+	            'score' => $spice->score,
+        	    'created' => $spice->created,
+                'last_edited' => $spice->last_edited,
+	            'file' => $spice->file,
+                'screenshot' => $spice->screenshot,
+	            'author_id' => $spice->user,
+        	    'author_user' => $spice->username
+            );
+    	}
 		$fp = fopen('/var/www/cinnamon-spices.linuxmint.com/json/themes.json', 'w');
 		fwrite($fp, json_encode($json));
 		fclose($fp);
