@@ -120,12 +120,27 @@ class Themes extends Controller{
 	  closedir( $dir );
 	}
 
-	function json() {
+	function _json() {
 		$this->db->select('themes.*, users.id as user_id, users.username, users.signature, users.biography');
 		$this->db->join('users', 'users.id = themes.user');
-		$data['spiceData'] = $this->db->get('themes');
-		$data['spiceType'] = 'themes';
-		$this->load->view('json', $data);
+		$spices = $this->db->get('themes');
+		foreach ($spices->result() as $spice) {
+	                $json[$spice->id] = array(
+        	            'spices-id' => $spice->id,
+                	    'name' => $spice->name,
+	                    'description' => $spice->description,
+        	            'score' => $spice->score,
+                	    'created' => $spice->created,
+	                    'last_edited' => $spice->last_edited,
+        	            'file' => $spice->file,
+	                    'screenshot' => $spice->screenshot,
+        	            'author_id' => $spice->user,
+                	    'author_user' => $spice->username
+	                );
+        	}
+		$fp = fopen('/var/www/cinnamon-spices.linuxmint.com/json/themes.json', 'w');
+		fwrite($fp, json_encode($json));
+		fclose($fp);
 	}
 	
 	function rate($id, $rating) {
