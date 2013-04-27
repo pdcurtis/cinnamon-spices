@@ -155,6 +155,7 @@ class Themes extends Controller{
 			$this->db->set('rating', $rating);
 			$this->db->insert('themes_ratings');			
 			$this->db->query("UPDATE themes SET score = (SELECT SUM(rating-3) FROM themes_ratings WHERE theme = $id) WHERE id = $id");
+			this->_json();
 		}
 		redirect("/themes/view/$id", "location");
 	}
@@ -165,7 +166,8 @@ class Themes extends Controller{
 		if ($this->dx_auth->is_logged_in() && $this->dx_auth->is_admin()) {    														
 			$this->db->where('id', $id);
 			$this->db->set('certification', $certification);
-			$this->db->update('themes');			
+			$this->db->update('themes');	
+			this->_json();		
 		}
 		redirect("/themes/view/$id", "location");
 	}
@@ -258,7 +260,9 @@ class Themes extends Controller{
 						$this->db->update('themes');
 						$this->generatethumbs();
 					}
-				}					
+				}
+
+				this->_json();					
 			}	                                            					                                                
         }
         redirect("/themes/view/$id", "location");
@@ -283,6 +287,8 @@ class Themes extends Controller{
 				$this->db->where('id', $id);
 				$this->db->where('user', $this->dx_auth->get_user_id());
 				$this->db->delete('themes');
+
+				this->_json();
 			}		
 		}
 		redirect("/themes", "location");
@@ -387,6 +393,8 @@ class Themes extends Controller{
 					$id = $this->db->insert_id();		
 					
 					$this->generatethumbs();
+
+					this->_json();
 											
 					redirect("/themes/view/$id", "location");
 				}										
