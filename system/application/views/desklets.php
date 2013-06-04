@@ -16,14 +16,15 @@
     <tbody><tr>        
         <?php foreach($latest->result() as $desklet):                        
             $array = preg_split("/,/", timespan($desklet->last_edited, time()));        
-            $time = strtolower($array[0])." ago";          
+             $time_span = strtolower($array[0])." ago";
+             $time_actual = date("Y-m-d, H:i", $desklet->last_edited);
             $score = "Score: ".$desklet->score;            
         ?>
             <td style="vertical-align: bottom;" align="center">
                 <center>
                     <div class="wp-caption alignnone" style="width: 120px; border: 1px solid #a5a5a5;">                        
                     <?=anchor("desklets/view/$desklet->id", "<img src='$desklet->icon' width='48'/>")?>
-                    <p class="wp-caption-text"><?=anchor("desklets/view/$desklet->id", "$desklet->name")?><br/><?=$score?><br/><?=$time?></p>
+                    <p class="wp-caption-text"><?=anchor("desklets/view/$desklet->id", "$desklet->name")?><br/><?=$score?><br/><span title="<?=$time_actual?>"><?=$time_span?></span></p>
                     </div>
                 </center></td>
             <?= alternator('', '', '', '', '</tr><tr>') ?>
@@ -43,14 +44,15 @@
     <tbody><tr>        
         <?php foreach($popular->result() as $desklet):                        
             $array = preg_split("/,/", timespan($desklet->last_edited, time()));        
-            $time = strtolower($array[0])." ago";          
+            $time_span = strtolower($array[0])." ago";
+            $time_actual = date("Y-m-d, H:i", $desklet->last_edited);
             $score = "Score: ".$desklet->score;            
         ?>
             <td style="vertical-align: bottom;" align="center">
                 <center>
                     <div class="wp-caption alignnone" style="width: 120px; border: 1px solid #a5a5a5;">                        
                     <?=anchor("desklets/view/$desklet->id", "<img src='$desklet->icon' width='48'/>")?>
-                    <p class="wp-caption-text"><?=anchor("desklets/view/$desklet->id", "$desklet->name")?><br/><?=$score?><br/><?=$time?></p>
+                    <p class="wp-caption-text"><?=anchor("desklets/view/$desklet->id", "$desklet->name")?><br/><?=$score?><br/><span title="<?=$time_actual?>"><?=$time_span?></span></p>
                     </div>
                 </center></td>
             <?= alternator('', '', '', '', '</tr><tr>') ?>

@@ -22,14 +22,15 @@
                 $screenshot = "src='$theme->screenshot' width='100'";
             }            
             $array = preg_split("/,/", timespan($theme->last_edited, time()));        
-            $time = strtolower($array[0])." ago";          
+            $time_span = strtolower($array[0])." ago";
+            $time_actual = date("Y-m-d, H:i", $theme->last_edited);
             $score = "Score: ".$theme->score;            
         ?>
             <td style="vertical-align: bottom;" align="center">
                 <center>
                     <div class="wp-caption alignnone" style="width: 120px; border: 1px solid #a5a5a5;">                        
                     <?=anchor("themes/view/$theme->id", "<img $screenshot/>")?>
-                    <p class="wp-caption-text"><?=anchor("themes/view/$theme->id", "$theme->name")?><br/><?=$score?><br/><?=$time?></p>
+                    <p class="wp-caption-text"><?=anchor("themes/view/$theme->id", "$theme->name")?><br/><?=$score?><br/><span title="<?=$time_actual?>"><?=$time_span?></span></p>
                     </div>
                 </center></td>
             <?= alternator('', '', '', '', '</tr><tr>') ?>
@@ -62,14 +63,15 @@
                         $screenshot = "src='$theme->screenshot' width='100'";
                     }            
                     $array = preg_split("/,/", timespan($theme->last_edited, time()));        
-                    $time = strtolower($array[0])." ago";          
+                    $time_span = strtolower($array[0])." ago";
+                    $time_actual = date("Y-m-d, H:i", $theme->last_edited);
                     $score = "Score: ".$theme->score;            
                 ?>
                     <td style="vertical-align: bottom;" align="center">
                         <center>
                             <div class="wp-caption alignnone" style="width: 120px; border: 1px solid #a5a5a5;">                        
                             <?=anchor("themes/view/$theme->id", "<img $screenshot/>")?>
-                            <p class="wp-caption-text"><?=anchor("themes/view/$theme->id", "$theme->name")?><br/><?=$score?><br/><?=$time?></p>
+                            <p class="wp-caption-text"><?=anchor("themes/view/$theme->id", "$theme->name")?><br/><?=$score?><br/><span title="<?=$time_actual?>"><?=$time_span?></span></p>
                             </div>
                         </center></td>
                     <?= alternator('', '', '', '', '</tr><tr>') ?>
@@ -99,14 +101,15 @@
                 $screenshot = "src='$theme->screenshot' width='100'";
             }            
             $array = preg_split("/,/", timespan($theme->last_edited, time()));        
-            $time = strtolower($array[0])." ago";          
+            $time_span = strtolower($array[0])." ago";
+            $time_actual = date("Y-m-d, H:i", $theme->last_edited);
             $score = "Score: ".$theme->score;            
         ?>
             <td style="vertical-align: bottom;" align="center">
                 <center>
                     <div class="wp-caption alignnone" style="width: 120px; border: 1px solid #a5a5a5;">                        
                     <?=anchor("themes/view/$theme->id", "<img $screenshot/>")?>
-                    <p class="wp-caption-text"><?=anchor("themes/view/$theme->id", "$theme->name")?><br/><?=$score?><br/><?=$time?></p>
+                    <p class="wp-caption-text"><?=anchor("themes/view/$theme->id", "$theme->name")?><br/><?=$score?><br/><span title="<?=$time_actual?>"><?=$time_span?></span></p>
                     </div>
                 </center></td>
             <?= alternator('', '', '', '', '</tr><tr>') ?>
