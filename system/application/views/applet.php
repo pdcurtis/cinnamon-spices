@@ -64,6 +64,9 @@
         $avatar = '/img/default_avatar.jpg';
 		if (file_exists(FCPATH.'uploads/avatars/'.$comment->user.".jpg")) {
 			$avatar = '/uploads/avatars/'.$comment->user.".jpg";
+      $array = preg_split("/,/", timespan($comment->timestamp, time()));
+      $time_span = strtolower($array[0])." ago";
+      $time_actual = date("Y-m-d, H:i", $comment->timestamp);
 		}
     ?>    
         <li class="comment even thread-even depth-1">
@@ -73,6 +76,7 @@
                 </div><!-- END avatar -->
                 <div class="comment-author vcard">
                     <cite class="fn"><?=anchor("/users/view/$comment->user", "$comment->username", "class='url'")?></cite> <span class="says">says:</span>
+                    <p class='comment-timestamp' title='<=?time_actual?>'><?=$time_span?></p><span class="clearfix" />
                 </div><!-- END comment-author vcard -->
                 
                 <p><?=$comment->body?></p>

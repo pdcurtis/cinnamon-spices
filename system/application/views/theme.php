@@ -1,6 +1,7 @@
 <?php
     $array = preg_split("/,/", timespan($last_edited, time()));        
-    $time = strtolower($array[0])." ago";      
+    $time_span = strtolower($array[0])." ago";
+    $time_actual = date("Y-m-d, H:i", $last_edited);
     if ($certification == 0) {
         $certified = "None";
     }    
@@ -16,7 +17,7 @@
 				        		<h1 class="page-title"><?=$name?> <?=$version?></h1>	
                                 <i><font color="#555555">Certification: <?=$certified?></font></i><br/>
                                 <i><font color="#555555">Score: <?=$score?></font></i><br/>                                
-                                <i><font color="#555555">Last edited: <?=$time?></font></i><br/><br/>
+                                <i><font color="#555555">Last edited: <span title="<?=$time_actual?>"><?=$time_span?></span></font></i><br/><br/>
 
 <?php if ($this->dx_auth->is_logged_in() && $this->dx_auth->is_admin()) {    
     $certifications = $this->db->get("themes_certifications");?>    
