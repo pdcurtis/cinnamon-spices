@@ -14,14 +14,15 @@
     <tbody><tr>        
         <?php foreach($latest->result() as $extension):                        
             $array = preg_split("/,/", timespan($extension->last_edited, time()));        
-            $time = strtolower($array[0])." ago";          
+            $time_span = strtolower($array[0])." ago";
+            $time_actual = date("Y-m-d, H:i", $extension->last_edited);
             $score = "Score: ".$extension->score;            
         ?>
             <td style="vertical-align: bottom;" align="center">
                 <center>
                     <div class="wp-caption alignnone" style="width: 120px; border: 1px solid #a5a5a5;">                        
                     <?=anchor("extensions/view/$extension->id", "<img src='$extension->icon' width='48'/>")?>
-                    <p class="wp-caption-text"><?=anchor("extensions/view/$extension->id", "$extension->name")?><br/><?=$score?><br/><?=$time?></p>
+                    <p class="wp-caption-text"><?=anchor("extensions/view/$extension->id", "$extension->name")?><br/><?=$score?><br/><span title="<?=$time_actual?>"><?=$time_span?></span></p>
                     </div>
                 </center></td>
             <?= alternator('', '', '', '', '</tr><tr>') ?>
@@ -41,14 +42,15 @@
     <tbody><tr>        
         <?php foreach($popular->result() as $extension):                        
             $array = preg_split("/,/", timespan($extension->last_edited, time()));        
-            $time = strtolower($array[0])." ago";          
+            $time_span = strtolower($array[0])." ago";
+            $time_actual = date("Y-m-d, H:i", $extension->last_edited);
             $score = "Score: ".$extension->score;            
         ?>
             <td style="vertical-align: bottom;" align="center">
                 <center>
                     <div class="wp-caption alignnone" style="width: 120px; border: 1px solid #a5a5a5;">                        
                     <?=anchor("extensions/view/$extension->id", "<img src='$extension->icon' width='48'/>")?>
-                    <p class="wp-caption-text"><?=anchor("extensions/view/$extension->id", "$extension->name")?><br/><?=$score?><br/><?=$time?></p>
+                    <p class="wp-caption-text"><?=anchor("extensions/view/$extension->id", "$extension->name")?><br/><?=$score?><br/><span title="<?=$time_actual?>"><?=$time_span?></span></p>
                     </div>
                 </center></td>
             <?= alternator('', '', '', '', '</tr><tr>') ?>
