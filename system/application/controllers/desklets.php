@@ -38,7 +38,7 @@ class Desklets extends Controller{
 			$this->db->select('desklets_comments.*, users.username');
 			$this->db->where('desklets_comments.desklet', $id);
 			$this->db->join('users', 'users.id = desklets_comments.user');
-			$this->db->order_by('timestamp');
+			$this->db->order_by('timestamp DESC');
 			$data['comments'] = $this->db->get('desklets_comments');
 			
 			$data['rating'] = 0;

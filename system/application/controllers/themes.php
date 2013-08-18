@@ -55,7 +55,7 @@ class Themes extends Controller{
 			$this->db->select('themes_comments.*, users.username');
 			$this->db->where('themes_comments.theme', $id);
 			$this->db->join('users', 'users.id = themes_comments.user');
-			$this->db->order_by('timestamp');
+			$this->db->order_by('timestamp DESC');
 			$data['comments'] = $this->db->get('themes_comments');
 			
 			$data['rating'] = 0;

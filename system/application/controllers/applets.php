@@ -38,7 +38,7 @@ class Applets extends Controller{
 			$this->db->select('applets_comments.*, users.username');
 			$this->db->where('applets_comments.applet', $id);
 			$this->db->join('users', 'users.id = applets_comments.user');
-			$this->db->order_by('timestamp');
+			$this->db->order_by('timestamp DESC');
 			$data['comments'] = $this->db->get('applets_comments');
 			
 			$data['rating'] = 0;

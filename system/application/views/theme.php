@@ -78,8 +78,22 @@
 </div><!-- END post-author -->
 	
 <!-- You can start editing here. -->
+
 <div id="commentsbox">
-    <h3 id="comments"><?=$comments->num_rows?> Comments</h3>
+
+    <?php if ($this->dx_auth->is_logged_in()) { ?>
+        <div id="comment-form">
+            <div id="respond">
+                <h3 id="comments-respond">Leave A Comment</h3>          
+                <?=form_open("themes/comment/$id") ?>
+                    <textarea name="body" cols="100%" rows="10"></textarea><br/>
+                    <input type="submit" value="Submit" />                
+                </form>
+            </div><!-- END respond -->
+        </div><!-- END comment-form -->
+    <?php } ?>
+
+    <h3 id="comments"><?=$comments->num_rows?> comments</h3>
 
     <ol class="commentlist">
     <?php foreach($comments->result() as $comment):
@@ -113,17 +127,6 @@
     </div>
     <!-- END comment-navigation -->
 
-    <?php if ($this->dx_auth->is_logged_in()) { ?>
-        <div id="comment-form">
-            <div id="respond">
-                <h3 id="comments-respond">Leave A Comment</h3>          
-                <?=form_open("themes/comment/$id") ?>
-                    <textarea name="body" cols="100%" rows="10"></textarea><br/>
-                    <input type="submit" value="Submit" />                
-                </form>
-            </div><!-- END respond -->
-        </div><!-- END comment-form -->
-    <?php } ?>
 </div><!-- END comments-box -->
 
 </div>

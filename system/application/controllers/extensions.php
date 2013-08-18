@@ -48,7 +48,7 @@ class Extensions extends Controller{
 			$this->db->select('extensions_comments.*, users.username');
 			$this->db->where('extensions_comments.extension', $id);
 			$this->db->join('users', 'users.id = extensions_comments.user');
-			$this->db->order_by('timestamp');
+			$this->db->order_by('timestamp DESC');
 			$data['comments'] = $this->db->get('extensions_comments');
 			
 			$data['rating'] = 0;
