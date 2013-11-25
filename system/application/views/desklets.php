@@ -2,9 +2,7 @@
 <div id="main">
         	<div id="post-content" class="clearfix">
 				        		<h1 class="page-title">Desklets</h1>	
-                                
-    <p><strong>Desklets are a new feature of Cinnamon 1.8 (coming in April 2013 and in Linux Mint 15 in May 2013).</strong></p>
-                                
+                                                               
     <p>To install a desklet: Download it and decompress it in ~/.local/share/cinnamon/desklets.</p>
                                 
 <?php if($latest->num_rows > 0) {
