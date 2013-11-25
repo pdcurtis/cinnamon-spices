@@ -16,14 +16,9 @@ class Themes extends Controller{
 		$this->welcome();
 	}
 	
-	function welcome() {
-											
-		$this->db->order_by('id DESC');
-		$data['certifications'] = $this->db->get('themes_certifications');
-		
-		$this->db->order_by('score DESC, name ASC');				
-		$this->db->where('certification', 0);				
-		$data['uncertified'] = $this->db->get('themes');
+	function welcome() {											
+		$this->db->order_by('score DESC, name ASC');
+		$data['popular'] = $this->db->get('themes');
 		
 		$this->db->order_by('last_edited DESC, name ASC');
 		$this->db->limit(5);
