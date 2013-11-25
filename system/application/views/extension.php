@@ -9,10 +9,9 @@
     <?=anchor("/extensions/edit/$id", "Edit", "class='small blue awesome'")?>&nbsp;
     <?=anchor("/extensions/delete/$id", "Delete", "class='small red awesome', onClick=\"return confirm('Are you sure you want to delete this extension?\\nAll comments and information about this extension will be permanently lost.')\"")?>&nbsp;
 <?php } ?>
-<?php $pos = strpos($website, "http://");
-        if ($pos === false) {} else { ?>
-            <?=anchor("$website", "Website", "class='small yellow awesome'")?>&nbsp;
-        <?php } ?>
+<?php if (preg_match('/https?:\/\//', $website) === 1) { ?>
+    <?=anchor("$website", "Website", "class='small yellow awesome'")?>&nbsp;
+<?php } ?>
 <?=anchor("$file", "Download", "class='small awesome'")?><br/><br/>
 
 <?=anchor("$screenshot", "<img src='$screenshot'/>")?><br/><br/>
