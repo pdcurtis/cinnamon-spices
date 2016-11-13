@@ -15,7 +15,7 @@
 <div id="main">
         	<div id="post-content" class="clearfix">
 				        		<h1 class="page-title"><?=$name?> <?=$version?></h1>	
-                                <i><font color="#555555">Certification: <?=$certified?></font></i><br/>
+                                <!--<i><font color="#555555">Certification: <?=$certified?></font></i><br/>-->
                                 <i><font color="#555555">Score: <?=$score?></font></i><br/>                                
                                 <i><font color="#555555">Last edited: <span title="<?=$time_actual?>"><?=$time_span?></span></font></i><br/><br/>
 

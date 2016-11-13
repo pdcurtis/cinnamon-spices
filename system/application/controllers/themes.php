@@ -87,28 +87,45 @@ class Themes extends Controller{
 
 	  // loop through it, looking for any/all JPG files:
 	  while (false !== ($fname = readdir( $dir ))) {
-		// parse path for the extension
-		$info = pathinfo($pathToImages . $fname);
-		// continue only if this is a PNG image
-		if ( array_key_exists('extension', $info) && strtolower($info['extension']) == 'png' )
-		{		  
-		  // load image and get image size
-		  $img = imagecreatefrompng( "{$pathToImages}{$fname}" );
-		  $width = imagesx( $img );
-		  $height = imagesy( $img );
+	  	try {
+			// parse path for the extension
+			$info = pathinfo($pathToImages . $fname);
+			// continue only if this is a PNG image
+			if ( array_key_exists('extension', $info) && ((strtolower($info['extension']) == 'png')||(strtolower($info['extension']) == 'jpg')) )
+			{
+			  // load image and get image size
+			  if (strtolower($info['extension']) == 'png') {
+			  	$img = imagecreatefrompng( "{$pathToImages}{$fname}" );
+			  	if (!$img) {
+			  		$img = imagecreatefromjpeg( "{$pathToImages}{$fname}" );
+				}
+			  }
+			  elseif (strtolower($info['extension']) == 'jpg') {
+				$img = imagecreatefromjpeg( "{$pathToImages}{$fname}" );
+			  	if (!$img) {
+			  		$img = imagecreatefrompng( "{$pathToImages}{$fname}" );
+				}
+			  }
+			  $width = imagesx( $img );
+			  $height = imagesy( $img );
 
-		  // calculate thumbnail size
-		  $new_width = $thumbWidth;
-		  $new_height = floor( $height * ( $thumbWidth / $width ) );
+			  // calculate thumbnail size
+			  $new_width = $thumbWidth;
+			  $new_height = floor( $height * ( $thumbWidth / $width ) );
 
-		  // create a new temporary image
-		  $tmp_img = imagecreatetruecolor( $new_width, $new_height );
+			  // create a new temporary image
+			  $tmp_img = imagecreatetruecolor( $new_width, $new_height );
 
-		  // copy and resize old image into new image
-		  imagecopyresized( $tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height );
+			  // copy and resize old image into new image
+			  imagecopyresized( $tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height );
 
-		  // save thumbnail into a file
-		  imagepng( $tmp_img, "{$pathToThumbs}{$fname}" );
+			  // save thumbnail into a file
+			  $thumb_filename = $info['filename'];
+			  imagepng( $tmp_img, "{$pathToThumbs}{$thumb_filename}.png" );
+			}
+		}
+		catch (Exception $e) {
+			echo 'Exception : ',  $e->getMessage(), "\n<br/>";
 		}
 	  }
 	  // close the directory
