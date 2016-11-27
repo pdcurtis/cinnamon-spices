@@ -1,7 +1,11 @@
-<div id="main">
-        	<div id="post-content" class="clearfix">
-				        		<h1 class="page-title">Forgotten password</h1>
-	    
+<!DOCTYPE html>
+<html class="cs-login-signup">
+<head>
+	<title>Cinnamon Spices</title>
+
+	<link rel="stylesheet" href="/style.css">
+</head>
+<body>
 <?php
 
 $login = array(
@@ -10,24 +14,25 @@ $login = array(
 	'maxlength'	=> 80,
 	'size'	=> 30,
 	'value' => set_value('login'),
-	'style' => 'width: 95%;'
 );
 
 ?>
-
-
+<div class="cs-login-wrap">
+	<div class="cs-login-signup-header">
+		<div class="cs-login-signup-header-logo"><img src="/resources/cinnamon-logo.svg"></div>
+		<div class="cs-login-signup-header-text">Password to CINNAMON</div>
+	</div>
 	<?php echo form_open($this->uri->uri_string())?>
+		<div class="cs-login-form-row">
+			<?php echo form_label('Enter your Username or Email Address', $login['id']);?>
+			<?php echo form_input($login); ?>
+			<?php echo form_error($login['name']); ?>
+		</div>
+		<div class="cs-login-form-row">
+			<button class="cs-button" type="submit">Reset Now</button>
+		</div>
+	<?php echo form_close() ?>
+</div>
 
-	<?php echo $this->dx_auth->get_auth_error(); ?>	
-
-        <?php echo form_label('Enter your Username or Email Address', $login['id']);?><?php echo form_input($login); ?><?php echo form_error($login['name']); ?><br/>
-        <span class="art-button-wrapper">
-        	<span class="l"> </span>
-        	<span class="r"> </span>
-        	<input class="art-button" type="submit" name="reset" value="Reset Now"/>
-        </span>
-        </form>
-<br/>
-
- </div>
-            <!-- END post-content -->
+</body>
+</html>

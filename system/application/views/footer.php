@@ -1,4 +1,24 @@
+            </div>
+        </div>
+    </div>
+    <div class="cs-footer">
+        <div class="cs-footer-copyright cs-main-wrap">
+            <!-- <div class="cs-main-wrap"> -->
+            <div class="cs-copyright">
+                Cinnamon is ©copyrighted 2011 and trademarked through the Linux Mark Institute. All rights reserved.
+            </div>
+            <div class="cs-sponsor">
+                Brought to you by
+                <a href="https://www.linuxmint.com">LINUX MINT</a>
+            </div>
+            <!-- </div> -->
+        </div>
+    </div>
+</body>
+</html>
 
+
+<?php /*
 <div id="wpadminbar" class="nojq nojs" role="navigation">
     <div class="quicklinks">	
 	<ul id="wp-admin-bar-root-default" class="ab-top-menu">		
@@ -60,3 +80,6 @@
 
 		</body>
 </html>
+
+ */
+?>
