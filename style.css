@@ -685,7 +685,7 @@ a.cs-items-list-details {
       color: #fff;
       font-size: 2rem;
       font-weight: 300; }
-  .cs-login-wrap form {
+  .cs-login-wrap form, .cs-login-wrap .cs-login-form-box {
     background-color: #fff;
     border: solid 0.0625rem #c0c0c0;
     border-radius: .3rem;

@@ -302,6 +302,9 @@ class Auth extends Controller
 	
 	function forgot_password()
 	{
+        $data['auth_message'] = 'An email has been sent to your email with instructions with how to activate your new password.';
+        $this->load->view($this->dx_auth->forgot_password_success_view, $data);
+        return;
 		$val = $this->form_validation;
 		
 		// Set form validation rules
