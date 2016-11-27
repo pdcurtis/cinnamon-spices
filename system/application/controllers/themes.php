@@ -13,27 +13,42 @@ class Themes extends Controller{
 	}
 	
 	function index() {
-		$this->welcome();
+		$this->popular();
 	}
+
+//	function featured() {
+//		$this->db->order_by('last_edited DESC, name ASC');
+//		$data['themes'] = $this->db->get('themes');
+//		$this->load->view('header', $data);
+//		$this->load->view('themes', $data);
+//		$this->load->view('footer', $data);
+//	}
 	
-	function welcome() {											
+	function popular() {
 		$this->db->order_by('score DESC, name ASC');
-		$data['popular'] = $this->db->get('themes');
-		
-		$this->db->order_by('last_edited DESC, name ASC');
-		$this->db->limit(5);
-		$data['latest'] = $this->db->get('themes');
-		
-		$this->load->view('header', $data);			
+		$data['mode'] = 'popular';
+		$data['themes'] = $this->db->get('themes');
+
+		$this->load->view('header');
 		$this->load->view('themes', $data);
-		$this->load->view('footer', $data);
+		$this->load->view('footer');
 	}
+
+//	function all() {
+//		$this->db->order_by('last_edited DESC, name ASC');
+//		$data['themes'] = $this->db->get('themes');
+//		$this->load->view('header', $data);
+//		$this->load->view('themes', $data);
+//		$this->load->view('footer', $data);
+//	}
 	
 	function latest()
-	{					
-		$this->db->order_by('last_edited DESC, name ASC');		
-		$data['themes'] = $this->db->get('themes');		
-		$this->load->view('header', $data);			
+	{
+		$this->db->order_by('last_edited DESC, name ASC');
+		$data['mode'] = 'latest';
+		$data['themes'] = $this->db->get('themes');
+
+		$this->load->view('header', $data);
 		$this->load->view('themes', $data);
 		$this->load->view('footer', $data);
 	}
@@ -226,22 +241,27 @@ class Themes extends Controller{
 					$config['file_name'] = $filename;
 					$config['overwrite'] = TRUE;
 					$config['allowed_types'] = 'zip';				
-					$config['max_size']	= '10240';				
-					$this->upload->initialize($config);								
-					if (!$this->upload->do_upload('file')) {					
+					$config['max_size']	= '10240';
+
+					$this->upload->initialize($config);
+					if (!$this->upload->do_upload('file')) {
 						$this->edit($id, $this->upload->display_errors());
 						return;
 					}
-					else {										
+					else {
 						$upload_data = $this->upload->data();
 						$filename = $upload_data['file_name'];
-						chmod( FCPATH.'uploads/themes/'.$filename , 0644 );						
+						chmod( FCPATH.'uploads/themes/'.$filename , 0644 );
 						#Delete the old file
-						unlink(FCPATH.$data['file']);
+						if(!empty($data['file'])) {
+							if(file_exists(FCPATH.$data['file']) &&  is_file(FCPATH.$data['file'])) {
+								unlink(FCPATH.$data['file']);
+							}
+						}
 						#Update entry in DB
-						$this->db->where('id', $id);					
+						$this->db->where('id', $id);
 						$this->db->where('user', $this->dx_auth->get_user_id());
-						$this->db->set('file', "/uploads/themes/".$filename);						
+						$this->db->set('file', "/uploads/themes/".$filename);
 						$this->db->update('themes');
 					}
 				}
@@ -253,27 +273,33 @@ class Themes extends Controller{
 					$config['file_name'] = $filename;
 					$config['overwrite'] = TRUE;
 					$config['allowed_types'] = 'png';				
-					$config['max_size']	= '1024';				
-					$this->upload->initialize($config);						
-					if (!$this->upload->do_upload('screenshot')) {					
+					$config['max_size']	= '1024';
+
+					$this->upload->initialize($config);
+					if (!$this->upload->do_upload('screenshot')) {
 						$this->edit($id, $this->upload->display_errors());
 						return;
 					}
-					else {										
+					else {
 						$upload_data = $this->upload->data();
 						$filename = $upload_data['file_name'];
-						chmod( FCPATH.'uploads/themes/'.$filename , 0644 );						
+						chmod( FCPATH.'uploads/themes/'.$filename , 0644 );
 						#Delete the old file
-						unlink(FCPATH.$data['screenshot']);
+						if(!empty($data['screenshot'])) {
+							if(file_exists(FCPATH.$data['screenshot']) &&  is_file(FCPATH.$data['screenshot'])) {
+								unlink(FCPATH.$data['screenshot']);
+							}
+						}
 						#Update entry in DB
-						$this->db->where('id', $id);					
-						$this->db->where('user', $this->dx_auth->get_user_id());						
+						$this->db->where('id', $id);
+						$this->db->where('user', $this->dx_auth->get_user_id());
 						$this->db->set('screenshot', "/uploads/themes/".$filename);
 						$this->db->update('themes');
 						$this->generatethumbs();
 					}
 				}
 
+				die;
 				$this->_json();					
 			}	                                            					                                                
         }

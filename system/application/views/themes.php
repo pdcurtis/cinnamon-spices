@@ -1,82 +1,73 @@
+<div class="cs-content-filter">
+    <ul>
+        <!--        <li class="active">-->
+        <!--            <a href="/themes/featured">Featured</a>-->
+        <!--        </li>-->
+        <li class="<?= $mode == 'popular' ? 'active' : '' ?>">
+            <a href="/themes/popular">Popular</a>
+        </li>
+        <li class="<?= $mode == 'latest' ? 'active' : '' ?>">
+            <a href="/themes/latest">Latest</a>
+        </li>
+        <!--        <li>-->
+        <!--            <a href="/themes/all">See All</a>-->
+        <!--        </li>-->
+        <!--        <li>-->
+        <!--            <a href="#">Upload your theme</a>-->
+        <!--        </li>-->
+    </ul>
+</div>
 
-
-<div id="main">
-        	<div id="post-content" class="clearfix">
-				        		<h1 class="page-title">Themes</h1>	
-                                                                                                                     
-    <p>To install a theme: Download it and decompress it in ~/.themes.</p>
-
-<?php if($latest->num_rows > 0) {
-    alternator();
+<?php
+if (isset($themes) && $themes->num_rows > 0) {
     ?>
-<div class="greydiv">    
-    <h4 align="center">Latest</h4>
-    <table border="0" cellspacing="10" cellpadding="0">    
-    <tbody><tr>        
-        <?php foreach($latest->result() as $theme):            
-            $thumb = str_replace("themes", "themes/thumbs", $theme->screenshot);
-            if (file_exists(FCPATH.$thumb)) {        
-                $screenshot = "src='$thumb'";
+    <div class="cs-items-list-container">
+        <?php
+        $i = 0;
+        foreach ($themes->result() as $theme) {
+            if ($i == 0) {
+                echo '<div class="cs-items-list-row">';
             }
-            else {
-                $screenshot = "src='$theme->screenshot' width='100'";
-            }            
-            $array = preg_split("/,/", timespan($theme->last_edited, time()));        
-            $time_span = strtolower($array[0])." ago";
-            $time_actual = date("Y-m-d, H:i", $theme->last_edited);
-            $score = "Score: ".$theme->score;            
-        ?>
-            <td style="vertical-align: bottom;" align="center">
-                <center>
-                    <div class="wp-caption alignnone" style="width: 120px; border: 1px solid #a5a5a5;">                        
-                    <?=anchor("themes/view/$theme->id", "<img $screenshot/>")?>
-                    <p class="wp-caption-text"><?=anchor("themes/view/$theme->id", "$theme->name")?><br/><?=$score?><br/><span title="<?=$time_actual?>"><?=$time_span?></span></p>
-                    </div>
-                </center></td>
-            <?= alternator('', '', '', '', '</tr><tr>') ?>
-        <?php endforeach;?>
-        </tr>
-    </tbody>
-    </table>
-</div>
-<?php } ?>
 
-<?php if($popular->num_rows > 0) {
-    alternator();
-    ?>
-<div class="greydiv">
-    <h4 align="center">Most popular</h4>
-    <table border="0" cellspacing="10" cellpadding="0">    
-    <tbody><tr>        
-        <?php foreach($popular->result() as $theme):            
             $thumb = str_replace("themes", "themes/thumbs", $theme->screenshot);
-            if (file_exists(FCPATH.$thumb)) {        
-                $screenshot = "src='$thumb'";
+            if (file_exists(FCPATH . $thumb)) {
+                $screenshot = $thumb;
+            } else {
+                $screenshot = $theme->screenshot;
             }
-            else {
-                $screenshot = "src='$theme->screenshot' width='100'";
-            }            
-            $array = preg_split("/,/", timespan($theme->last_edited, time()));        
-            $time_span = strtolower($array[0])." ago";
+            $array = preg_split("/,/", timespan($theme->last_edited, time()));
+            $time_span = strtolower($array[0]) . " ago";
             $time_actual = date("Y-m-d, H:i", $theme->last_edited);
-            $score = "Score: ".$theme->score;            
-        ?>
-            <td style="vertical-align: bottom;" align="center">
-                <center>
-                    <div class="wp-caption alignnone" style="width: 120px; border: 1px solid #a5a5a5;">                        
-                    <?=anchor("themes/view/$theme->id", "<img $screenshot/>")?>
-                    <p class="wp-caption-text"><?=anchor("themes/view/$theme->id", "$theme->name")?><br/><?=$score?><br/><span title="<?=$time_actual?>"><?=$time_span?></span></p>
+
+            ?>
+            <div class="cs-items-list-item cs-flex-column">
+                <a href="/themes/view/<?= $theme->id ?>">
+                    <div class="cs-items-list-image">
+                        <div class="cs-items-list-overlay">
+                            <div class="cs-items-list-title"><?= $theme->name ?></div>
+                        </div>
+                        <div class="cs-items-bg-image"
+                             style="background-image: url(<?= $screenshot ?>)"></div>
                     </div>
-                </center></td>
-            <?= alternator('', '', '', '', '</tr><tr>') ?>
-        <?php endforeach;?>
-        </tr>
-    </tbody>
-    </table>
-</div>
-<?php } ?>      
-                            
-</div>
-
-
-<!-- END post-content -->
+                </a>
+                <div class="cs-items-list-info-bar">
+                    <a href="#" class="cs-button btn-download">Download</a>
+                    <span><img src="/resources/icons/black.star.svg"><?= $theme->score ?></span>
+                    <span title="<?= $time_actual ?>"><img src="resources/icons/time-ago.png"><?= $time_span ?></span>
+                    <!--span><img src="resources/icons/download.png">123</span-->
+                </div>
+            </div>
+            <?php
+            $i++;
+            if ($i == 2) {
+                echo "</div>";
+                $i = 0;
+            }
+        }
+        if ($i > 0) {
+            echo "</div>";
+        }
+        ?>
+    </div>
+    <?php
+}

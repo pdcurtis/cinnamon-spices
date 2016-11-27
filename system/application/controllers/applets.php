@@ -24,7 +24,6 @@ class Applets extends Controller{
 		$this->load->view('header', $data);
 		$this->load->view('applets', $data);
 		$this->load->view('footer', $data);
-//		$this->load->view('welcome_page');
 	}
 	
 	function view($id) {

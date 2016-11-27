@@ -660,17 +660,18 @@ a.cs-items-list-details {
   .cs-items-list-info-bar a {
     text-transform: none; }
   .cs-items-list-info-bar span {
-    display: inline-block;
+    -ms-flex-align: center;
+        align-items: center;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
     float: right;
     height: 2.1875rem;
     line-height: 2.1875rem;
     margin-left: .625rem; }
-    .cs-items-list-info-bar span.downloads-cnt {
-      background: url("resources/icons/download.png") no-repeat 0 0.625rem;
-      padding-left: 1.25rem; }
-    .cs-items-list-info-bar span.time-ago {
-      background: url("resources/icons/time-ago.png") no-repeat 0 0.75rem;
-      padding-left: 1.25rem; }
+    .cs-items-list-info-bar span > img {
+      height: 1rem;
+      margin-right: .5rem;
+      width: 1rem; }
 
 .cs-landing-jumbotron {
   background: #843f18;
