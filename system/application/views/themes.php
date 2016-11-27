@@ -29,12 +29,6 @@ if (isset($themes) && $themes->num_rows > 0) {
                 echo '<div class="cs-items-list-row">';
             }
 
-            $thumb = str_replace("themes", "themes/thumbs", $theme->screenshot);
-            if (file_exists(FCPATH . $thumb)) {
-                $screenshot = $thumb;
-            } else {
-                $screenshot = $theme->screenshot;
-            }
             $array = preg_split("/,/", timespan($theme->last_edited, time()));
             $time_span = strtolower($array[0]) . " ago";
             $time_actual = date("Y-m-d, H:i", $theme->last_edited);
@@ -47,13 +41,13 @@ if (isset($themes) && $themes->num_rows > 0) {
                             <div class="cs-items-list-title"><?= $theme->name ?></div>
                         </div>
                         <div class="cs-items-bg-image"
-                             style="background-image: url(<?= $screenshot ?>)"></div>
+                             style="background-image: url(<?= $theme->screenshot ?>)"></div>
                     </div>
                 </a>
                 <div class="cs-items-list-info-bar">
                     <a href="#" class="cs-button btn-download">Download</a>
                     <span><img src="/resources/icons/black.star.svg"><?= $theme->score ?></span>
-                    <span title="<?= $time_actual ?>"><img src="resources/icons/time-ago.png"><?= $time_span ?></span>
+                    <span title="<?= $time_actual ?>"><img src="/resources/icons/time-ago.png"><?= $time_span ?></span>
                     <!--span><img src="resources/icons/download.png">123</span-->
                 </div>
             </div>
