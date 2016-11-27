@@ -126,9 +126,9 @@ class Auth extends Controller
 					}
 									
 					// Load login page view
-					$this->load->view("header");										
+					//$this->load->view("header");
 					$this->load->view($this->dx_auth->login_view, $data);
-					$this->load->view("footer");
+					//$this->load->view("footer");
 				}
 			}
 		}
@@ -193,9 +193,9 @@ class Auth extends Controller
 				}
 
 				// Load registration page
-				$this->load->view("header");
+				//$this->load->view("header");
 				$this->load->view($this->dx_auth->register_view);
-				$this->load->view("footer");
+				//$this->load->view("footer");
 			}
 		}
 		elseif ( ! $this->dx_auth->allow_registration)
@@ -317,9 +317,9 @@ class Auth extends Controller
 		}
 		else
 		{
-			$this->load->view("header");
+			//$this->load->view("header");
 			$this->load->view($this->dx_auth->forgot_password_view);
-			$this->load->view("footer");
+			//$this->load->view("footer");
 		}
 	}
 	
