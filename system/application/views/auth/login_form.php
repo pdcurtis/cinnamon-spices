@@ -1,17 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Cinnamon Spices</title>
-    <link rel="stylesheet" href="/style.css">
-</head>
-<body class="cs-flex-column">
-
-<div class="cs-login-signup-header cs-flex-column">
-    <div class="cs-login-signup-header-logo"><img src="/resources/cinnamon-logo.svg"></div>
-    <div class="cs-login-signup-header-text">Sign in to CINNAMON</div>
-</div>
-
-<div class="cs-login-wrap">
     <?php echo form_open($this->uri->uri_string(),array('class'=>'cs-login-signup cs-login-signup-form cs-flex-column')) ?>
     <?php
     $username = array(
@@ -85,9 +71,3 @@
         New to CINNAMON?
         <a class="cs-link-alternate" href="/auth/register">Create an account</a>
     </div>
-</div>
-
-<?php require __DIR__.'/../footer_links.php' ?>
-
-</body>
-</html>

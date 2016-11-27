@@ -14,17 +14,18 @@ class Applets extends Controller{
 	}
 	
 	function welcome() {							                
-		$this->db->order_by('score DESC, name ASC');
-		$data['popular'] = $this->db->get('applets');
-		
-		$this->db->order_by('last_edited DESC, name ASC');
-		$this->db->limit(5);
-		$data['latest'] = $this->db->get('applets');
+//		$this->db->order_by('score DESC, name ASC');
+//		$data['popular'] = $this->db->get('applets');
+//
+//		$this->db->order_by('last_edited DESC, name ASC');
+//		$this->db->limit(5);
+//		$data['latest'] = $this->db->get('applets');
         				
-		$this->load->view('header', $data);			
-		$this->load->view('applets', $data);
-		$this->load->view('footer', $data);
-	}	
+//		$this->load->view('header', $data);
+//		$this->load->view('applets', $data);
+//		$this->load->view('footer', $data);
+		$this->load->view('welcome_page');
+	}
 	
 	function view($id) {
 		$id = intval($id);

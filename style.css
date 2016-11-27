@@ -748,7 +748,7 @@ a.cs-items-list-details {
     padding: .5rem; }
   .cs-login-form-row p {
     color: #f40000;
-    margin: .5rem 0 0 0; }
+    margin: .5rem 0 0; }
   .cs-login-form-row:first-of-type {
     margin-top: 0; }
   .cs-login-form-row:last-of-type {

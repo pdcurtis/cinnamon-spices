@@ -1,7 +1,7 @@
             </div>
         </div>
     </div>
-            <?php require('footer_links.php') ?>
+    <?php require('footer_links.php') ?>
 </body>
 </html>
 

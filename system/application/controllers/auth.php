@@ -126,9 +126,9 @@ class Auth extends Controller
 					}
 									
 					// Load login page view
-					//$this->load->view("header");
+					$this->load->view("header_login",array('title'=>'Sign in to CINNAMON'));
 					$this->load->view($this->dx_auth->login_view, $data);
-					//$this->load->view("footer");
+					$this->load->view("footer_login");
 				}
 			}
 		}

@@ -17,19 +17,7 @@ ini_set('display_errors', '1');
             <img src="/resources/cinnamon.svg" alt="">
             <div>spices</div>
         </div>
-        <div class="cs-header-menu">
-            <a class="cs-header-menu-link" href="/">Home</a>
-            <a class="cs-header-menu-link <?= preg_match('|^/themes.*?|',$_SERVER['REQUEST_URI'])?'active':'' ?>" href="/themes">Themes</a>
-            <a class="cs-header-menu-link <?= preg_match('|^/applets.*?|',$_SERVER['REQUEST_URI'])?'active':'' ?>" href="/applets">Applets</a>
-            <a class="cs-header-menu-link <?= preg_match('|^/desklets.*?|',$_SERVER['REQUEST_URI'])?'active':'' ?>" href="/desklets">Desklets</a>
-            <a class="cs-header-menu-link <?= preg_match('|^/extensions.*?|',$_SERVER['REQUEST_URI'])?'active':'' ?>" href="/extensions">Extensions</a>
-            <?php if (!$this->dx_auth->is_logged_in()) { ?>
-                <a class="cs-header-menu-login" href="/auth/login">Log In</a>
-                <a class="cs-header-menu-signup cs-button cs-button-thin-text" href="/auth/register">Sign Up</a>
-            <?php } else { ?>
-                <a class="cs-header-menu-signup cs-button cs-button-thin-text" href="/auth/logout">Log Out</a>
-            <?php } ?>
-        </div>
+        <?php require('header_links.php') ?>
     </div>
     <div class="cs-jumbotron-content">
         <div>
@@ -44,7 +32,7 @@ ini_set('display_errors', '1');
     </div>
 </div>
 
-<div class="cs-main-wrap">
+<div class="cs-main-wrap cs-flex">
     <div class="cs-main-left-sidebar">
         <div class="title">Addons</div>
         <ul>
