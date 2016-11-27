@@ -1,19 +1,7 @@
             </div>
         </div>
     </div>
-    <div class="cs-footer">
-        <div class="cs-footer-copyright cs-main-wrap">
-            <!-- <div class="cs-main-wrap"> -->
-            <div class="cs-copyright">
-                Cinnamon is ©copyrighted 2011 and trademarked through the Linux Mark Institute. All rights reserved.
-            </div>
-            <div class="cs-sponsor">
-                Brought to you by
-                <a href="https://www.linuxmint.com">LINUX MINT</a>
-            </div>
-            <!-- </div> -->
-        </div>
-    </div>
+            <?php require('footer_links.php') ?>
 </body>
 </html>
 
