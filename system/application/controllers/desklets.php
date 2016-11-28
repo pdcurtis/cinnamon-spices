@@ -10,22 +10,28 @@ class Desklets extends Controller{
 	}
 	
 	function index() {
-		$this->welcome();
+		$this->popular();
 	}
 	
-	function welcome() {							                
-		$this->db->order_by('score DESC, name ASC');
-		$data['popular'] = $this->db->get('desklets');
-		
+	function latest() {
 		$this->db->order_by('last_edited DESC, name ASC');
-		$this->db->limit(5);
-		$data['latest'] = $this->db->get('desklets');
+		$data['mode'] = 'latest';
+		$data['items'] = $this->db->get('desklets');
         				
 		$this->load->view('header', $data);			
 		$this->load->view('desklets', $data);
 		$this->load->view('footer', $data);
 	}	
 	
+	function popular() {
+		$this->db->order_by('score DESC, name ASC');
+		$data['mode'] = 'popular';
+		$data['items'] = $this->db->get('desklets');
+		$this->load->view('header', $data);
+		$this->load->view('desklets', $data);
+		$this->load->view('footer', $data);
+	}
+
 	function view($id) {
 		$id = intval($id);
 		$this->db->select('desklets.*, users.id as user_id, users.username, users.signature, users.biography');		

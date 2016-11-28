@@ -1,67 +1,62 @@
+<div class="cs-content-filter">
+    <ul>
+        <!--        <li class="active">-->
+        <!--            <a href="/themes/featured">Featured</a>-->
+        <!--        </li>-->
+        <li class="<?= $mode == 'popular' ? 'active' : '' ?>">
+            <a href="/extensions/popular">Popular</a>
+        </li>
+        <li class="<?= $mode == 'latest' ? 'active' : '' ?>">
+            <a href="/extensions/latest">Latest</a>
+        </li>
+        <!--        <li>-->
+        <!--            <a href="/themes/all">See All</a>-->
+        <!--        </li>-->
+        <!--        <li>-->
+        <!--            <a href="#">Upload your theme</a>-->
+        <!--        </li>-->
+    </ul>
+</div>
 
-<div id="main">
-        	<div id="post-content" class="clearfix">
-				        		<h1 class="page-title">Extensions</h1>
-                                
-    <p>To install an extension: Download it and decompress it in ~/.local/share/cinnamon/extensions.</p>
-                                
-<?php if($latest->num_rows > 0) {
-    alternator();
+
+<?php
+if (isset($items) && $items->num_rows > 0) {
     ?>
-<div class="greydiv">    
-    <h4 align="center">Latest</h4>
-    <table border="0" cellspacing="10" cellpadding="0">    
-    <tbody><tr>        
-        <?php foreach($latest->result() as $extension):                        
-            $array = preg_split("/,/", timespan($extension->last_edited, time()));        
-            $time_span = strtolower($array[0])." ago";
-            $time_actual = date("Y-m-d, H:i", $extension->last_edited);
-            $score = "Score: ".$extension->score;            
+    <div class="cs-items-list-container">
+        <?php
+        $i = 0;
+        foreach ($items->result() as $item) {
+            if ($i == 0) {
+                echo '<div class="cs-items-list-row">';
+            }
+
+            $array = preg_split("/,/", timespan($item->last_edited, time()));
+            $time_span = strtolower($array[0]) . " ago";
+            $time_actual = date("Y-m-d, H:i", $item->last_edited);
+
+            ?>
+            <div class="cs-items-list-item cs-flex-column">
+                <a href="/applets/view/<?= $item->id ?>" title="Icing Task Manager" class="cs-items-list-details cs-flex-row">
+                    <img src="<?= $item->icon ?>">
+                    <label><?= $item->name ?></label>
+                </a>
+                <div class="cs-items-list-info-bar">
+                    <a href="<?= $item->file ?>" download class="cs-button cs-button-sm">Download</a>
+                    <span><img src="/resources/icons/black.star.svg"><?= $item->score ?></span>
+                    <span title="<?= $time_actual ?>"><img src="/resources/icons/time-ago.png"><?= $time_span ?></span>
+                </div>
+            </div>
+            <?php
+            $i++;
+            if ($i == 3) {
+                echo "</div>";
+                $i = 0;
+            }
+        }
+        if ($i > 0) {
+            echo "</div>";
+        }
         ?>
-            <td style="vertical-align: bottom;" align="center">
-                <center>
-                    <div class="wp-caption alignnone" style="width: 120px; border: 1px solid #a5a5a5;">                        
-                    <?=anchor("extensions/view/$extension->id", "<img src='$extension->icon' width='48'/>")?>
-                    <p class="wp-caption-text"><?=anchor("extensions/view/$extension->id", "$extension->name")?><br/><?=$score?><br/><span title="<?=$time_actual?>"><?=$time_span?></span></p>
-                    </div>
-                </center></td>
-            <?= alternator('', '', '', '', '</tr><tr>') ?>
-        <?php endforeach;?>
-        </tr>
-    </tbody>
-    </table>
-</div>
-<?php } ?>
-          
-<?php if($popular->num_rows > 0) {
-    alternator();
-    ?>
-<div class="greydiv">    
-    <h4 align="center">Most popular</h4>
-    <table border="0" cellspacing="10" cellpadding="0">    
-    <tbody><tr>        
-        <?php foreach($popular->result() as $extension):                        
-            $array = preg_split("/,/", timespan($extension->last_edited, time()));        
-            $time_span = strtolower($array[0])." ago";
-            $time_actual = date("Y-m-d, H:i", $extension->last_edited);
-            $score = "Score: ".$extension->score;            
-        ?>
-            <td style="vertical-align: bottom;" align="center">
-                <center>
-                    <div class="wp-caption alignnone" style="width: 120px; border: 1px solid #a5a5a5;">                        
-                    <?=anchor("extensions/view/$extension->id", "<img src='$extension->icon' width='48'/>")?>
-                    <p class="wp-caption-text"><?=anchor("extensions/view/$extension->id", "$extension->name")?><br/><?=$score?><br/><span title="<?=$time_actual?>"><?=$time_span?></span></p>
-                    </div>
-                </center></td>
-            <?= alternator('', '', '', '', '</tr><tr>') ?>
-        <?php endforeach;?>
-        </tr>
-    </tbody>
-    </table>
-</div>
-<?php } ?>                                	
-                                   
-      
-                
-</div>
-<!-- END post-content -->
+    </div>
+    <?php
+}

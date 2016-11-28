@@ -10,22 +10,27 @@ class Applets extends Controller{
 	}
 	
 	function index() {
-		$this->welcome();
+		$this->popular();
 	}
 	
-	function welcome() {							                
-		$this->db->order_by('score DESC, name ASC');
-		$data['popular'] = $this->db->get('applets');
-
+	function latest() {
 		$this->db->order_by('last_edited DESC, name ASC');
-		$this->db->limit(5);
-		$data['latest'] = $this->db->get('applets');
-        				
-		$this->load->view('header', $data);
+        $data['mode'] = 'latest';
+		$data['items'] = $this->db->get('applets');
+		$this->load->view('header');
 		$this->load->view('applets', $data);
-		$this->load->view('footer', $data);
+		$this->load->view('footer');
 	}
 	
+	function popular() {
+		$this->db->order_by('score DESC, name ASC');
+        $data['mode'] = 'popular';
+		$data['items'] = $this->db->get('applets');
+		$this->load->view('header');
+		$this->load->view('applets', $data);
+		$this->load->view('footer');
+	}
+
 	function view($id) {
 		$id = intval($id);
 		$this->db->select('applets.*, users.id as user_id, users.username, users.signature, users.biography');		

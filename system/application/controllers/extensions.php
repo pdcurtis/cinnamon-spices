@@ -10,27 +10,23 @@ class Extensions extends Controller{
 	}
 	
 	function index() {
-		$this->welcome();
+		$this->popular();
 	}
 	
-	function welcome($sort_field="score") {		
-        			
+	function popular() {
 		$this->db->order_by('score DESC, name ASC');
-		$data['popular'] = $this->db->get('extensions');
-		
-		$this->db->order_by('last_edited DESC, name ASC');
-		$this->db->limit(5);
-		$data['latest'] = $this->db->get('extensions');
-        	
-		$this->load->view('header', $data);			
+		$data['mode'] = 'popular';
+		$data['items'] = $this->db->get('extensions');
+		$this->load->view('header', $data);
 		$this->load->view('extensions', $data);
 		$this->load->view('footer', $data);
 	}
 	
 	function latest()
 	{					
-		$this->db->order_by('last_edited DESC, name ASC');		
-		$data['extensions'] = $this->db->get('extensions');		
+		$this->db->order_by('last_edited DESC, name ASC');
+		$data['mode'] = 'latest';
+		$data['items'] = $this->db->get('extensions');
 		$this->load->view('header', $data);			
 		$this->load->view('extensions', $data);
 		$this->load->view('footer', $data);
