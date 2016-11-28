@@ -36,7 +36,7 @@ if (isset($items) && $items->num_rows > 0) {
 
             ?>
             <div class="cs-items-list-item cs-flex-column">
-                <a href="/applets/view/<?= $item->id ?>" title="Icing Task Manager" class="cs-items-list-details cs-flex-row">
+                <a href="/extensions/view/<?= $item->id ?>" title="Icing Task Manager" class="cs-items-list-details cs-flex-row">
                     <img src="<?= $item->icon ?>">
                     <label><?= $item->name ?></label>
                 </a>
