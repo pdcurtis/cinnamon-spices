@@ -411,14 +411,14 @@ body {
 a {
   transition: .1s ease-in-out; }
   a:not(.cs-button) {
-    color: #fff;
+    color: #dc6830;
     text-decoration: none; }
     a:not(.cs-button):hover, a:not(.cs-button):active {
-      color: #dc682f; }
+      color: #c55621; }
     a:not(.cs-button).cs-link-alternate {
-      color: #dc682f; }
+      color: #fff; }
       a:not(.cs-button).cs-link-alternate:hover, a:not(.cs-button).cs-link-alternate:active {
-        color: #c55621; }
+        color: #dc6830; }
 
 .cs-inline-list {
   list-style: none;
@@ -450,16 +450,40 @@ button {
     color: #fff; }
 
 h1 {
-  font-size: 3.125rem; }
+  font-family: 'Roboto', sans-serif;
+  font-weight: lighter;
+  margin: 0 0 1rem;
+  font-size: 2rem; }
 
 h2 {
-  font-size: 2.25rem; }
+  font-family: 'Roboto', sans-serif;
+  font-weight: lighter;
+  margin: 0 0 1rem;
+  font-size: 1.8rem; }
 
 h3 {
-  font-size: 1.675rem; }
+  font-family: 'Roboto', sans-serif;
+  font-weight: lighter;
+  margin: 0 0 1rem;
+  font-size: 1.6rem; }
 
 h4 {
-  font-size: 1.35rem; }
+  font-family: 'Roboto', sans-serif;
+  font-weight: lighter;
+  margin: 0 0 1rem;
+  font-size: 1.4rem; }
+
+h5 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: lighter;
+  margin: 0 0 1rem;
+  font-size: 1.2rem; }
+
+h6 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: lighter;
+  margin: 0 0 1rem;
+  font-size: 1rem; }
 
 .cs-category-header {
   color: #dc6830;
@@ -498,6 +522,10 @@ h4 {
 .cs-flex-middle {
   -ms-flex-pack: center;
       justify-content: center; }
+
+.cs-flex-grow {
+  -ms-flex-positive: 1;
+      flex-grow: 1; }
 
 .cs-media {
   display: -ms-flexbox;
@@ -560,6 +588,8 @@ h4 {
 .cs-header-menu {
   float: right;
   text-align: right; }
+  .cs-header-menu a {
+    color: #fff; }
   .cs-header-menu-link.active, .cs-header-menu-login.active {
     border-bottom: 0.0625rem solid #dc682f; }
   .cs-header-menu-link, .cs-header-menu-login, .cs-header-menu-signup {
@@ -576,7 +606,20 @@ h4 {
   .cs-header-menu-signup {
     height: 2.25rem;
     line-height: 2.25rem;
+    margin-left: 1rem;
     padding: 0 1.02941rem; }
+
+.cs-breadcrumbs {
+  opacity: .5;
+  margin-bottom: .8rem; }
+  .cs-breadcrumbs:hover {
+    opacity: 1; }
+  .cs-breadcrumbs > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0; }
+    .cs-breadcrumbs > ul > li {
+      display: inline; }
 
 .cs-items-list-container {
   margin: 1.25rem 0 0; }
@@ -655,23 +698,20 @@ a.cs-items-list-details {
   background-color: #f8f8f8;
   box-sizing: border-box;
   font-size: .875rem;
-  height: 3.4375rem;
   padding: .625rem; }
   .cs-items-list-info-bar a {
     text-transform: none; }
   .cs-items-list-info-bar span {
-    -ms-flex-align: center;
-        align-items: center;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
+    display: -ms-flexbox;
+    display: flex;
     float: right;
     height: 2.1875rem;
     line-height: 2.1875rem;
-    margin-left: .625rem; }
-    .cs-items-list-info-bar span > img {
-      height: 1rem;
-      margin-right: .5rem;
-      width: 1rem; }
+    margin-left: 1rem; }
+    .cs-items-list-info-bar span > svg {
+      fill: #6d7986;
+      margin-right: .25rem;
+      width: 1.25rem; }
 
 .cs-landing-jumbotron {
   background: #843f18;
@@ -718,6 +758,12 @@ a.cs-items-list-details {
     .cs-login-signup-header .cs-login-signup-header-logo img {
       height: 3.625rem;
       width: 3.625rem; }
+    .cs-login-signup-header .cs-login-signup-header-logo svg {
+      fill: #dc6830;
+      height: 3.625rem;
+      width: 3.625rem; }
+      .cs-login-signup-header .cs-login-signup-header-logo svg:hover {
+        fill: #c55621; }
   .cs-login-signup-header .cs-login-signup-header-text {
     color: #fff;
     font-size: 2rem;
@@ -817,18 +863,18 @@ a.cs-items-list-details {
 
 .cs-addons-sub-header {
   font-size: 1.125rem;
-  text-align: center;
-  margin: 0 0 2.125rem; }
+  margin: 0 0 2.125rem;
+  text-align: center; }
 
 .cs-addons-item {
   -ms-flex: 1;
       flex: 1;
   margin: 0 1.0625rem;
   text-align: center; }
-  .cs-addons-item:nth-child(odd) .cs-addons-item-icon:hover {
-    background-color: #f4f4f4; }
-    .cs-addons-item:nth-child(odd) .cs-addons-item-icon:hover svg path {
-      fill: #dc6830; }
+  .cs-addons-item:hover a {
+    color: #c55621; }
+  .cs-addons-item:hover .cs-addons-item-icon {
+    background: #c55621; }
 
 .cs-addons-item-icon {
   background: #dc6830;
@@ -836,11 +882,9 @@ a.cs-items-list-details {
   height: 8rem;
   transition: background .1s ease-in-out;
   width: 8rem; }
-  .cs-addons-item-icon:hover {
-    background-color: #cf5b23; }
-  .cs-addons-item-icon svg path {
-    transition: fill .1s ease-in-out;
-    fill: #fff; }
+  .cs-addons-item-icon svg {
+    fill: #fff;
+    max-width: 40%; }
 
 .cs-addons-item-header {
   margin: 1.0625rem 0; }
@@ -922,6 +966,8 @@ a.cs-items-list-details {
     color: #dc6830;
     font-size: 1rem;
     font-weight: normal; }
+  .cs-footer-download-item svg {
+    fill: #dc6830; }
 
 .cs-footer-sub-navigation {
   font-size: .75rem; }
@@ -931,8 +977,6 @@ a.cs-items-list-details {
   .cs-footer-sub-navigation a {
     color: #fff;
     font-weight: bold; }
-    .cs-footer-sub-navigation a:hover {
-      color: #dc682f; }
   .cs-footer-sub-navigation li {
     padding-left: .875rem; }
     .cs-footer-sub-navigation li:first-child {
@@ -952,6 +996,17 @@ a.cs-items-list-details {
     margin-top: -.1675rem; }
     .cs-footer-copyright .cs-sponsor a:hover, .cs-footer-copyright .cs-sponsor a:active {
       color: #73bb3d; }
+
+.cs-form-row {
+  margin: .5rem 0; }
+  .cs-form-row label {
+    font-weight: bold;
+    margin-bottom: .3125rem; }
+  .cs-form-row input, .cs-form-row textarea, .cs-form-row select {
+    background-color: #fff;
+    border: solid 0.0625rem #c0c0c0;
+    border-radius: .3125rem;
+    padding: .5rem; }
 
 .cs-button-sm {
   font-size: .75rem;

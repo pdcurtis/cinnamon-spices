@@ -1,4 +1,4 @@
-    <?php echo form_open($this->uri->uri_string(),array('class'=>'cs-login-signup cs-login-signup-form cs-flex-column')) ?>
+    <?php echo form_open($this->uri->uri_string(), ['class'=>'cs-login-signup cs-login-signup-form cs-flex-column']) ?>
     <?php
     $username = array(
         'name' => 'username',
@@ -39,7 +39,7 @@
     <div class="cs-login-form-row cs-flex-column">
         <div class="cs-login-form-forgot-password">
             <label for="cs-login-form-password"><?php echo form_label('Password', $password['id']); ?></label>
-            <a class="cs-link-alternate" href="/auth/forgot_password">Forgot password?</a>
+            <a href="/auth/forgot_password">Forgot password?</a>
         </div>
         <?php echo form_password($password) ?>
         <?php echo form_error($password['name']); ?>
@@ -69,5 +69,5 @@
     <?php echo form_close() ?>
     <div class="cs-login-signup cs-login-signup-call">
         New to CINNAMON?
-        <a class="cs-link-alternate" href="/auth/register">Create an account</a>
+        <a href="/auth/register">Create an account</a>
     </div>

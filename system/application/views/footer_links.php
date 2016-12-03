@@ -26,8 +26,7 @@
             Cinnamon is ©copyrighted 2011 and trademarked through the Linux Mark Institute. All rights reserved.
         </div>
         <div class="cs-sponsor">
-            Brought to you by
-            <a href="//www.linuxmint.com">LINUX MINT</a>
+            Brought to you by <a class="cs-link-alternate" href="//www.linuxmint.com">LINUX MINT</a>
         </div>
     </div>
 </div>

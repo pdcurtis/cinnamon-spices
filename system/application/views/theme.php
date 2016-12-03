@@ -1,3 +1,12 @@
+<div class="cs-breadcrumbs">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li>/</li>
+        <li><a href="/themes">Themes</a></li>
+        <li>/</li>
+        <li>View Theme</li>
+    </ul>
+</div>
 <?php
 $array = preg_split("/,/", timespan($last_edited, time()));
 $time_span = strtolower($array[0]) . " ago";
@@ -15,7 +24,6 @@ if ($certification == 0) {
 <!--<i><font color="#555555">Certification: <?= $certified ?></font></i><br/>-->
 <div>Score: <?= $score ?></font></div>
 <div>Last edited: <span title="<?= $time_actual ?>"><?= $time_span ?></span></div>
-<br/>
 <br/>
 
 <?php if ($this->dx_auth->is_logged_in() && $this->dx_auth->is_admin()) {
@@ -45,27 +53,27 @@ if ($certification == 0) {
     if ($rating == 1) {
         $color = "red";
     }
-    echo anchor("/themes/rate/$id/1", "<div align=center>*<br/>1-star</div>", "class='small $color awesome'") . "&nbsp;";
+    echo anchor("/themes/rate/$id/1", "* (1-star)", "class='small $color awesome'") . "&nbsp;";
     $color = "grey";
     if ($rating == 2) {
         $color = "orange";
     }
-    echo anchor("/themes/rate/$id/2", "<div align=center>**<br/>2-stars</div>", "class='small $color awesome'") . "&nbsp;";
+    echo anchor("/themes/rate/$id/2", "** (2-stars)", "class='small $color awesome'") . "&nbsp;";
     $color = "grey";
     if ($rating == 3) {
         $color = "yellow";
     }
-    echo anchor("/themes/rate/$id/3", "<div align=center>***<br/>3-stars</div>", "class='small $color awesome'") . "&nbsp;";
+    echo anchor("/themes/rate/$id/3", "*** (3-stars)", "class='small $color awesome'") . "&nbsp;";
     $color = "grey";
     if ($rating == 4) {
         $color = "blue";
     }
-    echo anchor("/themes/rate/$id/4", "<div align=center>****<br/>4-stars</div>", "class='small $color awesome'") . "&nbsp;";
+    echo anchor("/themes/rate/$id/4", "**** (4-stars)", "class='small $color awesome'") . "&nbsp;";
     $color = "grey";
     if ($rating == 5) {
         $color = "green";
     }
-    echo anchor("/themes/rate/$id/5", "<div align=center>*****<br/>5-stars</div>", "class='small $color awesome'") . "&nbsp;";
+    echo anchor("/themes/rate/$id/5", "***** (5-stars)", "class='small $color awesome'") . "&nbsp;";
     ?>
     <br/><br/>
 <?php } ?>
@@ -95,15 +103,15 @@ if ($certification == 0) {
 <div id="commentsbox">
 
     <?php if ($this->dx_auth->is_logged_in()) { ?>
-        <div id="comment-form">
-            <div id="respond">
-                <h3 id="comments-respond">Leave A Comment</h3>
-                <?= form_open("themes/comment/$id") ?>
-                <textarea name="body" cols="100%" rows="10"></textarea><br/>
-                <input type="submit" value="Submit"/>
-                </form>
-            </div><!-- END respond -->
-        </div><!-- END comment-form -->
+        <h3 id="comments-respond">Leave A Comment</h3>
+        <?= form_open("themes/comment/$id") ?>
+        <div class="cs-form-row">
+            <textarea name="body" cols="100%" rows="2"></textarea><br/>
+        </div>
+        <div class="cs-form-row">
+            <button type="submit" class="cs-button">Submit</button>
+        </div>
+        <?= form_close() ?>
     <?php } ?>
 
     <h3 id="comments"><?= $comments->num_rows ?> comments</h3>

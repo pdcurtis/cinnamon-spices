@@ -22,7 +22,7 @@ class Auth extends Controller
 	{
 		$this->login();
 	}
-	
+
 	/* Callback function */
 	
 	function username_check($username)
@@ -287,16 +287,16 @@ class Auth extends Controller
 		if ($this->dx_auth->activate($username, $key)) 
 		{
 			$data['auth_message'] = 'Your account have been successfully activated. '.anchor(site_url($this->dx_auth->login_uri), 'Login');
-			$this->load->view("header");
+            $this->load->view("header_login",['title'=>'Account activation']);
 			$this->load->view($this->dx_auth->activate_success_view, $data);
-			$this->load->view("footer");
+            $this->load->view("footer_login");
 		}
 		else
 		{
 			$data['auth_message'] = 'The activation code you entered was incorrect. Please check your email again.';
-			$this->load->view("header");
+            $this->load->view("header_login",['title'=>'Account activation']);
 			$this->load->view($this->dx_auth->activate_failed_view, $data);
-			$this->load->view("footer");
+            $this->load->view("footer_login");
 		}
 	}
 	
@@ -311,15 +311,15 @@ class Auth extends Controller
 		if ($val->run() AND $this->dx_auth->forgot_password($val->set_value('login')))
 		{
 			$data['auth_message'] = 'An email has been sent to your email with instructions with how to activate your new password.';
-			//$this->load->view("header");
+			$this->load->view("header_login",['title'=>'Password to CINNAMON']);
 			$this->load->view($this->dx_auth->forgot_password_success_view, $data);
-			//$this->load->view("footer");
+			$this->load->view("footer_login");
 		}
 		else
 		{
-			//$this->load->view("header");
+            $this->load->view("header_login",['title'=>'Password to CINNAMON']);
 			$this->load->view($this->dx_auth->forgot_password_view);
-			//$this->load->view("footer");
+            $this->load->view("footer_login");
 		}
 	}
 	

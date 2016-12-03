@@ -1,13 +1,9 @@
-﻿<?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-?>
-<html>
+﻿<html>
 <head>
     <title>Spices : Cinnamon</title>
     <!-- Stylesheet & Favicon -->
     <link rel="shortcut icon" href="/favicon.ico"/>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/style.css?<?= time() ?>">
 </head>
 <body>
 

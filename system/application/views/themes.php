@@ -45,10 +45,19 @@ if (isset($themes) && $themes->num_rows > 0) {
                     </div>
                 </a>
                 <div class="cs-items-list-info-bar">
-                    <a href="#" class="cs-button btn-download">Download</a>
-                    <span><img src="/resources/icons/black.star.svg"><?= $theme->score ?></span>
-                    <span title="<?= $time_actual ?>"><img src="/resources/icons/time-ago.png"><?= $time_span ?></span>
-                    <!--span><img src="resources/icons/download.png">123</span-->
+                    <a href="<?= $theme->file ?>" class="cs-button cs-button-sm">Download</a>
+                    <span>
+                        <svg><use xlink:href="resources/icons/sprite.svg#cs-star"></use></svg>
+                        <?= $theme->score ?>
+                    </span>
+                    <!--span>
+                        <svg><use xlink:href="resources/icons/sprite.svg#cs-cloud"></use></svg>
+                        123
+                    </span-->
+                    <span title="<?= $time_actual ?>">
+                        <svg><use xlink:href="resources/icons/sprite.svg#cs-update"></use></svg>
+                        <?= $time_span ?>
+                    </span>
                 </div>
             </div>
             <?php
