@@ -1,3 +1,12 @@
+<div class="cs-breadcrumbs">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li>/</li>
+        <li><a href="/extensions">Extensions</a></li>
+        <li>/</li>
+        <li><?= $name ?></li>
+    </ul>
+</div>
 
 <div id="main">
         	<div id="post-content" class="clearfix">                

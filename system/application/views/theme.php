@@ -4,7 +4,7 @@
         <li>/</li>
         <li><a href="/themes">Themes</a></li>
         <li>/</li>
-        <li>View Theme</li>
+        <li><?= $name ?></li>
     </ul>
 </div>
 <?php

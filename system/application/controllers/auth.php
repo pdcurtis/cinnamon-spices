@@ -126,7 +126,7 @@ class Auth extends Controller
 					}
 									
 					// Load login page view
-					$this->load->view("header_login",array('title'=>'Sign in to CINNAMON'));
+					$this->load->view("header_login", ['title'=>'Sign in to CINNAMON']);
 					$this->load->view($this->dx_auth->login_view, $data);
 					$this->load->view("footer_login");
 				}
@@ -180,9 +180,9 @@ class Auth extends Controller
 				}
 				
 				// Load registration success page
-				$this->load->view("header");
+				$this->load->view("header_login", ['title'=>'Sign up to CINNAMON']);
 				$this->load->view($this->dx_auth->register_success_view, $data);
-				$this->load->view("footer");
+				$this->load->view("footer_login");
 			}
 			else
 			{
@@ -193,24 +193,24 @@ class Auth extends Controller
 				}
 
 				// Load registration page
-				//$this->load->view("header");
+				$this->load->view("header_login", ['title'=>'Sign up to CINNAMON']);
 				$this->load->view($this->dx_auth->register_view);
-				//$this->load->view("footer");
+				$this->load->view("footer_login");
 			}
 		}
 		elseif ( ! $this->dx_auth->allow_registration)
 		{
 			$data['auth_message'] = 'Registration has been disabled.';
-			$this->load->view("header");
+			$this->load->view("header_login", ['title'=>'Sign up to CINNAMON']);
 			$this->load->view($this->dx_auth->register_disabled_view, $data);
-			$this->load->view("footer");
+			$this->load->view("footer_login");
 		}
 		else
 		{
 			$data['auth_message'] = 'You have to logout first, before registering.';
-			$this->load->view("header");
+			$this->load->view("header_login", ['title'=>'Sign up to CINNAMON']);
 			$this->load->view($this->dx_auth->logged_in_view, $data);
-			$this->load->view("footer");
+			$this->load->view("footer_login");
 		}
 	}
 	
