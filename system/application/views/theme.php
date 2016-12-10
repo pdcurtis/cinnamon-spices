@@ -1,12 +1,3 @@
-<div class="cs-breadcrumbs">
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li>/</li>
-        <li><a href="/themes">Themes</a></li>
-        <li>/</li>
-        <li><?= $name ?></li>
-    </ul>
-</div>
 <?php
 $array = preg_split("/,/", timespan($last_edited, time()));
 $time_span = strtolower($array[0]) . " ago";
@@ -20,63 +11,40 @@ if ($certification == 0) {
 }
 ?>
 
-<h1><?= $name ?> <?= $version ?></h1>
+<div class="cs-flex">
+    <div class="cs-flex cs-flex-grow">
+        <h1><?=$name?> <?=$version?></h1>
+        <div>by <?=anchor("/users/view/$user_id", $username)?></div>
+    </div>
+    <div class="cs-flex">
+        <?php if ($this->dx_auth->is_logged_in() && $this->dx_auth->is_admin()) {
+            $certifications = $this->db->get("themes_certifications"); ?>
+            <?= anchor("/themes/certify/$id/0", "Un-certify", "class='cs-button'") ?>&nbsp;
+            <?php foreach ($certifications->result() as $certif) { ?>
+                <?= anchor("/themes/certify/$id/$certif->id", "Certify $certif->name", "class='cs-button'") ?>&nbsp;
+            <?php } ?>
+        <?php } ?>
+        <?php if ($this->dx_auth->is_logged_in() && $this->dx_auth->get_user_id() == $user_id) {?>
+            <?=anchor("/themes/edit/$id", "Edit", "class='cs-button'")?>&nbsp;
+            <?=anchor("/themes/delete/$id", "Delete", "class='cs-button', onClick=\"return confirm('Are you sure you want to delete this theme?\\nAll comments and information about this theme will be permanently lost.')\"")?>&nbsp;
+        <?php } ?>
+        <?php if (preg_match('/https?:\/\//', $website) === 1) { ?>
+            <?=anchor("$website", "Website", "class='cs-button'")?>&nbsp;
+        <?php } ?>
+        <?=anchor("$file", "Download", "class='cs-button'")?><br/><br/>
+    </div>
+</div>
+
+<hr>
+
 <!--<i><font color="#555555">Certification: <?= $certified ?></font></i><br/>-->
 <div>Score: <?= $score ?></font></div>
 <div>Last edited: <span title="<?= $time_actual ?>"><?= $time_span ?></span></div>
 <br/>
 
-<?php if ($this->dx_auth->is_logged_in() && $this->dx_auth->is_admin()) {
-    $certifications = $this->db->get("themes_certifications"); ?>
-    <?= anchor("/themes/certify/$id/0", "Un-certify", "class='small blue awesome'") ?>&nbsp;
-    <?php foreach ($certifications->result() as $certif) { ?>
-        <?= anchor("/themes/certify/$id/$certif->id", "Certify $certif->name", "class='small blue awesome'") ?>&nbsp;
-    <?php } ?>
-<?php } ?>
-<?php if ($this->dx_auth->is_logged_in() && $this->dx_auth->get_user_id() == $user_id) { ?>
-    <?= anchor("/themes/edit/$id", "Edit", "class='small blue awesome'") ?>&nbsp;
-    <?= anchor("/themes/delete/$id", "Delete", "class='small red awesome', onClick=\"return confirm('Are you sure you want to delete this theme?\\nAll comments and information about this theme will be permanently lost.')\"") ?>&nbsp;
-<?php } ?>
-<?php if (preg_match('/https?:\/\//', $website) === 1) { ?>
-    <?= anchor("$website", "Website", "class='small yellow awesome'") ?>&nbsp;
-<?php } ?>
-
-<?= anchor("$file", "Download", "class='small awesome'") ?><br/><br/>
-
 <?= anchor("$screenshot", "<img src='$screenshot' width='400'/>") ?><br/><br/>
 
-<?php if ($this->dx_auth->is_logged_in()) { ?>
-    Give this theme the rating it deserves: <br/><br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <?php
-    $color = "grey";
-    if ($rating == 1) {
-        $color = "red";
-    }
-    echo anchor("/themes/rate/$id/1", "* (1-star)", "class='small $color awesome'") . "&nbsp;";
-    $color = "grey";
-    if ($rating == 2) {
-        $color = "orange";
-    }
-    echo anchor("/themes/rate/$id/2", "** (2-stars)", "class='small $color awesome'") . "&nbsp;";
-    $color = "grey";
-    if ($rating == 3) {
-        $color = "yellow";
-    }
-    echo anchor("/themes/rate/$id/3", "*** (3-stars)", "class='small $color awesome'") . "&nbsp;";
-    $color = "grey";
-    if ($rating == 4) {
-        $color = "blue";
-    }
-    echo anchor("/themes/rate/$id/4", "**** (4-stars)", "class='small $color awesome'") . "&nbsp;";
-    $color = "grey";
-    if ($rating == 5) {
-        $color = "green";
-    }
-    echo anchor("/themes/rate/$id/5", "***** (5-stars)", "class='small $color awesome'") . "&nbsp;";
-    ?>
-    <br/><br/>
-<?php } ?>
+<?php $this->view('_rate_item',['type'=>'themes','rate_message'=>'Give this theme the rating it deserves:']) ?>
 
 <p><?= $description ?></p>
 

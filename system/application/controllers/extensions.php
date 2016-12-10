@@ -57,14 +57,14 @@ class Extensions extends Controller{
 				}
 			}
 									
-			$this->load->view('header');
+			$this->load->view('header_short');
 			$this->load->view('extension', $data);
 			$this->load->view('footer');
 		}
 		else {
 			$data["error"] = "Not found";
 			$data["details"] = "This extension does not exist.";
-			$this->load->view("header");	
+			$this->load->view("header_short");
 			$this->load->view('error', $data);
 			$this->load->view("footer");
 		}

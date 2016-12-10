@@ -1,47 +1,26 @@
-<div class="cs-breadcrumbs">
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li>/</li>
-        <li><a href="/desklets">Desklets</a></li>
-        <li>/</li>
-        <li><?= $name ?></li>
-    </ul>
+<div class="cs-flex">
+    <div class="cs-flex cs-flex-grow">
+        <?=anchor("$icon", "<img src='$icon' width='48'/>")?>
+        <h1><?=$name?> <?=$version?></h1>
+        <div>by <?=anchor("/users/view/$user_id", $username)?></div>
+    </div>
+    <div class="cs-flex">
+        <?php if ($this->dx_auth->is_logged_in() && $this->dx_auth->get_user_id() == $user_id) {?>
+            <?=anchor("/desklets/edit/$id", "Edit", "class='cs-button'")?>&nbsp;
+            <?=anchor("/desklets/delete/$id", "Delete", "class='cs-button', onClick=\"return confirm('Are you sure you want to delete this desklet?\\nAll comments and information about this desklet will be permanently lost.')\"")?>&nbsp;
+        <?php } ?>
+        <?php if (preg_match('/https?:\/\//', $website) === 1) { ?>
+            <?=anchor("$website", "Website", "class='cs-button'")?>&nbsp;
+        <?php } ?>
+        <?=anchor("$file", "Download", "class='cs-button'")?><br/><br/>
+    </div>
 </div>
 
-<div id="main">
-        	<div id="post-content" class="clearfix">
-				        		<h1 class="page-title"><?=anchor("$icon", "<img src='$icon' width='48'/>")?> <?=$name?> <?=$version?></h1>	                                
-                                <i><font color="#555555">UUID: <?=$uuid?></font></i><br/>
-                                <i><font color="#555555">Score: <?=$score?></font></i><br/><br/>
-
-<?php if ($this->dx_auth->is_logged_in() && $this->dx_auth->get_user_id() == $user_id) {?>
-    <?=anchor("/desklets/edit/$id", "Edit", "class='small blue awesome'")?>&nbsp;
-    <?=anchor("/desklets/delete/$id", "Delete", "class='small red awesome', onClick=\"return confirm('Are you sure you want to delete this desklet?\\nAll comments and information about this desklet will be permanently lost.')\"")?>&nbsp;
-<?php } ?>
-<?php if (preg_match('/https?:\/\//', $website) === 1) { ?>
-    <?=anchor("$website", "Website", "class='small yellow awesome'")?>&nbsp;
-<?php } ?>
-<?=anchor("$file", "Download", "class='small awesome'")?><br/><br/>
+<hr>
 
 <?=anchor("$screenshot", "<img src='$screenshot'/>")?><br/><br/>
 
-<?php if ($this->dx_auth->is_logged_in()) { ?>
-    Give this desklet the rating it deserves: <br/><br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <?php 
-        $color="grey"; if ($rating == 1) { $color = "red"; }
-        echo anchor("/desklets/rate/$id/1", "<div align=center>*<br/>1-star</div>", "class='small $color awesome'")."&nbsp;";
-        $color="grey"; if ($rating == 2) { $color = "orange"; }
-        echo anchor("/desklets/rate/$id/2", "<div align=center>**<br/>2-stars</div>", "class='small $color awesome'")."&nbsp;";
-        $color="grey"; if ($rating == 3) { $color = "yellow"; }
-        echo anchor("/desklets/rate/$id/3", "<div align=center>***<br/>3-stars</div>", "class='small $color awesome'")."&nbsp;";
-        $color="grey"; if ($rating == 4) { $color = "blue"; }
-        echo anchor("/desklets/rate/$id/4", "<div align=center>****<br/>4-stars</div>", "class='small $color awesome'")."&nbsp;";
-        $color="grey"; if ($rating == 5) { $color = "green"; }
-        echo anchor("/desklets/rate/$id/5", "<div align=center>*****<br/>5-stars</div>", "class='small $color awesome'")."&nbsp;";
-    ?>
-    <br/><br/>
-<?php } ?>
+<?php $this->view('_rate_item',['type'=>'desklets','rate_message'=>'Give this desklet the rating it deserves:']) ?>
 
 <p><?=$description?></p>
                 
@@ -114,5 +93,3 @@
 
 </div><!-- END comments-box -->
 
-</div>
-<!-- END post-content -->

@@ -1,47 +1,26 @@
-<div class="cs-breadcrumbs">
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li>/</li>
-        <li><a href="/applets">Applets</a></li>
-        <li>/</li>
-        <li><?= $name ?></li>
-    </ul>
+<div class="cs-flex">
+    <div class="cs-flex cs-flex-grow">
+        <?=anchor("$icon", "<img src='$icon' width='48'/>")?>
+        <h1><?=$name?> <?=$version?></h1>
+        <div>by <?=anchor("/users/view/$user_id", $username)?></div>
+    </div>
+    <div class="cs-flex">
+        <?php if ($this->dx_auth->is_logged_in() && $this->dx_auth->get_user_id() == $user_id) {?>
+            <?=anchor("/applets/edit/$id", "Edit", "class='cs-button'")?>&nbsp;
+            <?=anchor("/applets/delete/$id", "Delete", "class='cs-button', onClick=\"return confirm('Are you sure you want to delete this applet?\\nAll comments and information about this applet will be permanently lost.')\"")?>&nbsp;
+        <?php } ?>
+        <?php if (preg_match('/https?:\/\//', $website) === 1) { ?>
+            <?=anchor("$website", "Website", "class='cs-button'")?>&nbsp;
+        <?php } ?>
+        <?=anchor("$file", "Download", "class='cs-button'")?><br/><br/>
+    </div>
 </div>
 
-<div id="main">
-        	<div id="post-content" class="clearfix">
-				        		<h1 class="page-title"><?=anchor("$icon", "<img src='$icon' width='48'/>")?> <?=$name?> <?=$version?></h1>	                                
-                                <i><font color="#555555">UUID: <?=$uuid?></font></i><br/>
-                                <i><font color="#555555">Score: <?=$score?></font></i><br/><br/>
-
-<?php if ($this->dx_auth->is_logged_in() && $this->dx_auth->get_user_id() == $user_id) {?>
-    <?=anchor("/applets/edit/$id", "Edit", "class='small blue awesome'")?>&nbsp;
-    <?=anchor("/applets/delete/$id", "Delete", "class='small red awesome', onClick=\"return confirm('Are you sure you want to delete this applet?\\nAll comments and information about this applet will be permanently lost.')\"")?>&nbsp;
-<?php } ?>
-<?php if (preg_match('/https?:\/\//', $website) === 1) { ?>
-    <?=anchor("$website", "Website", "class='small yellow awesome'")?>&nbsp;
-<?php } ?>
-<?=anchor("$file", "Download", "class='small awesome'")?><br/><br/>
+<hr>
 
 <?=anchor("$screenshot", "<img src='$screenshot'/>")?><br/><br/>
 
-<?php if ($this->dx_auth->is_logged_in()) { ?>
-    Give this applet the rating it deserves: <br/><br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <?php 
-        $color="grey"; if ($rating == 1) { $color = "red"; }
-        echo anchor("/applets/rate/$id/1", "<div align=center>*<br/>1-star</div>", "class='small $color awesome'")."&nbsp;";
-        $color="grey"; if ($rating == 2) { $color = "orange"; }
-        echo anchor("/applets/rate/$id/2", "<div align=center>**<br/>2-stars</div>", "class='small $color awesome'")."&nbsp;";
-        $color="grey"; if ($rating == 3) { $color = "yellow"; }
-        echo anchor("/applets/rate/$id/3", "<div align=center>***<br/>3-stars</div>", "class='small $color awesome'")."&nbsp;";
-        $color="grey"; if ($rating == 4) { $color = "blue"; }
-        echo anchor("/applets/rate/$id/4", "<div align=center>****<br/>4-stars</div>", "class='small $color awesome'")."&nbsp;";
-        $color="grey"; if ($rating == 5) { $color = "green"; }
-        echo anchor("/applets/rate/$id/5", "<div align=center>*****<br/>5-stars</div>", "class='small $color awesome'")."&nbsp;";
-    ?>
-    <br/><br/>
-<?php } ?>
+<?php $this->view('_rate_item',['type'=>'applets','rate_message'=>'Give this applet the rating it deserves:']) ?>
 
 <p><?=$description?></p>
                 
@@ -86,11 +65,10 @@
 		if (file_exists(FCPATH.'uploads/avatars/'.$comment->user.".jpg")) {
 			$avatar = '/uploads/avatars/'.$comment->user.".jpg";
 		}
-	$array = preg_split("/,/", timespan($comment->timestamp, time()));
-	$time_span = strtolower($array[0])." ago";
-	$time_actual = date("Y-m-d, H:i", $comment->timestamp);
-		
-    ?>    
+        $array = preg_split("/,/", timespan($comment->timestamp, time()));
+        $time_span = strtolower($array[0])." ago";
+        $time_actual = date("Y-m-d, H:i", $comment->timestamp);
+    ?>
         <li class="comment even thread-even depth-1">
             <div class="comment-body">
                 <div class="comment-avatar">
@@ -115,5 +93,3 @@
 
 </div><!-- END comments-box -->
 
-</div>
-<!-- END post-content -->
