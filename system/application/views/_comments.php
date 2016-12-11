@@ -67,7 +67,7 @@
                     -
                     <div class="cs-comment-date" title='<?= $time_actual ?>'><?= $time_span ?></div>
                 </div>
-                <div class="cs-comment-text"><?= $comment->body ?></div>
+                <div class="cs-comment-text"><?= str_replace("\n","<br>\n",htmlspecialchars($comment->body)) ?></div>
             </div>
         </div>
     <?php endforeach; ?>
