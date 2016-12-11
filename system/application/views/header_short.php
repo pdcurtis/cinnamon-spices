@@ -7,9 +7,9 @@
 </head>
 <body>
 
-<div class="cs-landing-jumbotron">
-    <div class="cs-header">
-        <div class="cs-header-logo">
+<div class="cs-jumbotron cs-jumbotron-small">
+    <div class="cs-header cs-flex-row">
+        <div class="cs-header-logo cs-header-logo-inline cs-flex-row cs-flex-center">
             <img src="/resources/cinnamon.svg" alt="">
             <div>spices</div>
         </div>
@@ -17,5 +17,5 @@
     </div>
 </div>
 
-<div class="cs-main-wrap cs-flex">
+<div class="cs-main-wrap cs-flex-column cs-flex-grow">
     <div class="cs-main-content">

@@ -401,7 +401,7 @@ body {
   background-color: #f4f4f4; }
 
 body {
-  height: 100vh;
+  min-height: 100vh;
   overflow-x: hidden;
   overflow-y: scroll; }
 
@@ -427,6 +427,13 @@ a {
   .cs-inline-list li {
     display: inline-block; }
 
+.cs-block-list {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+  .cs-block-list li {
+    margin: .5rem 0 0; }
+
 button {
   transition: .1s ease-in-out; }
 
@@ -449,46 +456,41 @@ button {
     background-color: #cf5b23;
     color: #fff; }
 
-h1 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: lighter;
-  margin: 0 0 1rem;
-  font-size: 2rem; }
-
-h2 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: lighter;
-  margin: 0 0 1rem;
-  font-size: 1.8rem; }
-
-h3 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: lighter;
-  margin: 0 0 1rem;
-  font-size: 1.6rem; }
-
-h4 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: lighter;
-  margin: 0 0 1rem;
-  font-size: 1.4rem; }
-
-h5 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: lighter;
-  margin: 0 0 1rem;
-  font-size: 1.2rem; }
-
+h1,
+h2,
+h3,
+h4,
+h5,
 h6 {
   font-family: 'Roboto', sans-serif;
-  font-weight: lighter;
-  margin: 0 0 1rem;
-  font-size: 1rem; }
+  font-weight: 600;
+  margin: 0; }
 
 .cs-category-header {
   color: #dc6830;
   font-size: 1.35rem;
   font-weight: 600; }
+
+input,
+select,
+textarea {
+  background: #fff;
+  border: solid 0.0625rem #c0c0c0;
+  border-radius: .25rem;
+  padding: .5rem;
+  transition: .15s ease-in-out; }
+
+input:not([type='checkbox'])[type='text']:focus, input:not([type='checkbox'])[type='password']:focus {
+  border-color: #dc6830;
+  box-shadow: 0 0 0.375rem -0.0625rem #dc6830; }
+
+label {
+  color: #000;
+  margin-bottom: .3125rem; }
+
+textarea:focus {
+  border-color: #dc6830;
+  box-shadow: 0 0 0.375rem -0.0625rem #dc6830; }
 
 .cs-no-flex-container {
   margin: 0 auto;
@@ -565,14 +567,14 @@ h6 {
 .cs-header {
   color: #fff;
   height: 2.25rem;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
   margin: auto;
   max-width: 70rem;
   padding: 1.0625rem 0;
   width: 100%; }
 
 .cs-header-logo {
-  display: block;
-  float: left;
   padding-top: .3125rem; }
   .cs-header-logo img {
     display: block;
@@ -586,13 +588,12 @@ h6 {
     text-align: right; }
 
 .cs-header-menu {
-  float: right;
   text-align: right; }
   .cs-header-menu a {
     color: #fff; }
   .cs-header-menu-link.active, .cs-header-menu-login.active {
     border-bottom: 0.0625rem solid #dc682f; }
-  .cs-header-menu-link, .cs-header-menu-login, .cs-header-menu-signup {
+  .cs-header-menu-link {
     color: #fff;
     font-family: "Roboto", sans-serif;
     font-size: .875rem;
@@ -601,12 +602,11 @@ h6 {
     text-transform: uppercase;
     vertical-align: middle; }
   .cs-header-menu-login {
-    padding-left: 1.45833rem;
+    padding-left: 1.75rem;
     padding-right: 1.02941rem; }
   .cs-header-menu-signup {
     height: 2.25rem;
     line-height: 2.25rem;
-    margin-left: 1rem;
     padding: 0 1.02941rem; }
 
 .cs-breadcrumbs {
@@ -614,12 +614,13 @@ h6 {
   margin-bottom: 1rem; }
   .cs-breadcrumbs:hover {
     opacity: 1; }
-  .cs-breadcrumbs > ul {
-    list-style: none;
-    margin: 0;
-    padding: 0; }
-    .cs-breadcrumbs > ul > li {
-      display: inline; }
+  .cs-breadcrumbs li::after {
+    content: '/';
+    display: inline-block;
+    font-size: 1rem;
+    margin: 0 .25rem 0 .375rem; }
+  .cs-breadcrumbs li:last-child::after {
+    display: none; }
 
 .cs-items-list-container {
   margin: 1.25rem 0 0; }
@@ -637,9 +638,9 @@ h6 {
   position: relative;
   text-align: center; }
   .cs-items-list-image .cs-items-bg-image {
-    background-position: center;
+    background-position: top;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
     height: 15.3125rem;
     opacity: .85;
     width: 27.1875rem; }
@@ -695,7 +696,7 @@ a.cs-items-list-details {
   width: auto; }
 
 .cs-items-list-info-bar {
-  background-color: #f8f8f8;
+  background: #f4f4f4;
   box-sizing: border-box;
   font-size: .875rem;
   padding: .625rem; }
@@ -713,37 +714,35 @@ a.cs-items-list-details {
       margin-right: .25rem;
       width: 1.25rem; }
 
-.cs-landing-jumbotron {
+.cs-jumbotron {
   background: #843f18;
   background: linear-gradient(to bottom, #372318 0%, #843f18 100%);
   background-color: #372318; }
 
 .cs-jumbotron-content {
-  -ms-flex-align: center;
-      align-items: center;
-  background-image: url("/resources/bg/jumbotron-mountain.png");
-  background-position: 37.5rem .0625rem;
-  background-repeat: no-repeat;
+  -ms-flex-align: start;
+      align-items: flex-start;
+  background: url("/resources/bg/jumbotron-mountain.png") 42rem bottom no-repeat;
   color: #fff;
   -ms-flex-positive: 1;
       flex-grow: 1;
-  height: 23.75rem;
   -ms-flex-pack: center;
       justify-content: center;
   margin: auto;
   max-width: 70rem;
+  min-height: 26.5rem;
+  padding-bottom: 2rem;
   width: 100%; }
-  .cs-jumbotron-content > div {
-    width: 100%; }
-  .cs-jumbotron-content h1 {
-    font-family: "Roboto", sans-serif;
-    font-size: 3.125rem;
-    margin-bottom: 1.25rem;
-    margin-top: 0; }
   .cs-jumbotron-content p {
     color: #d09f85;
+    font-size: .875rem;
     font-weight: bold;
-    width: 32.5rem; }
+    line-height: 1.5;
+    margin: 1rem 0 1.5rem;
+    max-width: 32.5rem; }
+
+.cs-jumbotron-highlight {
+  color: #f3e7e1; }
 
 .cs-login-signup-header {
   -ms-flex-line-pack: center;
@@ -751,7 +750,7 @@ a.cs-items-list-details {
   -ms-flex-align: center;
       align-items: center;
   background: linear-gradient(to bottom, #372318 0%, #843f18 100%);
-  height: 12.5rem; }
+  min-height: 12.5rem; }
   .cs-login-signup-header .cs-login-signup-header-logo {
     margin-bottom: .5rem;
     margin-top: 2rem; }
@@ -786,13 +785,6 @@ a.cs-items-list-details {
 
 .cs-login-form-row {
   margin: .5rem 0; }
-  .cs-login-form-row label {
-    color: #000;
-    margin-bottom: .3125rem; }
-  .cs-login-form-row input {
-    border: solid 0.0625rem #c0c0c0;
-    border-radius: .3125rem;
-    padding: .5rem; }
   .cs-login-form-row p {
     color: #f40000;
     margin: .5rem 0 0; }
@@ -813,37 +805,36 @@ a.cs-items-list-details {
   margin: 1rem auto;
   text-align: center; }
 
-.cs-main-left-sidebar {
-  -ms-flex-positive: 0;
-      flex-grow: 0;
-  min-width: 12.5rem;
-  width: 12.5rem; }
-  .cs-main-left-sidebar .title {
+.cs-sidebar {
+  -ms-flex: 0 0 12.5rem;
+      flex: 0 0 12.5rem; }
+  .cs-sidebar .title {
     color: #858585; }
-  .cs-main-left-sidebar ul {
-    border: solid 0.0625rem #c0c0c0;
-    border-radius: .125rem;
-    list-style: none;
-    padding: 0;
-    width: 10.625rem; }
-    .cs-main-left-sidebar ul li {
-      background: linear-gradient(to bottom, #fbfbfb 0%, #f7f7f7 100%);
-      border-bottom: solid 0.0625rem #c0c0c0;
-      padding: .3125rem 1.25rem; }
-      .cs-main-left-sidebar ul li:hover {
-        background: linear-gradient(to bottom, #f7f7f7 0%, #f1f1f1 100%); }
-      .cs-main-left-sidebar ul li:last-child {
-        border-bottom: 0; }
-      .cs-main-left-sidebar ul li.active {
-        background: linear-gradient(to bottom, #e7e7e7 0%, #e1e1e1 100%); }
-      .cs-main-left-sidebar ul li a {
-        color: #161616;
-        display: block;
-        font-size: .875rem;
-        line-height: 2.37rem;
-        text-decoration: none; }
-        .cs-main-left-sidebar ul li a:hover {
-          color: #000; }
+
+.cs-sidebar-links {
+  border: solid 0.0625rem #c0c0c0;
+  border-radius: .125rem;
+  list-style: none;
+  padding: 0;
+  width: 10.625rem; }
+  .cs-sidebar-links li {
+    background: linear-gradient(to bottom, #fbfbfb 0%, #f7f7f7 100%);
+    border-bottom: solid 0.0625rem #c0c0c0;
+    padding: .3125rem 1.25rem; }
+    .cs-sidebar-links li:hover {
+      background: linear-gradient(to bottom, #f7f7f7 0%, #f1f1f1 100%); }
+    .cs-sidebar-links li:last-child {
+      border-bottom: 0; }
+    .cs-sidebar-links li.active {
+      background: linear-gradient(to bottom, #e7e7e7 0%, #e1e1e1 100%); }
+    .cs-sidebar-links li a {
+      color: #161616;
+      display: block;
+      font-size: .875rem;
+      line-height: 2.37rem;
+      text-decoration: none; }
+      .cs-sidebar-links li a:hover {
+        color: #000; }
 
 .cs-main-wrap {
   margin: auto;
@@ -856,6 +847,7 @@ a.cs-items-list-details {
       flex-grow: 1; }
 
 .cs-addons {
+  background: #fcfcfc;
   padding: 4.25rem 0; }
 
 .cs-addons-header {
@@ -871,6 +863,10 @@ a.cs-items-list-details {
       flex: 1;
   margin: 0 1.0625rem;
   text-align: center; }
+  .cs-addons-item:first-child {
+    margin-left: 0; }
+  .cs-addons-item:last-child {
+    margin-right: 0; }
   .cs-addons-item:hover a {
     color: #c55621; }
   .cs-addons-item:hover .cs-addons-item-icon {
@@ -999,21 +995,43 @@ a.cs-items-list-details {
 
 .cs-form-row {
   margin: .5rem 0; }
-  .cs-form-row label {
-    font-weight: bold;
-    margin-bottom: .3125rem; }
-  .cs-form-row input, .cs-form-row textarea, .cs-form-row select {
-    background-color: #fff;
-    border: solid 0.0625rem #c0c0c0;
-    border-radius: .3125rem;
-    padding: .5rem; }
+
+.cs-profile {
+  max-width: 46.66667rem; }
+  .cs-profile label {
+    font-weight: bold; }
+
+.cs-profile-avatar {
+  background: center no-repeat;
+  background-size: cover;
+  border-radius: 4rem;
+  height: 8rem;
+  margin: 0 0 1rem;
+  width: 8rem; }
+
+.cs-profile-form,
+.cs-profile-view {
+  margin-top: 1rem; }
+  .cs-profile-form button,
+  .cs-profile-view button {
+    margin-top: .5rem; }
+  .cs-profile-form .cs-sidebar img,
+  .cs-profile-view .cs-sidebar img {
+    margin-right: .25rem;
+    max-height: 1rem; }
 
 .cs-button-sm {
   font-size: .75rem;
   padding: 0 1rem; }
 
+.cs-button-large {
+  padding: .325rem 2rem; }
+
 .cs-button-thin-text {
-  font-weight: normal; }
+  font-weight: 600; }
+
+.cs-header-logo-inline div {
+  margin-left: .25rem; }
 
 .cs-heading-large {
   font-size: 3em; }
@@ -1023,5 +1041,20 @@ a.cs-items-list-details {
 
 .cs-header-thin {
   font-weight: 300; }
+
+.cs-jumbotron-index {
+  -ms-flex-pack: top;
+      justify-content: top;
+  min-height: 22rem;
+  padding: 2rem 0 4.5rem;
+  width: 100%; }
+  .cs-jumbotron-index p {
+    margin: 1.25rem 0 2.125rem; }
+
+.cs-jumbotron-small {
+  background: #372318; }
+
+.cs-items-list-theme .cs-items-list-info-bar {
+  background: #fff; }
 
 /*# sourceMappingURL=style.css.map */

@@ -7,25 +7,23 @@
 </head>
 <body>
 
-<div class="cs-landing-jumbotron cs-flex-column">
-    <div class="cs-header">
+<div class="cs-jumbotron cs-flex-column">
+    <div class="cs-header cs-flex-row">
         <div class="cs-header-logo">
             <img src="/resources/cinnamon.svg" alt="">
             <div>spices</div>
         </div>
         <?php require('header_links.php') ?>
     </div>
-    <div class="cs-jumbotron-content cs-flex-column">
-        <div>
-            <h1>The official<br/>addons repository</h1>
-            <p>
-                Modify Cinnamon with themes, applets and extensions. Themes
-                change the look and aspects of Cinnamon. Applets are icons or
-                texts that appear on the panel. Developers are free to create
-                their own. A tutorial for creating simple applets is available.
-            </p>
-            <a href="#" class="cs-button cs-button-thin-text">Learn How Today</a>
-        </div>
+    <div class="cs-jumbotron-content cs-jumbotron-index cs-flex-column">
+        <h1 class="cs-heading-large">The official<br />addons repository</h1>
+        <p>
+            Modify Cinnamon with themes, applets and extensions. Themes
+            change the look and aspects of Cinnamon. Applets are icons or
+            texts that appear on the panel. Developers are free to create
+            their own. A tutorial for creating simple applets is available.
+        </p>
+        <a href="#" class="cs-button cs-button-thin-text cs-button-large">Get Started Today</a>
     </div>
 </div>
 

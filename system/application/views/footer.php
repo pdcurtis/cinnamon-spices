@@ -1,4 +1,3 @@
-            </div>
         </div>
     </div>
     <?php require('footer_links.php') ?>
