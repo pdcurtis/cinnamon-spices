@@ -6,13 +6,13 @@
     </div>
     <div class="cs-flex">
         <?php if ($this->dx_auth->is_logged_in() && $this->dx_auth->get_user_id() == $user_id) {?>
-            <?=anchor("/applets/edit/$id", "Edit", "class='cs-button'")?>&nbsp;
-            <?=anchor("/applets/delete/$id", "Delete", "class='cs-button', onClick=\"return confirm('Are you sure you want to delete this applet?\\nAll comments and information about this applet will be permanently lost.')\"")?>&nbsp;
+            <?=anchor("/applets/edit/$id", "Edit", "class='cs-button cs-button-sm'")?>&nbsp;
+            <?=anchor("/applets/delete/$id", "Delete", "class='cs-button cs-button-sm', onClick=\"return confirm('Are you sure you want to delete this applet?\\nAll comments and information about this applet will be permanently lost.')\"")?>&nbsp;
         <?php } ?>
         <?php if (preg_match('/https?:\/\//', $website) === 1) { ?>
-            <?=anchor("$website", "Website", "class='cs-button'")?>&nbsp;
+            <?=anchor("$website", "Website", "class='cs-button cs-button-sm'")?>&nbsp;
         <?php } ?>
-        <?=anchor("$file", "Download", "class='cs-button'")?><br/><br/>
+        <?=anchor("$file", "Download", "class='cs-button cs-button-sm'")?><br/><br/>
     </div>
 </div>
 
@@ -42,54 +42,5 @@
     </div><!-- END author-description -->
 </div><!-- END post-author -->
 	
-<!-- You can start editing here. -->
-<div id="commentsbox">
-
-    <?php if ($this->dx_auth->is_logged_in()) { ?>
-        <div id="comment-form">
-            <div id="respond">
-                <h3 id="comments-respond">Leave A Comment</h3>          
-                <?=form_open("applets/comment/$id") ?>
-                    <textarea name="body" cols="100%" rows="10"></textarea><br/>
-                    <input type="submit" value="Submit" />                
-                </form>
-            </div><!-- END respond -->
-        </div><!-- END comment-form -->
-    <?php } ?>
-
-    <h3 id="comments"><?=$comments->num_rows?> Comments</h3>
-
-    <ol class="commentlist">
-    <?php foreach($comments->result() as $comment):
-        $avatar = '/img/default_avatar.jpg';
-		if (file_exists(FCPATH.'uploads/avatars/'.$comment->user.".jpg")) {
-			$avatar = '/uploads/avatars/'.$comment->user.".jpg";
-		}
-        $array = preg_split("/,/", timespan($comment->timestamp, time()));
-        $time_span = strtolower($array[0])." ago";
-        $time_actual = date("Y-m-d, H:i", $comment->timestamp);
-    ?>
-        <li class="comment even thread-even depth-1">
-            <div class="comment-body">
-                <div class="comment-avatar">
-                    <img alt='' src='<?=$avatar?>' class='avatar avatar-50 photo' height='50' width='50' />                
-                </div><!-- END avatar -->
-                <div class="comment-author vcard">
-                    <cite class="fn"><?=anchor("/users/view/$comment->user", "$comment->username", "class='url'")?></cite> <span class="says">says:</span>
-                    <p class='comment-timestamp' title='<?=$time_actual?>'><?=$time_span?></p><span class="clearfix" />
-                </div><!-- END comment-author vcard -->
-                
-                <p><?=$comment->body?></p>
-            </div><!-- END comment -->
-        </li>
-    <?php endforeach;?>	
-    </ol>
-
-    <div class="comment-nav">
-        <div class="alignleft"></div>
-        <div class="alignright"></div>
-    </div>
-    <!-- END comment-navigation -->
-
-</div><!-- END comments-box -->
+<?php $this->view('_comments',['type'=>'applets']);
 

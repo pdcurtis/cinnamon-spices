@@ -26,11 +26,9 @@
         <a href="#" class="cs-button cs-button-thin-text cs-button-large">Get Started Today</a>
     </div>
 </div>
-
 <div class="cs-addons">
     <h2 class="cs-addons-header cs-header-thin"> Amazing addons you can download and install freely!</h2>
-    <h3 class="cs-addons-sub-header cs-header-thin"> The Cinnamon spices repository hosts over a 1000 open source addons
-        you can install and use today.</h3>
+    <h3 class="cs-addons-sub-header cs-header-thin"> The Cinnamon spices repository hosts over a 1000 open source addons you can install and use today.</h3>
     <div class="cs-main-wrap cs-flex-row">
         <div class="cs-addons-item cs-flex-column cs-flex-center">
             <a href="/themes">
@@ -101,54 +99,54 @@
         <div class="cs-spotlight-item cs-media">
             <figure class="cs-media-image cs-flex cs-flex-middle">
                 <a href="#">
-                    <img src="resources/demo/accuweather-desklet.png">
+                    <img src="/resources/demo/accuweather-desklet.png" alt=" SOMETHING HERE ">
                 </a>
             </figure>
             <div class="cs-media-content">
                 <h3 class="cs-spotlight-item-header cs-category-header">
-                    <a class="cs-link-alternate" href="#">Accuweather</a>
+                    <a href="#">Accuweather</a>
                 </h3>
                 <p class="cs-spotlight-item-description">
                     It does weather and shit...
                 </p>
                 <p class="cs-spotlight-item-publish">
-                    <span>4.0.5</span> published 4 months ago by <a class="cs-link-alternate" href="#">Sirikon</a>
+                    <span>4.0.5</span> published 4 months ago by <a href="#">Sirikon</a>
                 </p>
             </div>
         </div>
         <div class="cs-spotlight-item cs-media">
             <figure class="cs-media-image cs-flex cs-flex-middle">
                 <a href="#">
-                    <img src="resources/demo/weather-desklet.png">
+                    <img src="/resources/demo/weather-desklet.png" alt=" SOMETHING HERE ">
                 </a>
             </figure>
             <div class="cs-media-content">
                 <h3 class="cs-spotlight-item-header cs-category-header">
-                    <a class="cs-link-alternate" href="#">Weather</a>
+                    <a href="#">Weather</a>
                 </h3>
                 <p class="cs-spotlight-item-description">
                     This does some other weather stuff..
                 </p>
                 <p class="cs-spotlight-item-publish">
-                    <span>0.8.2</span> published 4 days ago by <a class="cs-link-alternate" href="#">Mr.Electronick</a>
+                    <span>0.8.2</span> published 4 days ago by <a  href="#">Mr.Electronick</a>
                 </p>
             </div>
         </div>
         <div class="cs-spotlight-item cs-media">
             <figure class="cs-media-image cs-flex cs-flex-middle">
                 <a href="#">
-                    <img src="resources/demo/drives-manager-desklet.png">
+                    <img src="/resources/demo/drives-manager-desklet.png" alt=" SOMETHING HERE ">
                 </a>
             </figure>
             <div class="cs-media-content">
                 <h3 class="cs-spotlight-item-header cs-category-header">
-                    <a class="cs-link-alternate" href="#">Drives Manager</a>
+                    <a  href="#">Drives Manager</a>
                 </h3>
                 <p class="cs-spotlight-item-description">
                     This one isnt weather related!!!!
                 </p>
                 <p class="cs-spotlight-item-publish">
-                    <span>1.13.2</span> published 1 week ago by <a class="cs-link-alternate" href="#">Nyrrad</a>
+                    <span>1.13.2</span> published 1 week ago by <a  href="#">Nyrrad</a>
                 </p>
             </div>
         </div>
