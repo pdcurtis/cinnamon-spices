@@ -33,7 +33,7 @@
 <div class="cs-flex cs-details-head">
     <div class="cs-flex cs-flex-grow cs-flex-center">
         <?php if(isset($icon)) { ?>
-        <img src='$icon'/>
+        <img src='<?= $icon ?>'/>
         <?php } ?>
         <h1><?=$name?> <?=$version?></h1>
         <div>by <?=anchor("/users/view/$user_id", $username)?></div>
