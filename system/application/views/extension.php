@@ -9,24 +9,10 @@
 
 <?php $this->view('_rate_item',['type'=>'extensions','rate_message'=>'Give this extension the rating it deserves:']) ?>
 
-<p><?=$description?></p>
-                
-<div id="post-author" class="clearfix">
-    <div id="author-avatar">
-        <?php
-        $avatar = '/img/default_avatar.jpg';
-		if (file_exists(FCPATH.'uploads/avatars/'.$user_id.".jpg")) {
-			$avatar = '/uploads/avatars/'.$user_id.".jpg";
-		}
-        ?>
-        <img alt='' src='<?=$avatar?>' class='avatar avatar-50 photo' height='50' width='50' />                
-    </div><!-- END author-avatar -->
-    <div id="author-description">
-        <h4>About The Author</h4>
-        <?=anchor("/users/view/$user_id", $username)?><br/>
-        <?=$signature?><br/>
-        <?=$biography?><br/>
-    </div><!-- END author-description -->
-</div><!-- END post-author -->
+<div style="border: solid 1px silver; border-radius: 0.25rem;padding: 2rem;margin-bottom: 1rem;background-color: white">
+    <?=$description?>
+</div>
+
+<?php $this->view('_item_author') ?>
 
 <?php $this->view('_comments',['type'=>'extensions']); ?>
