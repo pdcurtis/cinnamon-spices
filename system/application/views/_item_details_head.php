@@ -44,7 +44,7 @@
             <?=anchor("/$type/delete/$id", "Delete", "class='cs-button cs-details-head-button', onClick=\"return confirm('Are you sure you want to delete this applet?\\nAll comments and information about this applet will be permanently lost.')\"")?>&nbsp;
         <?php } ?>
         <?php if (preg_match('/https?:\/\//', $website) === 1) { ?>
-            <?=anchor("$website", "Website", "class='cs-button cs-details-head-button-w'")?>&nbsp;
+            <?=anchor("$website", "Website", "target='_blank' class='cs-button cs-details-head-button-w'")?>&nbsp;
         <?php } ?>
         <?=anchor("$file", "Download", "class='cs-button cs-details-head-button'")?>
     </div>
