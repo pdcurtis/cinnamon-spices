@@ -10,32 +10,24 @@ if ($certification == 0) {
     $certified = "Cinnamon " . $certification_details->row()->name;
 }
 ?>
+<style>
+    .cs-button-certify {
+        font-size: 0.75rem;
+        border: solid 1px silver;
+        padding: 0.25rem;
+    }
+</style>
+<?php if ($this->dx_auth->is_logged_in() && $this->dx_auth->is_admin()) {
+    $certifications = $this->db->get("themes_certifications"); ?>
+    Certification:
+    <a href="<?= "/themes/certify/$id/0" ?>" class='cs-button-certify'>Un-certify</a>
+    <?php foreach ($certifications->result() as $certif) { ?>
+        <a href="<?= "/themes/certify/$id/$certif->id" ?>" class='cs-button-certify'><?= "Certify $certif->name" ?></a>
+    <?php } ?>
+    <hr>
+<?php } ?>
 
-<div class="cs-flex">
-    <div class="cs-flex cs-flex-grow cs-flex-center">
-        <h1><?=$name?> <?=$version?></h1>
-        <div>by <?=anchor("/users/view/$user_id", $username)?></div>
-    </div>
-    <div class="cs-flex">
-        <?php if ($this->dx_auth->is_logged_in() && $this->dx_auth->is_admin()) {
-            $certifications = $this->db->get("themes_certifications"); ?>
-            <?= anchor("/themes/certify/$id/0", "Un-certify", "class='cs-button cs-button-sm'") ?>&nbsp;
-            <?php foreach ($certifications->result() as $certif) { ?>
-                <?= anchor("/themes/certify/$id/$certif->id", "Certify $certif->name", "class='cs-button cs-button-sm'") ?>&nbsp;
-            <?php } ?>
-        <?php } ?>
-        <?php if ($this->dx_auth->is_logged_in() && $this->dx_auth->get_user_id() == $user_id) {?>
-            <?=anchor("/themes/edit/$id", "Edit", "class='cs-button cs-button-sm'")?>&nbsp;
-            <?=anchor("/themes/delete/$id", "Delete", "class='cs-button', onClick=\"return confirm('Are you sure you want to delete this theme?\\nAll comments and information about this theme will be permanently lost.')\"")?>&nbsp;
-        <?php } ?>
-        <?php if (preg_match('/https?:\/\//', $website) === 1) { ?>
-            <?=anchor("$website", "Website", "class='cs-button cs-button-sm'")?>&nbsp;
-        <?php } ?>
-        <?=anchor("$file", "Download", "class='cs-button cs-button-sm'")?><br/><br/>
-    </div>
-</div>
-
-<hr>
+<?php $this->view('_item_details_head',['type'=>'themes']) ?>
 
 <!--<i><font color="#555555">Certification: <?= $certified ?></font></i><br/>-->
 <div>Score: <?= $score ?></font></div>

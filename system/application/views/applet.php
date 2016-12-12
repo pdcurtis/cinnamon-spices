@@ -1,22 +1,4 @@
-<div class="cs-flex">
-    <div class="cs-flex cs-flex-grow">
-        <?=anchor("$icon", "<img src='$icon' width='48'/>")?>
-        <h1><?=$name?> <?=$version?></h1>
-        <div>by <?=anchor("/users/view/$user_id", $username)?></div>
-    </div>
-    <div class="cs-flex">
-        <?php if ($this->dx_auth->is_logged_in() && $this->dx_auth->get_user_id() == $user_id) {?>
-            <?=anchor("/applets/edit/$id", "Edit", "class='cs-button cs-button-sm'")?>&nbsp;
-            <?=anchor("/applets/delete/$id", "Delete", "class='cs-button cs-button-sm', onClick=\"return confirm('Are you sure you want to delete this applet?\\nAll comments and information about this applet will be permanently lost.')\"")?>&nbsp;
-        <?php } ?>
-        <?php if (preg_match('/https?:\/\//', $website) === 1) { ?>
-            <?=anchor("$website", "Website", "class='cs-button cs-button-sm'")?>&nbsp;
-        <?php } ?>
-        <?=anchor("$file", "Download", "class='cs-button cs-button-sm'")?><br/><br/>
-    </div>
-</div>
-
-<hr>
+<?php $this->view('_item_details_head',['type'=>'applets']) ?>
 
 <?=anchor("$screenshot", "<img src='$screenshot'/>")?><br/><br/>
 
