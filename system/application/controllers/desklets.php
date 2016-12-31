@@ -112,155 +112,155 @@ class Desklets extends Controller{
 		redirect("/desklets/view/$id", "location");
 	}
 	
-	function edit($id, $error="") {
-		$id = intval($id);
-		if ($this->dx_auth->is_logged_in()) {			
-			$this->db->where('id', $id);					
-			$this->db->where('user', $this->dx_auth->get_user_id());
-			$records = $this->db->get('desklets');
-			if ($records->num_rows() > 0) {	
-				$data = $records->row_array();
-				$data['error'] = $error;
-				$this->load->view('header');
-				$this->load->view('desklet_edit', $data);
-				$this->load->view('footer');
-			}			
-		}		
-	}
+	// function edit($id, $error="") {
+	// 	$id = intval($id);
+	// 	if ($this->dx_auth->is_logged_in()) {			
+	// 		$this->db->where('id', $id);					
+	// 		$this->db->where('user', $this->dx_auth->get_user_id());
+	// 		$records = $this->db->get('desklets');
+	// 		if ($records->num_rows() > 0) {	
+	// 			$data = $records->row_array();
+	// 			$data['error'] = $error;
+	// 			$this->load->view('header');
+	// 			$this->load->view('desklet_edit', $data);
+	// 			$this->load->view('footer');
+	// 		}			
+	// 	}		
+	// }
 	
-	function edit_save($id) {
-		$id = intval($id);
-        if ($this->dx_auth->is_logged_in()) {    
-			$this->db->where('id', $id);					
-			$this->db->where('user', $this->dx_auth->get_user_id());
-			$records = $this->db->get('desklets');
-			if ($records->num_rows() > 0) {	
-				$data = $records->row_array();
+	// function edit_save($id) {
+	// 	$id = intval($id);
+ //        if ($this->dx_auth->is_logged_in()) {    
+	// 		$this->db->where('id', $id);					
+	// 		$this->db->where('user', $this->dx_auth->get_user_id());
+	// 		$records = $this->db->get('desklets');
+	// 		if ($records->num_rows() > 0) {	
+	// 			$data = $records->row_array();
 			
-				$this->db->where('id', $id);					
-				$this->db->where('user', $this->dx_auth->get_user_id());
-				$this->db->set('name', $_POST['name']);
-				$this->db->set('uuid', $_POST['uuid']);
-				$this->db->set('version', $_POST['version']);
-				$this->db->set('website', $_POST['website']);
-				$this->db->set('description', $_POST['description']);
-				$this->db->set('last_edited', now());
-				$this->db->update('desklets');	
+	// 			$this->db->where('id', $id);					
+	// 			$this->db->where('user', $this->dx_auth->get_user_id());
+	// 			$this->db->set('name', $_POST['name']);
+	// 			$this->db->set('uuid', $_POST['uuid']);
+	// 			$this->db->set('version', $_POST['version']);
+	// 			$this->db->set('website', $_POST['website']);
+	// 			$this->db->set('description', $_POST['description']);
+	// 			$this->db->set('last_edited', now());
+	// 			$this->db->update('desklets');	
 				
-				$this->load->library('upload');
-				if ($_FILES['file']['error'] != 4) {	
-					#Upoad the new file										
-					$filename = $this->genRandomString();
-					$config['upload_path'] = FCPATH.'uploads/desklets/';
-					$config['file_name'] = $filename;
-					$config['overwrite'] = TRUE;
-					$config['allowed_types'] = 'zip';				
-					$config['max_size']	= '10240';				
-					$this->upload->initialize($config);								
-					if (!$this->upload->do_upload('file')) {					
-						$this->edit($id, $this->upload->display_errors());
-						return;
-					}
-					else {										
-						$upload_data = $this->upload->data();
-						$filename = $upload_data['file_name'];
-						chmod( FCPATH.'uploads/desklets/'.$filename , 0644 );						
-						#Delete the old file
-						unlink(FCPATH.$data['file']);
-						#Update entry in DB
-						$this->db->where('id', $id);					
-						$this->db->where('user', $this->dx_auth->get_user_id());
-						$this->db->set('file', "/uploads/desklets/".$filename);						
-						$this->db->update('desklets');
-					}
-				}
+	// 			$this->load->library('upload');
+	// 			if ($_FILES['file']['error'] != 4) {	
+	// 				#Upoad the new file										
+	// 				$filename = $this->genRandomString();
+	// 				$config['upload_path'] = FCPATH.'uploads/desklets/';
+	// 				$config['file_name'] = $filename;
+	// 				$config['overwrite'] = TRUE;
+	// 				$config['allowed_types'] = 'zip';				
+	// 				$config['max_size']	= '10240';				
+	// 				$this->upload->initialize($config);								
+	// 				if (!$this->upload->do_upload('file')) {					
+	// 					$this->edit($id, $this->upload->display_errors());
+	// 					return;
+	// 				}
+	// 				else {										
+	// 					$upload_data = $this->upload->data();
+	// 					$filename = $upload_data['file_name'];
+	// 					chmod( FCPATH.'uploads/desklets/'.$filename , 0644 );						
+	// 					#Delete the old file
+	// 					unlink(FCPATH.$data['file']);
+	// 					#Update entry in DB
+	// 					$this->db->where('id', $id);					
+	// 					$this->db->where('user', $this->dx_auth->get_user_id());
+	// 					$this->db->set('file', "/uploads/desklets/".$filename);						
+	// 					$this->db->update('desklets');
+	// 				}
+	// 			}
 				
-				if ($_FILES['screenshot']['error'] != 4){
-					#Upoad the new file										
-					$filename = $this->genRandomString();
-					$config['upload_path'] = FCPATH.'uploads/desklets/';
-					$config['file_name'] = $filename;
-					$config['overwrite'] = TRUE;
-					$config['allowed_types'] = 'png';				
-					$config['max_size']	= '1024';				
-					$this->upload->initialize($config);						
-					if (!$this->upload->do_upload('screenshot')) {					
-						$this->edit($id, $this->upload->display_errors());
-						return;
-					}
-					else {										
-						$upload_data = $this->upload->data();
-						$filename = $upload_data['file_name'];
-						chmod( FCPATH.'uploads/desklets/'.$filename , 0644 );						
-						#Delete the old file
-						unlink(FCPATH.$data['screenshot']);
-						#Update entry in DB
-						$this->db->where('id', $id);					
-						$this->db->where('user', $this->dx_auth->get_user_id());						
-						$this->db->set('screenshot', "/uploads/desklets/".$filename);
-						$this->db->update('desklets');
-					}
-				}	
+	// 			if ($_FILES['screenshot']['error'] != 4){
+	// 				#Upoad the new file										
+	// 				$filename = $this->genRandomString();
+	// 				$config['upload_path'] = FCPATH.'uploads/desklets/';
+	// 				$config['file_name'] = $filename;
+	// 				$config['overwrite'] = TRUE;
+	// 				$config['allowed_types'] = 'png';				
+	// 				$config['max_size']	= '1024';				
+	// 				$this->upload->initialize($config);						
+	// 				if (!$this->upload->do_upload('screenshot')) {					
+	// 					$this->edit($id, $this->upload->display_errors());
+	// 					return;
+	// 				}
+	// 				else {										
+	// 					$upload_data = $this->upload->data();
+	// 					$filename = $upload_data['file_name'];
+	// 					chmod( FCPATH.'uploads/desklets/'.$filename , 0644 );						
+	// 					#Delete the old file
+	// 					unlink(FCPATH.$data['screenshot']);
+	// 					#Update entry in DB
+	// 					$this->db->where('id', $id);					
+	// 					$this->db->where('user', $this->dx_auth->get_user_id());						
+	// 					$this->db->set('screenshot', "/uploads/desklets/".$filename);
+	// 					$this->db->update('desklets');
+	// 				}
+	// 			}	
 				
-				if ($_FILES['icon']['error'] != 4){
-					#Upoad the new file										
-					$filename = $this->genRandomString();
-					$config['upload_path'] = FCPATH.'uploads/desklets/';
-					$config['file_name'] = $filename;
-					$config['overwrite'] = TRUE;
-					$config['allowed_types'] = 'png';				
-					$config['max_size']	= '100';				
-					$this->upload->initialize($config);						
-					if (!$this->upload->do_upload('icon')) {					
-						$this->edit($id, $this->upload->display_errors());
-						return;
-					}
-					else {										
-						$upload_data = $this->upload->data();
-						$filename = $upload_data['file_name'];
-						chmod( FCPATH.'uploads/desklets/'.$filename , 0644 );						
-						#Delete the old file
-						unlink(FCPATH.$data['icon']);
-						#Update entry in DB
-						$this->db->where('id', $id);					
-						$this->db->where('user', $this->dx_auth->get_user_id());						
-						$this->db->set('icon', "/uploads/desklets/".$filename);
-						$this->db->update('desklets');
-					}
-				}
+	// 			if ($_FILES['icon']['error'] != 4){
+	// 				#Upoad the new file										
+	// 				$filename = $this->genRandomString();
+	// 				$config['upload_path'] = FCPATH.'uploads/desklets/';
+	// 				$config['file_name'] = $filename;
+	// 				$config['overwrite'] = TRUE;
+	// 				$config['allowed_types'] = 'png';				
+	// 				$config['max_size']	= '100';				
+	// 				$this->upload->initialize($config);						
+	// 				if (!$this->upload->do_upload('icon')) {					
+	// 					$this->edit($id, $this->upload->display_errors());
+	// 					return;
+	// 				}
+	// 				else {										
+	// 					$upload_data = $this->upload->data();
+	// 					$filename = $upload_data['file_name'];
+	// 					chmod( FCPATH.'uploads/desklets/'.$filename , 0644 );						
+	// 					#Delete the old file
+	// 					unlink(FCPATH.$data['icon']);
+	// 					#Update entry in DB
+	// 					$this->db->where('id', $id);					
+	// 					$this->db->where('user', $this->dx_auth->get_user_id());						
+	// 					$this->db->set('icon', "/uploads/desklets/".$filename);
+	// 					$this->db->update('desklets');
+	// 				}
+	// 			}
 
-				$this->_json();					
-			}	                                            					                                                
-        }
-        redirect("/desklets/view/$id", "location");
-    }
+	// 			$this->_json();					
+	// 		}	                                            					                                                
+ //        }
+ //        redirect("/desklets/view/$id", "location");
+ //    }
 	
-	function delete($id) {
-		$id = intval($id);
-		if ($this->dx_auth->is_logged_in()) {			
-			$this->db->where('id', $id);					
-			$this->db->where('user', $this->dx_auth->get_user_id());
-			$records = $this->db->get('desklets');
-			if ($records->num_rows() > 0) {	
-				$data = $records->row_array();
+	// function delete($id) {
+	// 	$id = intval($id);
+	// 	if ($this->dx_auth->is_logged_in()) {			
+	// 		$this->db->where('id', $id);					
+	// 		$this->db->where('user', $this->dx_auth->get_user_id());
+	// 		$records = $this->db->get('desklets');
+	// 		if ($records->num_rows() > 0) {	
+	// 			$data = $records->row_array();
 				
-				#Delete the files
-				unlink(FCPATH.$data['screenshot']);						
-				unlink(FCPATH.$data['icon']);						
-				unlink(FCPATH.$data['file']);						
+	// 			#Delete the files
+	// 			unlink(FCPATH.$data['screenshot']);						
+	// 			unlink(FCPATH.$data['icon']);						
+	// 			unlink(FCPATH.$data['file']);						
 				
-				$this->db->where('desklet', $id);
-				$this->db->delete('desklets_comments');
+	// 			$this->db->where('desklet', $id);
+	// 			$this->db->delete('desklets_comments');
 											
-				$this->db->where('id', $id);
-				$this->db->where('user', $this->dx_auth->get_user_id());
-				$this->db->delete('desklets');
+	// 			$this->db->where('id', $id);
+	// 			$this->db->where('user', $this->dx_auth->get_user_id());
+	// 			$this->db->delete('desklets');
 
-				$this->_json();
-			}		
-		}
-		redirect("/desklets", "location");
-	}
+	// 			$this->_json();
+	// 		}		
+	// 	}
+	// 	redirect("/desklets", "location");
+	// }
 	
 	function comment($id) {
 		$id = intval($id);
@@ -274,133 +274,133 @@ class Desklets extends Controller{
 		redirect("/desklets/view/$id", "location");
 	}
 			
-	function create_new($error="") {
-		if ($this->dx_auth->is_logged_in()) {	
-			$data["error"] = $error;		
-			$this->load->view('header');			
-			$this->load->view('desklets_new', $data);
-			$this->load->view('footer');
-		}
-	}
+	// function create_new($error="") {
+	// 	if ($this->dx_auth->is_logged_in()) {	
+	// 		$data["error"] = $error;		
+	// 		$this->load->view('header');			
+	// 		$this->load->view('desklets_new', $data);
+	// 		$this->load->view('footer');
+	// 	}
+	// }
 		    
-    function create_new_save() {
-        if ($this->dx_auth->is_logged_in()) {    
-			$this->load->library('form_validation');
-			$this->form_validation->set_rules('name', 'Name', 'required');
-			$this->form_validation->set_rules('uuid', 'UUID', 'required');
-			$this->form_validation->set_rules('description', 'Description', 'required');
-			$this->form_validation->set_rules('version', 'Version', 'required');						
-			$this->form_validation->set_rules('website', 'Website', 'required');
+ //    function create_new_save() {
+ //        if ($this->dx_auth->is_logged_in()) {    
+	// 		$this->load->library('form_validation');
+	// 		$this->form_validation->set_rules('name', 'Name', 'required');
+	// 		$this->form_validation->set_rules('uuid', 'UUID', 'required');
+	// 		$this->form_validation->set_rules('description', 'Description', 'required');
+	// 		$this->form_validation->set_rules('version', 'Version', 'required');						
+	// 		$this->form_validation->set_rules('website', 'Website', 'required');
 			                                                   
-            if ($this->form_validation->run() == FALSE) {
-				$this->create_new();
-				return;
-			}
+ //            if ($this->form_validation->run() == FALSE) {
+	// 			$this->create_new();
+	// 			return;
+	// 		}
 			
-			if ($_FILES['file']['error'] == 4) {
-				$this->create_new("A file is required");
-				return;
-			}
+	// 		if ($_FILES['file']['error'] == 4) {
+	// 			$this->create_new("A file is required");
+	// 			return;
+	// 		}
 			
-			if ($_FILES['screenshot']['error'] == 4){
-				$this->create_new("A screenshot is required");
-				return;
-			}
+	// 		if ($_FILES['screenshot']['error'] == 4){
+	// 			$this->create_new("A screenshot is required");
+	// 			return;
+	// 		}
 			
-			if ($_FILES['icon']['error'] == 4){
-				$this->create_new("An icon is required");
-				return;
-			}			
+	// 		if ($_FILES['icon']['error'] == 4){
+	// 			$this->create_new("An icon is required");
+	// 			return;
+	// 		}			
 			
-			$this->load->library('upload');
+	// 		$this->load->library('upload');
 			
-			// Upload the file
-			$filename = $this->genRandomString();
-			$config['upload_path'] = FCPATH.'uploads/desklets/';
-			$config['file_name'] = $filename;
-			$config['overwrite'] = TRUE;
-			$config['allowed_types'] = 'zip';				
-			$config['max_size']	= '10240';				
-			$this->upload->initialize($config);
+	// 		// Upload the file
+	// 		$filename = $this->genRandomString();
+	// 		$config['upload_path'] = FCPATH.'uploads/desklets/';
+	// 		$config['file_name'] = $filename;
+	// 		$config['overwrite'] = TRUE;
+	// 		$config['allowed_types'] = 'zip';				
+	// 		$config['max_size']	= '10240';				
+	// 		$this->upload->initialize($config);
 										
-			if (!$this->upload->do_upload('file')) {					
-				$this->create_new($this->upload->display_errors());
-				return;
-			}
-			else {										
-				$upload_data = $this->upload->data();
-				$file_file_name = $upload_data['file_name'];
-				chmod( FCPATH.'uploads/desklets/'.$file_file_name , 0644 );  					
-				$filename = $this->genRandomString();
-				$config['upload_path'] = FCPATH.'uploads/desklets/';
-				$config['file_name'] = $filename;
-				$config['overwrite'] = TRUE;
-				$config['allowed_types'] = 'png';				
-				$config['max_size']	= '1024';				
-				$this->upload->initialize($config);
+	// 		if (!$this->upload->do_upload('file')) {					
+	// 			$this->create_new($this->upload->display_errors());
+	// 			return;
+	// 		}
+	// 		else {										
+	// 			$upload_data = $this->upload->data();
+	// 			$file_file_name = $upload_data['file_name'];
+	// 			chmod( FCPATH.'uploads/desklets/'.$file_file_name , 0644 );  					
+	// 			$filename = $this->genRandomString();
+	// 			$config['upload_path'] = FCPATH.'uploads/desklets/';
+	// 			$config['file_name'] = $filename;
+	// 			$config['overwrite'] = TRUE;
+	// 			$config['allowed_types'] = 'png';				
+	// 			$config['max_size']	= '1024';				
+	// 			$this->upload->initialize($config);
 				
-				if (!$this->upload->do_upload('screenshot')) {			
-					//Delete desklet file
-					if (file_exists(FCPATH.'uploads/desklets/'.$file_file_name)) {			 
-						unlink(FCPATH.'uploads/desklets/'.$file_file_name);
-					}
+	// 			if (!$this->upload->do_upload('screenshot')) {			
+	// 				//Delete desklet file
+	// 				if (file_exists(FCPATH.'uploads/desklets/'.$file_file_name)) {			 
+	// 					unlink(FCPATH.'uploads/desklets/'.$file_file_name);
+	// 				}
 								       
-					//Reload form
-					$this->create_new($this->upload->display_errors());
-					return;
-				}
-				else {													
-					$upload_data = $this->upload->data();
-					$screenshot_file_name = $upload_data['file_name'];
-					chmod( FCPATH.'uploads/desklets/'.$screenshot_file_name , 0644 );  	
-					$filename = $this->genRandomString();
-					$config['upload_path'] = FCPATH.'uploads/desklets/';
-					$config['file_name'] = $filename;
-					$config['overwrite'] = TRUE;
-					$config['allowed_types'] = 'png';				
-					$config['max_size']	= '100';				
-					$this->upload->initialize($config);
+	// 				//Reload form
+	// 				$this->create_new($this->upload->display_errors());
+	// 				return;
+	// 			}
+	// 			else {													
+	// 				$upload_data = $this->upload->data();
+	// 				$screenshot_file_name = $upload_data['file_name'];
+	// 				chmod( FCPATH.'uploads/desklets/'.$screenshot_file_name , 0644 );  	
+	// 				$filename = $this->genRandomString();
+	// 				$config['upload_path'] = FCPATH.'uploads/desklets/';
+	// 				$config['file_name'] = $filename;
+	// 				$config['overwrite'] = TRUE;
+	// 				$config['allowed_types'] = 'png';				
+	// 				$config['max_size']	= '100';				
+	// 				$this->upload->initialize($config);
 					
-					if (!$this->upload->do_upload('icon')) {			
-						//Delete desklet files
-						if (file_exists(FCPATH.'uploads/desklets/'.$file_file_name)) {			 
-							unlink(FCPATH.'uploads/desklets/'.$file_file_name);
-						}
-						if (file_exists(FCPATH.'uploads/desklets/'.$screenshot_file_name)) {			 
-							unlink(FCPATH.'uploads/desklets/'.$screenshot_file_name);
-						}
+	// 				if (!$this->upload->do_upload('icon')) {			
+	// 					//Delete desklet files
+	// 					if (file_exists(FCPATH.'uploads/desklets/'.$file_file_name)) {			 
+	// 						unlink(FCPATH.'uploads/desklets/'.$file_file_name);
+	// 					}
+	// 					if (file_exists(FCPATH.'uploads/desklets/'.$screenshot_file_name)) {			 
+	// 						unlink(FCPATH.'uploads/desklets/'.$screenshot_file_name);
+	// 					}
 										   
-						//Reload form
-						$this->create_new($this->upload->display_errors());
-						return;
-					}
-					else {													
-						$upload_data = $this->upload->data();
-						$icon_file_name = $upload_data['file_name'];
-						chmod( FCPATH.'uploads/desklets/'.$icon_file_name , 0644 ); 
+	// 					//Reload form
+	// 					$this->create_new($this->upload->display_errors());
+	// 					return;
+	// 				}
+	// 				else {													
+	// 					$upload_data = $this->upload->data();
+	// 					$icon_file_name = $upload_data['file_name'];
+	// 					chmod( FCPATH.'uploads/desklets/'.$icon_file_name , 0644 ); 
 										
-						$this->db->set("user", $this->dx_auth->get_user_id());
-						$this->db->set("name", $_POST["name"]);
-						$this->db->set("uuid", $_POST["uuid"]);
-						$this->db->set("version", $_POST["version"]);
-						$this->db->set("website", $_POST["website"]);
-						$this->db->set("description", $_POST["description"]);
-						$this->db->set("file", "/uploads/desklets/".$file_file_name);
-						$this->db->set("screenshot", "/uploads/desklets/".$screenshot_file_name);
-						$this->db->set("icon", "/uploads/desklets/".$icon_file_name);
-						$this->db->set("created", now());
-						$this->db->set("last_edited", now());
-						$this->db->insert("desklets");				
-						$id = $this->db->insert_id();		
+	// 					$this->db->set("user", $this->dx_auth->get_user_id());
+	// 					$this->db->set("name", $_POST["name"]);
+	// 					$this->db->set("uuid", $_POST["uuid"]);
+	// 					$this->db->set("version", $_POST["version"]);
+	// 					$this->db->set("website", $_POST["website"]);
+	// 					$this->db->set("description", $_POST["description"]);
+	// 					$this->db->set("file", "/uploads/desklets/".$file_file_name);
+	// 					$this->db->set("screenshot", "/uploads/desklets/".$screenshot_file_name);
+	// 					$this->db->set("icon", "/uploads/desklets/".$icon_file_name);
+	// 					$this->db->set("created", now());
+	// 					$this->db->set("last_edited", now());
+	// 					$this->db->insert("desklets");				
+	// 					$id = $this->db->insert_id();		
 
-						$this->_json();
+	// 					$this->_json();
 												
-						redirect("/desklets/view/$id", "location");
-					}
-				}										
-			}                                            					                                                  
-        }
-    }
+	// 					redirect("/desklets/view/$id", "location");
+	// 				}
+	// 			}										
+	// 		}                                            					                                                  
+ //        }
+ //    }
     
     function genRandomString() {
         $length = 10;

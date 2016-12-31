@@ -199,138 +199,138 @@ class Themes extends Controller{
 		redirect("/themes/view/$id", "location");
 	}
 	
-	function edit($id, $error="") {
-		$id = intval($id);
-		if ($this->dx_auth->is_logged_in()) {			
-			$this->db->where('id', $id);					
-			$this->db->where('user', $this->dx_auth->get_user_id());
-			$records = $this->db->get('themes');
-			if ($records->num_rows() > 0) {	
-				$data = $records->row_array();
-				$data['error'] = $error;
-				$this->load->view('header');
-				$this->load->view('theme_edit', $data);
-				$this->load->view('footer');
-			}			
-		}		
-	}
+	// function edit($id, $error="") {
+	// 	$id = intval($id);
+	// 	if ($this->dx_auth->is_logged_in()) {			
+	// 		$this->db->where('id', $id);					
+	// 		$this->db->where('user', $this->dx_auth->get_user_id());
+	// 		$records = $this->db->get('themes');
+	// 		if ($records->num_rows() > 0) {	
+	// 			$data = $records->row_array();
+	// 			$data['error'] = $error;
+	// 			$this->load->view('header');
+	// 			$this->load->view('theme_edit', $data);
+	// 			$this->load->view('footer');
+	// 		}			
+	// 	}		
+	// }
 	
-	function edit_save($id) {
-		$id = intval($id);
-        if ($this->dx_auth->is_logged_in()) {    
-			$this->db->where('id', $id);					
-			$this->db->where('user', $this->dx_auth->get_user_id());
-			$records = $this->db->get('themes');
-			if ($records->num_rows() > 0) {	
-				$data = $records->row_array();
+	// function edit_save($id) {
+	// 	$id = intval($id);
+ //        if ($this->dx_auth->is_logged_in()) {    
+	// 		$this->db->where('id', $id);					
+	// 		$this->db->where('user', $this->dx_auth->get_user_id());
+	// 		$records = $this->db->get('themes');
+	// 		if ($records->num_rows() > 0) {	
+	// 			$data = $records->row_array();
 			
-				$this->db->where('id', $id);					
-				$this->db->where('user', $this->dx_auth->get_user_id());
-				$this->db->set('name', $_POST['name']);
-				$this->db->set('version', $_POST['version']);
-				$this->db->set('website', $_POST['website']);
-				$this->db->set('description', $_POST['description']);				
-				$this->db->set('last_edited', now());
-				$this->db->update('themes');	
+	// 			$this->db->where('id', $id);					
+	// 			$this->db->where('user', $this->dx_auth->get_user_id());
+	// 			$this->db->set('name', $_POST['name']);
+	// 			$this->db->set('version', $_POST['version']);
+	// 			$this->db->set('website', $_POST['website']);
+	// 			$this->db->set('description', $_POST['description']);				
+	// 			$this->db->set('last_edited', now());
+	// 			$this->db->update('themes');	
 				
-				$this->load->library('upload');
-				if ($_FILES['file']['error'] != 4) {	
-					#Upoad the new file										
-					$filename = $this->genRandomString();
-					$config['upload_path'] = FCPATH.'uploads/themes/';
-					$config['file_name'] = $filename;
-					$config['overwrite'] = TRUE;
-					$config['allowed_types'] = 'zip';				
-					$config['max_size']	= '10240';
+	// 			$this->load->library('upload');
+	// 			if ($_FILES['file']['error'] != 4) {	
+	// 				#Upoad the new file										
+	// 				$filename = $this->genRandomString();
+	// 				$config['upload_path'] = FCPATH.'uploads/themes/';
+	// 				$config['file_name'] = $filename;
+	// 				$config['overwrite'] = TRUE;
+	// 				$config['allowed_types'] = 'zip';				
+	// 				$config['max_size']	= '10240';
 
-					$this->upload->initialize($config);
-					if (!$this->upload->do_upload('file')) {
-						$this->edit($id, $this->upload->display_errors());
-						return;
-					}
-					else {
-						$upload_data = $this->upload->data();
-						$filename = $upload_data['file_name'];
-						chmod( FCPATH.'uploads/themes/'.$filename , 0644 );
-						#Delete the old file
-						if(!empty($data['file'])) {
-							if(file_exists(FCPATH.$data['file']) &&  is_file(FCPATH.$data['file'])) {
-								unlink(FCPATH.$data['file']);
-							}
-						}
-						#Update entry in DB
-						$this->db->where('id', $id);
-						$this->db->where('user', $this->dx_auth->get_user_id());
-						$this->db->set('file', "/uploads/themes/".$filename);
-						$this->db->update('themes');
-					}
-				}
+	// 				$this->upload->initialize($config);
+	// 				if (!$this->upload->do_upload('file')) {
+	// 					$this->edit($id, $this->upload->display_errors());
+	// 					return;
+	// 				}
+	// 				else {
+	// 					$upload_data = $this->upload->data();
+	// 					$filename = $upload_data['file_name'];
+	// 					chmod( FCPATH.'uploads/themes/'.$filename , 0644 );
+	// 					#Delete the old file
+	// 					if(!empty($data['file'])) {
+	// 						if(file_exists(FCPATH.$data['file']) &&  is_file(FCPATH.$data['file'])) {
+	// 							unlink(FCPATH.$data['file']);
+	// 						}
+	// 					}
+	// 					#Update entry in DB
+	// 					$this->db->where('id', $id);
+	// 					$this->db->where('user', $this->dx_auth->get_user_id());
+	// 					$this->db->set('file', "/uploads/themes/".$filename);
+	// 					$this->db->update('themes');
+	// 				}
+	// 			}
 				
-				if ($_FILES['screenshot']['error'] != 4){
-					#Upoad the new file										
-					$filename = $this->genRandomString();
-					$config['upload_path'] = FCPATH.'uploads/themes/';
-					$config['file_name'] = $filename;
-					$config['overwrite'] = TRUE;
-					$config['allowed_types'] = 'png';				
-					$config['max_size']	= '1024';
+	// 			if ($_FILES['screenshot']['error'] != 4){
+	// 				#Upoad the new file										
+	// 				$filename = $this->genRandomString();
+	// 				$config['upload_path'] = FCPATH.'uploads/themes/';
+	// 				$config['file_name'] = $filename;
+	// 				$config['overwrite'] = TRUE;
+	// 				$config['allowed_types'] = 'png';				
+	// 				$config['max_size']	= '1024';
 
-					$this->upload->initialize($config);
-					if (!$this->upload->do_upload('screenshot')) {
-						$this->edit($id, $this->upload->display_errors());
-						return;
-					}
-					else {
-						$upload_data = $this->upload->data();
-						$filename = $upload_data['file_name'];
-						chmod( FCPATH.'uploads/themes/'.$filename , 0644 );
-						#Delete the old file
-						if(!empty($data['screenshot'])) {
-							if(file_exists(FCPATH.$data['screenshot']) &&  is_file(FCPATH.$data['screenshot'])) {
-								unlink(FCPATH.$data['screenshot']);
-							}
-						}
-						#Update entry in DB
-						$this->db->where('id', $id);
-						$this->db->where('user', $this->dx_auth->get_user_id());
-						$this->db->set('screenshot', "/uploads/themes/".$filename);
-						$this->db->update('themes');
-						$this->generatethumbs();
-					}
-				}
+	// 				$this->upload->initialize($config);
+	// 				if (!$this->upload->do_upload('screenshot')) {
+	// 					$this->edit($id, $this->upload->display_errors());
+	// 					return;
+	// 				}
+	// 				else {
+	// 					$upload_data = $this->upload->data();
+	// 					$filename = $upload_data['file_name'];
+	// 					chmod( FCPATH.'uploads/themes/'.$filename , 0644 );
+	// 					#Delete the old file
+	// 					if(!empty($data['screenshot'])) {
+	// 						if(file_exists(FCPATH.$data['screenshot']) &&  is_file(FCPATH.$data['screenshot'])) {
+	// 							unlink(FCPATH.$data['screenshot']);
+	// 						}
+	// 					}
+	// 					#Update entry in DB
+	// 					$this->db->where('id', $id);
+	// 					$this->db->where('user', $this->dx_auth->get_user_id());
+	// 					$this->db->set('screenshot', "/uploads/themes/".$filename);
+	// 					$this->db->update('themes');
+	// 					$this->generatethumbs();
+	// 				}
+	// 			}
 
-				die;
-				$this->_json();					
-			}	                                            					                                                
-        }
-        redirect("/themes/view/$id", "location");
-    }
+	// 			die;
+	// 			$this->_json();					
+	// 		}	                                            					                                                
+ //        }
+ //        redirect("/themes/view/$id", "location");
+ //    }
 	
-	function delete($id) {
-		$id = intval($id);
-		if ($this->dx_auth->is_logged_in()) {			
-			$this->db->where('id', $id);					
-			$this->db->where('user', $this->dx_auth->get_user_id());
-			$records = $this->db->get('themes');
-			if ($records->num_rows() > 0) {	
-				$data = $records->row_array();
+	// function delete($id) {
+	// 	$id = intval($id);
+	// 	if ($this->dx_auth->is_logged_in()) {			
+	// 		$this->db->where('id', $id);					
+	// 		$this->db->where('user', $this->dx_auth->get_user_id());
+	// 		$records = $this->db->get('themes');
+	// 		if ($records->num_rows() > 0) {	
+	// 			$data = $records->row_array();
 				
-				#Delete the files
-				unlink(FCPATH.$data['screenshot']);						
-				unlink(FCPATH.$data['file']);						
+	// 			#Delete the files
+	// 			unlink(FCPATH.$data['screenshot']);						
+	// 			unlink(FCPATH.$data['file']);						
 				
-				$this->db->where('theme', $id);
-				$this->db->delete('themes_comments');
+	// 			$this->db->where('theme', $id);
+	// 			$this->db->delete('themes_comments');
 											
-				$this->db->where('id', $id);
-				$this->db->where('user', $this->dx_auth->get_user_id());
-				$this->db->delete('themes');
+	// 			$this->db->where('id', $id);
+	// 			$this->db->where('user', $this->dx_auth->get_user_id());
+	// 			$this->db->delete('themes');
 
-				$this->_json();
-			}		
-		}
-		redirect("/themes", "location");
-	}
+	// 			$this->_json();
+	// 		}		
+	// 	}
+	// 	redirect("/themes", "location");
+	// }
 	
 	function comment($id) {
 		$id = intval($id);
@@ -344,101 +344,101 @@ class Themes extends Controller{
 		redirect("/themes/view/$id", "location");
 	}
 			
-	function create_new($error="") {
-		if ($this->dx_auth->is_logged_in()) {	
-			$data["error"] = $error;		
-			$this->load->view('header');			
-			$this->load->view('themes_new', $data);
-			$this->load->view('footer');
-		}
-	}
+	// function create_new($error="") {
+	// 	if ($this->dx_auth->is_logged_in()) {	
+	// 		$data["error"] = $error;		
+	// 		$this->load->view('header');			
+	// 		$this->load->view('themes_new', $data);
+	// 		$this->load->view('footer');
+	// 	}
+	// }
 		    
-    function create_new_save() {
-        if ($this->dx_auth->is_logged_in()) {    
-			$this->load->library('form_validation');
-			$this->form_validation->set_rules('name', 'Name', 'required');
-			$this->form_validation->set_rules('description', 'Description', 'required');
-			$this->form_validation->set_rules('version', 'Version', 'required');						
-			$this->form_validation->set_rules('website', 'Website', 'required');
+ //    function create_new_save() {
+ //        if ($this->dx_auth->is_logged_in()) {    
+	// 		$this->load->library('form_validation');
+	// 		$this->form_validation->set_rules('name', 'Name', 'required');
+	// 		$this->form_validation->set_rules('description', 'Description', 'required');
+	// 		$this->form_validation->set_rules('version', 'Version', 'required');						
+	// 		$this->form_validation->set_rules('website', 'Website', 'required');
 			                                                   
-            if ($this->form_validation->run() == FALSE) {
-				$this->create_new();
-				return;
-			}
+ //            if ($this->form_validation->run() == FALSE) {
+	// 			$this->create_new();
+	// 			return;
+	// 		}
 			
-			if ($_FILES['file']['error'] == 4) {
-				$this->create_new("A file is required");
-				return;
-			}
+	// 		if ($_FILES['file']['error'] == 4) {
+	// 			$this->create_new("A file is required");
+	// 			return;
+	// 		}
 			
-			if ($_FILES['screenshot']['error'] == 4){
-				$this->create_new("A screenshot is required");
-				return;
-			}			
+	// 		if ($_FILES['screenshot']['error'] == 4){
+	// 			$this->create_new("A screenshot is required");
+	// 			return;
+	// 		}			
 			
-			$this->load->library('upload');
+	// 		$this->load->library('upload');
 			
-			// Upload the file
-			$filename = $this->genRandomString();
-			$config['upload_path'] = FCPATH.'uploads/themes/';
-			$config['file_name'] = $filename;
-			$config['overwrite'] = TRUE;
-			$config['allowed_types'] = 'zip';				
-			$config['max_size']	= '10240';				
-			$this->upload->initialize($config);
+	// 		// Upload the file
+	// 		$filename = $this->genRandomString();
+	// 		$config['upload_path'] = FCPATH.'uploads/themes/';
+	// 		$config['file_name'] = $filename;
+	// 		$config['overwrite'] = TRUE;
+	// 		$config['allowed_types'] = 'zip';				
+	// 		$config['max_size']	= '10240';				
+	// 		$this->upload->initialize($config);
 										
-			if (!$this->upload->do_upload('file')) {					
-				$this->create_new($this->upload->display_errors());
-				return;
-			}
-			else {										
-				$upload_data = $this->upload->data();
-				$file_file_name = $upload_data['file_name'];
-				chmod( FCPATH.'uploads/themes/'.$file_file_name , 0644 );  					
+	// 		if (!$this->upload->do_upload('file')) {					
+	// 			$this->create_new($this->upload->display_errors());
+	// 			return;
+	// 		}
+	// 		else {										
+	// 			$upload_data = $this->upload->data();
+	// 			$file_file_name = $upload_data['file_name'];
+	// 			chmod( FCPATH.'uploads/themes/'.$file_file_name , 0644 );  					
 				
-				$config['upload_path'] = FCPATH.'uploads/themes/';
-				$config['file_name'] = $filename;
-				$config['overwrite'] = TRUE;
-				$config['allowed_types'] = 'png';				
-				$config['max_size']	= '1024';				
-				$this->upload->initialize($config);
+	// 			$config['upload_path'] = FCPATH.'uploads/themes/';
+	// 			$config['file_name'] = $filename;
+	// 			$config['overwrite'] = TRUE;
+	// 			$config['allowed_types'] = 'png';				
+	// 			$config['max_size']	= '1024';				
+	// 			$this->upload->initialize($config);
 				
-				if (!$this->upload->do_upload('screenshot')) {			
-					//Delete theme file
-					if (file_exists(FCPATH.'uploads/themes/'.$file_file_name)) {			 
-						unlink(FCPATH.'uploads/themes/'.$file_file_name);
-					}
+	// 			if (!$this->upload->do_upload('screenshot')) {			
+	// 				//Delete theme file
+	// 				if (file_exists(FCPATH.'uploads/themes/'.$file_file_name)) {			 
+	// 					unlink(FCPATH.'uploads/themes/'.$file_file_name);
+	// 				}
 								       
-					//Reload form
-					$this->create_new($this->upload->display_errors());
-					return;
-				}
-				else {
-					$upload_data = $this->upload->data();
-					$screenshot_file_name = $upload_data['file_name'];
-					chmod( FCPATH.'uploads/themes/'.$screenshot_file_name , 0644 );  	
+	// 				//Reload form
+	// 				$this->create_new($this->upload->display_errors());
+	// 				return;
+	// 			}
+	// 			else {
+	// 				$upload_data = $this->upload->data();
+	// 				$screenshot_file_name = $upload_data['file_name'];
+	// 				chmod( FCPATH.'uploads/themes/'.$screenshot_file_name , 0644 );  	
 					
-					$this->db->set("user", $this->dx_auth->get_user_id());
-					$this->db->set("name", $_POST["name"]);
-					$this->db->set("version", $_POST["version"]);
-					$this->db->set("website", $_POST["website"]);
-					$this->db->set("description", $_POST["description"]);
-					$this->db->set("file", "/uploads/themes/".$file_file_name);
-					$this->db->set("screenshot", "/uploads/themes/".$screenshot_file_name);
-					$this->db->set("created", now());
-					$this->db->set("last_edited", now());
-					$this->db->insert("themes");				
-					$id = $this->db->insert_id();		
+	// 				$this->db->set("user", $this->dx_auth->get_user_id());
+	// 				$this->db->set("name", $_POST["name"]);
+	// 				$this->db->set("version", $_POST["version"]);
+	// 				$this->db->set("website", $_POST["website"]);
+	// 				$this->db->set("description", $_POST["description"]);
+	// 				$this->db->set("file", "/uploads/themes/".$file_file_name);
+	// 				$this->db->set("screenshot", "/uploads/themes/".$screenshot_file_name);
+	// 				$this->db->set("created", now());
+	// 				$this->db->set("last_edited", now());
+	// 				$this->db->insert("themes");				
+	// 				$id = $this->db->insert_id();		
 					
-					$this->generatethumbs();
+	// 				$this->generatethumbs();
 
-					$this->_json();
+	// 				$this->_json();
 											
-					redirect("/themes/view/$id", "location");
-				}										
-			}                                            					                                                  
-        }
-    }
+	// 				redirect("/themes/view/$id", "location");
+	// 			}										
+	// 		}                                            					                                                  
+ //        }
+ //    }
     
     function genRandomString() {
         $length = 10;
