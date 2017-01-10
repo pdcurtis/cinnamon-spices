@@ -10,6 +10,8 @@ class Auth extends Controller
 	function Auth()
 	{
 		parent::Controller();
+
+		$this->config->load('oauth');
 		
 		$this->load->library('Form_validation');
 		$this->load->library('DX_Auth');			
@@ -22,6 +24,36 @@ class Auth extends Controller
 	{
 		$this->login();
 	}
+
+
+    public function facebook()
+    {
+        $ocnf = $this->config->item('oauth');
+		$clientid = $ocnf['facebook']['client_id'];
+        $client_secret = $ocnf['facebook']['client_secret'];
+
+		$q = str_replace('/auth/facebook/?','',$_SERVER['REQUEST_URI']);
+		parse_str($q,$_GET);
+
+    	$me = $this->config->site_url('/auth/facebook').'/';
+
+    	if(!isset($_GET['code'])) {
+            redirect('https://www.facebook.com/v2.8/dialog/oauth?client_id='.$clientid.'&redirect_uri='.urldecode($me));
+		}
+
+		$code = $_GET['code'];
+
+		$tokenResponse = file_get_contents('https://graph.facebook.com/v2.8/oauth/access_token?'.http_build_query([
+				'client_id'=>$clientid,
+				'redirect_uri'=>$me,
+				'client_secret'=>$client_secret,
+				'code'=>$code
+			]));
+
+        echo "<pre>"; print_r(json_decode($tokenResponse)); die;
+
+    }
+
 
 	/* Callback function */
 	
