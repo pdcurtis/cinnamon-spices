@@ -31,7 +31,7 @@ if(isset($certification)) {
 <?php if(isset($uuid) && !empty($uuid)) echo "<div>UUID: $uuid</div>" ?>
 <div>Score: <?= $score ?></div>
 <div>Last edited: <span title="<?= $time_actual ?>"><?= $time_span ?></span></div>
-<div>Last commit: <?= $last_commit ?></div>
+<div>Last commit: <?= anchor("https://github.com/clefebvre/themes/commits/master/$uuid", $last_commit) ?></div>
 <br>
 <?= anchor("/git/themes/$uuid/screenshot.png", "<img src='/git/themes/$uuid/screenshot.png' class='cs-item-details-screenshot'/>") ?><br/><br/>
 
