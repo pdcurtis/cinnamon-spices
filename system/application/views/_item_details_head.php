@@ -35,18 +35,12 @@
         <?php if(isset($icon)) { ?>
         <img src='<?= $icon ?>'/>
         <?php } ?>
-        <h1><?=$name?> <?=$version?></h1>
-        <div>by <?=anchor("/users/view/$user_id", $username)?></div>
+        <h1><?=$name?></h1>
+        <div>by <?=$author?></div>
     </div>
     <div class="cs-flex cs-flex-center">
-        <?php if ($this->dx_auth->is_logged_in() && $this->dx_auth->get_user_id() == $user_id) {?>
-            <?=anchor("/$type/edit/$id", "Edit", "class='cs-button cs-details-head-button'")?>&nbsp;
-            <?=anchor("/$type/delete/$id", "Delete", "class='cs-button cs-details-head-button', onClick=\"return confirm('Are you sure you want to delete this applet?\\nAll comments and information about this applet will be permanently lost.')\"")?>&nbsp;
-        <?php } ?>
-        <?php if (preg_match('/https?:\/\//', $website) === 1) { ?>
-            <?=anchor("$website", "Website", "target='_blank' class='cs-button cs-details-head-button-w'")?>&nbsp;
-        <?php } ?>
-        <?=anchor("$file", "Download", "class='cs-button cs-details-head-button'")?>
+        <?=anchor("https://github.com/linuxmint/cinnamon-themes", "Website", "target='_blank' class='cs-button cs-details-head-button-w'")?>&nbsp;
+        <?=anchor("/files/themes/$uuid.zip", "Download", "class='cs-button cs-details-head-button'")?>
     </div>
 </div>
 

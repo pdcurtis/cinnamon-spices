@@ -19,6 +19,4 @@
 
 <?php $this->view('_item_info') ?>
 
-<?php $this->view('_item_author') ?>
-
 <?php $this->view('_comments',['type'=>'themes']); ?>

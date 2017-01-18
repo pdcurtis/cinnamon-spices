@@ -31,8 +31,9 @@ if(isset($certification)) {
 <?php if(isset($uuid) && !empty($uuid)) echo "<div>UUID: $uuid</div>" ?>
 <div>Score: <?= $score ?></div>
 <div>Last edited: <span title="<?= $time_actual ?>"><?= $time_span ?></span></div>
+<div>Last commit: <?= $last_commit ?></div>
 <br>
-<?= anchor("$screenshot", "<img src='$screenshot' class='cs-item-details-screenshot'/>") ?><br/><br/>
+<?= anchor("/git/themes/$uuid/screenshot.png", "<img src='/git/themes/$uuid/screenshot.png' class='cs-item-details-screenshot'/>") ?><br/><br/>
 
 <?php $this->view('_rate_item', ['type' => 'themes', 'rate_message' => 'Give this theme the rating it deserves:']) ?>
 
