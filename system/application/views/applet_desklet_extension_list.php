@@ -17,11 +17,11 @@ if (isset($items) && $items->num_rows > 0) {
             <div class="cs-items-list-item cs-flex-column">
                 <a href="/<?= $type ?>/view/<?= $item->id ?>" title="<?= $item->name ?>"
                    class="cs-items-list-details cs-flex-row">
-                    <img src="<?= $item->icon ?>">
+                    <img src="/git/<?= $type ?>/<?= $item->uuid ?>/icon.png">
                     <label><?= $item->name ?></label>
                 </a>
                 <div class="cs-items-list-info-bar">
-                    <a href="<?= $item->file ?>" class="cs-button cs-button-sm">Download</a>
+                    <a href="/files/<?= $type ?>/<?= $item->uuid ?>.zip" class="cs-button cs-button-sm">Download</a>
                     <span>
                         <svg><use xlink:href="/resources/icons/sprite.svg#cs-star"></use></svg>
                         <?= $item->score ?>
