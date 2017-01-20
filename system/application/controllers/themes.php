@@ -42,6 +42,7 @@ class Themes extends Controller{
 		$records = $this->db->get('newthemes');
 		if ($records->num_rows() > 0) {
 			$data = $records->row_array();
+			$data['id'] = $data['uuid'];
 
 			$this->db->select('themes_comments.*, users.username');
 			$this->db->where('themes_comments.theme', $id);
