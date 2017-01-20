@@ -35,17 +35,17 @@ if (isset($themes) && $themes->num_rows > 0) {
 
             ?>
             <div class="cs-items-list-item cs-flex-column">
-                <a href="/themes/view/<?= $theme->id ?>">
+                <a href="/themes/view/<?= $theme->uuid ?>">
                     <div class="cs-items-list-image">
                         <div class="cs-items-list-overlay">
                             <div class="cs-items-list-title"><?= $theme->name ?></div>
                         </div>
                         <div class="cs-items-bg-image"
-                             style="background-image: url(<?= $theme->screenshot ?>)"></div>
+                             style="background-image: url(/git/themes/<?= $theme->uuid ?>/screenshot.png"></div>
                     </div>
                 </a>
                 <div class="cs-items-list-info-bar">
-                    <a href="<?= $theme->file ?>" class="cs-button cs-button-sm">Download</a>
+                    <a href="/files/themes/<?= $theme->uuid ?>.zip" class="cs-button cs-button-sm">Download</a>
                     <span>
                         <svg><use xlink:href="resources/icons/sprite.svg#cs-star"></use></svg>
                         <?= $theme->score ?>
