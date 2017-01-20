@@ -72,7 +72,7 @@
         </div>
     <?php endforeach; ?>
 
-    <?php if ($this->dx_auth->is_logged_in()) { ?>
+    <?php if (False) { ?>
         <div class="cs-comment-form">
             <h3>Leave A Comment</h3>
             <?= form_open("$type/comment/$id") ?>
