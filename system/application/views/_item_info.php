@@ -31,3 +31,14 @@ $time_actual = date("Y-m-d, H:i", $last_edited);
 <div class="cs-item-details-description"><?= $description ?></div>
 <?php } ?>
 
+<?php
+$server_path = "/var/www/cinnamon-spices.linuxmint.com";
+if (file_exists("$server_path/git/$type/$uuid/README.md")) {
+    include("$server_path/parsedown/Parsedown.php");
+    $markdown = file_get_contents("$server_path/git/$type/$uuid/README.md");
+    $Parsedown = new Parsedown();
+?>
+    <div class="cs-item-details-description">
+    <?php echo $Parsedown->text($markdown); ?>
+    </div>
+<?php } ?>
