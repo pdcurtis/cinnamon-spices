@@ -72,8 +72,6 @@ class Auth extends Controller
                     'access_token' => $tokenResponse->access_token,
                 ));
 
-            var_dump($url);
-
             $user = json_decode(file_get_contents($url));
 
             $this->session->set_userdata([
@@ -85,7 +83,6 @@ class Auth extends Controller
             ]);
 
             redirect('/auth/success');
-
         }
     }
 
@@ -142,8 +139,6 @@ class Auth extends Controller
                     'access_token' => $tokenResponse->access_token,
                 ));
 
-            var_dump($url);
-
             $user = json_decode(file_get_contents($url));
 
             $this->session->set_userdata([
@@ -159,11 +154,88 @@ class Auth extends Controller
         }
     }
 
+    public function github()
+    {
+        if($this->session->userdata('oauth')) {
+            redirect('/auth/success');
+        }
+
+        $ocnf = $this->config->item('oauth');
+        $clientid = $ocnf['github']['client_id'];
+        $client_secret = $ocnf['github']['client_secret'];
+
+        $q = str_replace('/auth/github/?','',$_SERVER['REQUEST_URI']);
+        parse_str($q,$_GET);
+
+        $me = $this->config->site_url('/auth/github').'/';
+
+        if(!isset($_GET['code'])) {
+            redirect('https://github.com/login/oauth/authorize?scope=&client_id='.$clientid.'&redirect_uri='.urldecode($me));
+        }
+
+        $code = $_GET['code'];
+
+        $opts = array(
+            'http' => array(
+                'method'  => 'POST',
+                'header'  => [
+                    'Content-type: application/x-www-form-urlencoded',
+                    'Accept: application/json'
+                ],
+                'content' => http_build_query([
+                    'client_id'=>$clientid,
+                    'redirect_uri'=>$me,
+                    'client_secret'=>$client_secret,
+                    'code'=>$code,
+                ]),
+            )
+        );
+
+        $_default_opts = stream_context_get_params(stream_context_get_default());
+        $context = stream_context_create(array_merge_recursive($_default_opts['options'], $opts));
+        $tokenResponse = file_get_contents('https://github.com/login/oauth/access_token', false, $context);
+
+        $tokenResponse = json_decode($tokenResponse);
+
+        if(is_object($tokenResponse) && isset($tokenResponse->access_token)) {
+
+            $opts = array(
+                'http' => array(
+                    'method'  => 'GET',
+                    'header'  => [
+                        'User-Agent: Cinnamon-Spices-Website-Login',
+                        'Accept: application/json'
+                    ]
+                )
+            );
+
+            $_default_opts = stream_context_get_params(stream_context_get_default());
+            $context = stream_context_create(array_merge_recursive($_default_opts['options'], $opts));
+            $userResponse = file_get_contents('https://api.github.com/user?access_token='.$tokenResponse->access_token, false, $context);
+
+            $user = json_decode($userResponse);
+
+            $this->session->set_userdata([
+                'oauth'=>true,
+                'type'=>'github',
+                'avatar'=>$user->avatar_url,
+                'name'=>$user->name,
+                'link'=>$user->html_url
+            ]);
+
+            redirect('/auth/success');
+        }
+    }
+
     public function success()
     {
-        echo "<pre>";
-
-        print_r($this->session->all_userdata());
+        echo "
+<script>
+if(window.name=='CinnamonSpicesOAuthLoginWindow'){
+    window.opener.location.reload();
+    window.close();
+}
+</script>";
     }
 
     /* Callback function */
@@ -221,7 +293,17 @@ class Auth extends Controller
 //	}
 	
 	/* End of Callback function */
-	
+
+	function login() {
+	    if(!$this->session->userdata('oauth')) {
+            // Load login page view
+            $this->load->view("header_login", ['title' => 'Sign in to CINNAMON']);
+            $this->load->view('oauth/login');
+            $this->load->view("footer_login");
+        } else {
+	        redirect('/');
+        }
+    }
 	
 //	function login()
 //	{

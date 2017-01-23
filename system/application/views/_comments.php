@@ -72,13 +72,27 @@
         </div>
     <?php endforeach; ?>
 
-    <?php if (False) { ?>
+    <?php if ($this->session->userdata('oauth')) { ?>
         <div class="cs-comment-form">
             <h3>Leave A Comment</h3>
             <?= form_open("$type/comment/$id") ?>
             <textarea name="body" cols="100%" rows="3"></textarea>
             <input type="submit" class="cs-button cs-button-sm" value="Submit"/>
             </form>
+        </div>
+    <?php } else { ?>
+        <hr>
+        <h3>To leave comment - please authenticate:</h3>
+        <div class="cs-flex-row">
+            <a href="#" id="lnkLoginFacebook" style="width:100%;
+            padding: 10px; color: white;
+            display: block; background-color: blue">Login with Facebook</a>
+            <a href="#" id="lnkLoginGoogle" style="width:100%;
+            padding: 10px; color: white;
+            display: block; background-color: red">Login with Google</a>
+            <a href="#" id="lnkLoginGitHub" style="width:100%;
+            padding: 10px; color: white;
+            display: block; background-color: slategray">Login with GitHub</a>
         </div>
     <?php } ?>
 
