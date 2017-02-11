@@ -658,7 +658,9 @@ a.cs-items-list-details {
   width: 17.1875rem; }
   a.cs-items-list-details > img {
     max-height: 3rem;
-    max-width: 3rem; }
+    max-width: 3rem;
+    min-height: 3rem;
+    min-width: 3rem; }
   a.cs-items-list-details > label {
     color: #dc6830;
     cursor: pointer;
