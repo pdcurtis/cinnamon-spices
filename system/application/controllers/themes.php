@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Class Themes
+ *
+ * @property CI_Loader           $load
+ * @property CI_DB_active_record $db
+ * @property DX_Auth             $dx_auth
+ * @property CI_Session          $session
+ */
 class Themes extends Controller{
 
 	function Themes() {
@@ -38,17 +47,16 @@ class Themes extends Controller{
 	}
 
 	function view($id) {
-		$this->db->where('newthemes.uuid', $id);
+        $this->db->where('newthemes.uuid', $id);
 		$records = $this->db->get('newthemes');
 		if ($records->num_rows() > 0) {
 			$data = $records->row_array();
 			$data['id'] = $data['uuid'];
 
-			$this->db->select('themes_comments.*, users.username');
-			$this->db->where('themes_comments.theme', $id);
-			$this->db->join('users', 'users.id = themes_comments.user');
+			$this->db->select('newthemes_comments.*');
+			$this->db->where('newthemes_comments.newtheme_uuid', $id);
 			$this->db->order_by('timestamp DESC');
-			$data['comments'] = $this->db->get('themes_comments');
+			$data['comments'] = $this->db->get('newthemes_comments');
 
 			$data['rating'] = 0;
 			if ($this->dx_auth->is_logged_in()) {
@@ -114,16 +122,33 @@ class Themes extends Controller{
 	}
 
 	function comment($id) {
-		$id = intval($id);
-		if ($this->dx_auth->is_logged_in()) {
-			$this->db->set('user', $this->dx_auth->get_user_id());
-			$this->db->set('theme', $id);
-			$this->db->set('timestamp', now());
-			$this->db->set('body', $_POST['body']);
-			$this->db->insert('themes_comments');
+		if($this->session->userdata('oauth') && isset($_POST['body']) && !empty($_POST['body'])) {
+            $this->db->where('newthemes.uuid', $id);
+            $records = $this->db->get('newthemes');
+            if ($records->num_rows() > 0) {
+                $data = $records->row_array();
+                $this->db->set('newtheme_uuid',$data['uuid']);
+                $this->db->set('user_full_name',$this->session->userdata('name'));
+                $this->db->set('user_link',$this->session->userdata('link'));
+                $this->db->set('user_avatar',$this->session->userdata('avatar'));
+                $this->db->set('timestamp', now());
+                $this->db->set('message', $_POST['body']);
+                $this->db->insert('newthemes_comments');
+            }
 		}
-		redirect("/themes/view/$id", "location");
+        redirect("/themes/view/$id", "location");
 	}
 
+//	function _old_comment($id) {
+//		$id = intval($id);
+//		if ($this->dx_auth->is_logged_in()) {
+//			$this->db->set('user', $this->dx_auth->get_user_id());
+//			$this->db->set('theme', $id);
+//			$this->db->set('timestamp', now());
+//			$this->db->set('body', $_POST['body']);
+//			$this->db->insert('themes_comments');
+//		}
+//		redirect("/themes/view/$id", "location");
+//	}
+
 }
-?>

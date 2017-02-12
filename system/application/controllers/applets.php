@@ -1,4 +1,12 @@
 <?php
+/**
+ * Class Applets
+ *
+ * @property CI_Loader           $load
+ * @property CI_DB_active_record $db
+ * @property DX_Auth             $dx_auth
+ * @property CI_Session          $session
+ */
 class Applets extends Controller{
 
 	function Applets() {
