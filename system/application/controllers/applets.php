@@ -46,21 +46,20 @@ class Applets extends Controller{
 		if ($records->num_rows() > 0) {
 			$data = $records->row_array();
 
-			$this->db->select('applets_comments.*, users.username');
-			$this->db->where('applets_comments.applet', $id);
-			$this->db->join('users', 'users.id = applets_comments.user');
-			$this->db->order_by('timestamp DESC');
-			$data['comments'] = $this->db->get('applets_comments');
+            $this->db->select('newapplets_comments.*');
+            $this->db->where('newapplets_comments.uuid', $data['uuid']);
+            $this->db->order_by('timestamp DESC');
+            $data['comments'] = $this->db->get('newapplets_comments');
 
-			$data['rating'] = 0;
-			if ($this->dx_auth->is_logged_in()) {
-				$this->db->where('user', $this->dx_auth->get_user_id());
-				$this->db->where('applet', $id);
-				$records = $this->db->get('applets_ratings');
-				if ($records->num_rows > 0) {
-					$data['rating'] = $records->row()->rating;
-				}
-			}
+            $data['rating'] = 0;
+//            if ($this->dx_auth->is_logged_in()) {
+//                $this->db->where('user', $this->dx_auth->get_user_id());
+//                $this->db->where('theme', $id);
+//                $records = $this->db->get('themes_ratings');
+//                if ($records->num_rows > 0) {
+//                    $data['rating'] = $records->row()->rating;
+//                }
+//            }
 
 			$this->load->view('header_short');
 			$this->load->view('applet', $data);
@@ -119,15 +118,28 @@ class Applets extends Controller{
 
 	function comment($id) {
 		$id = intval($id);
-		if ($this->dx_auth->is_logged_in()) {
-			$this->db->set('user', $this->dx_auth->get_user_id());
-			$this->db->set('applet', $id);
-			$this->db->set('timestamp', now());
-			$this->db->set('body', $_POST['body']);
-			$this->db->insert('applets_comments');
-		}
+        if($this->session->userdata('oauth') && isset($_POST['body']) && !empty($_POST['body'])) {
+            $this->db->where('newapplets.id', $id);
+            $records = $this->db->get('newapplets');
+            if ($records->num_rows() > 0) {
+                $data = $records->row_array();
+                $this->db->set('uuid',$data['uuid']);
+                $this->db->set('user_full_name',$this->session->userdata('name'));
+                $this->db->set('user_link',$this->session->userdata('link'));
+                $this->db->set('user_avatar',$this->session->userdata('avatar'));
+                $this->db->set('timestamp', now());
+                $this->db->set('message', $_POST['body']);
+                $this->db->insert('newapplets_comments');
+            }
+        }
+//		if ($this->dx_auth->is_logged_in()) {
+//			$this->db->set('user', $this->dx_auth->get_user_id());
+//			$this->db->set('applet', $id);
+//			$this->db->set('timestamp', now());
+//			$this->db->set('body', $_POST['body']);
+//			$this->db->insert('applets_comments');
+//		}
 		redirect("/applets/view/$id", "location");
 	}
 
 }
-?>

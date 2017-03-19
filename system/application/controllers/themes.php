@@ -54,19 +54,19 @@ class Themes extends Controller{
 			$data['id'] = $data['uuid'];
 
 			$this->db->select('newthemes_comments.*');
-			$this->db->where('newthemes_comments.newtheme_uuid', $id);
+			$this->db->where('newthemes_comments.uuid', $id);
 			$this->db->order_by('timestamp DESC');
 			$data['comments'] = $this->db->get('newthemes_comments');
 
 			$data['rating'] = 0;
-			if ($this->dx_auth->is_logged_in()) {
-				$this->db->where('user', $this->dx_auth->get_user_id());
-				$this->db->where('theme', $id);
-				$records = $this->db->get('themes_ratings');
-				if ($records->num_rows > 0) {
-					$data['rating'] = $records->row()->rating;
-				}
-			}
+//			if ($this->dx_auth->is_logged_in()) {
+//				$this->db->where('user', $this->dx_auth->get_user_id());
+//				$this->db->where('theme', $id);
+//				$records = $this->db->get('themes_ratings');
+//				if ($records->num_rows > 0) {
+//					$data['rating'] = $records->row()->rating;
+//				}
+//			}
 
 			$this->load->view('header_short');
 			$this->load->view('theme', $data);
@@ -127,7 +127,7 @@ class Themes extends Controller{
             $records = $this->db->get('newthemes');
             if ($records->num_rows() > 0) {
                 $data = $records->row_array();
-                $this->db->set('newtheme_uuid',$data['uuid']);
+                $this->db->set('uuid',$data['uuid']);
                 $this->db->set('user_full_name',$this->session->userdata('name'));
                 $this->db->set('user_link',$this->session->userdata('link'));
                 $this->db->set('user_avatar',$this->session->userdata('avatar'));

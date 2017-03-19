@@ -72,7 +72,7 @@
         <div class="cs-comment-form">
             <h3>Leave A Comment</h3>
             <?= form_open("$type/comment/$id") ?>
-            <textarea name="body" cols="100%" rows="3"></textarea>
+            <textarea name="body" style="width:100%" rows="3"></textarea>
             <input type="submit" class="cs-button cs-button-sm" value="Submit"/>
             <?= form_close() ?>
         </div>

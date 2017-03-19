@@ -18,7 +18,8 @@ $time_actual = date("Y-m-d, H:i", $last_edited);
 <?php } ?>
 
 <?php
-$server_path = "/var/www/cinnamon-spices.linuxmint.com";
+//$server_path = "/var/www/cinnamon-spices.linuxmint.com";
+$server_path = realpath(BASEPATH.'/../');
 if (file_exists("$server_path/git/$type/$uuid/README.md")) {
     include("$server_path/parsedown/Parsedown.php");
     $markdown = file_get_contents("$server_path/git/$type/$uuid/README.md");
