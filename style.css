@@ -529,6 +529,10 @@ textarea:focus {
   -ms-flex-positive: 1;
       flex-grow: 1; }
 
+.cs-flex-wrap {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap; }
+
 .cs-media {
   display: -ms-flexbox;
   display: flex; }
@@ -610,8 +614,8 @@ textarea:focus {
     padding: 0 1.02941rem; }
 
 .cs-breadcrumbs {
-  opacity: .5;
-  margin-bottom: 1rem; }
+  margin-bottom: 1rem;
+  opacity: .5; }
   .cs-breadcrumbs:hover {
     opacity: 1; }
   .cs-breadcrumbs li::after {
@@ -657,10 +661,8 @@ a.cs-items-list-details {
   text-decoration: none;
   width: 17.1875rem; }
   a.cs-items-list-details > img {
-    max-height: 3rem;
-    max-width: 3rem;
-    min-height: 3rem;
-    min-width: 3rem; }
+    height: 3rem;
+    width: 3rem; }
   a.cs-items-list-details > label {
     color: #dc6830;
     cursor: pointer;
@@ -1021,6 +1023,45 @@ a.cs-items-list-details {
   .cs-profile-view .cs-sidebar img {
     margin-right: .25rem;
     max-height: 1rem; }
+
+.cs-details-head h1 {
+  font-size: 1.9rem;
+  margin-right: .5rem; }
+
+.cs-details-head > div > img {
+  height: 3rem;
+  margin-right: .5rem;
+  width: 3rem; }
+
+.cs-details-head-button {
+  font-size: .75rem;
+  font-weight: normal;
+  height: 1.75rem;
+  line-height: 1.75rem;
+  padding: 0 1rem;
+  text-transform: none; }
+
+.cs-details-head-button-w {
+  background-color: transparent;
+  border: solid 1px #c0c0c0;
+  color: #000;
+  font-size: .75rem;
+  font-weight: normal;
+  height: 1.75rem;
+  line-height: 1.75rem;
+  padding: 0 1rem;
+  text-transform: none; }
+
+.cs-item-details-screenshot {
+  max-width: 100%;
+  width: auto; }
+
+.cs-item-details-description {
+  background-color: #fff;
+  border: solid 1px #c0c0c0;
+  border-radius: .5rem;
+  margin-bottom: 1rem;
+  padding: 1rem; }
 
 .cs-button-sm {
   font-size: .75rem;
