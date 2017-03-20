@@ -1,6 +1,3 @@
-<style>
-
-</style>
 <div class="cs-flex cs-details-head">
     <div class="cs-flex cs-flex-grow cs-flex-wrap cs-flex-center">
         <?php if(isset($icon)) { ?>
@@ -14,5 +11,3 @@
         <?=anchor("/files/$type/$uuid.zip", "Download", "class='cs-button cs-details-head-button'")?>
     </div>
 </div>
-
-<hr>

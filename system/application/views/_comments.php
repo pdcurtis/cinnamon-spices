@@ -1,49 +1,4 @@
 <!-- START comments-box -->
-<style>
-    .cs-comments-title {
-        margin-bottom: 1rem;
-    }
-
-    .cs-comment-avatar {
-        margin-right: 1rem;
-    }
-
-    .cs-comment-avatar > img {
-        height: 5rem;
-        width: 5rem;
-        border-radius: .5rem;
-    }
-
-    .cs-comment-row {
-        margin-bottom: 1rem;
-    }
-
-    .cs-comment-author {
-        margin-bottom: .5rem;
-    }
-
-    .cs-comment-author-name {
-        font-weight: bold;
-        margin-right: 1rem;
-    }
-
-    .cs-comment-date {
-        margin-left: 1rem;
-        color: silver;
-    }
-
-    .cs-comment-form > h3, .cs-comment-form > form {
-        margin-bottom: .5rem;
-    }
-
-    .cs-comment-form > form > textarea {
-        margin-bottom: .5rem;
-        display: block;
-    }
-</style>
-
-<hr>
-
 <div class="cs-comment-box">
 
     <h2 class="cs-comments-title"><?= $comments->num_rows ?> Comments</h2>
@@ -57,11 +12,11 @@
         $time_span = strtolower($array[0]) . " ago";
         $time_actual = date("Y-m-d, H:i", $comment->timestamp);
         ?>
-        <div class="cs-comment-row cs-flex-row">
-            <div class="cs-comment-avatar">
+        <div class="cs-media cs-comment-row">
+            <div class="cs-media-image cs-comment-image">
                 <img alt='' src='<?= $avatar ?>' class='avatar avatar-50 photo'/>
             </div>
-            <div class="cs-comment-body cs-flex-column cs-flex-grow">
+            <div class="cs-media-content cs-flex-column cs-flex-grow">
                 <div class="cs-comment-author cs-flex-row">
                     <div class="cs-comment-author-name"><?= anchor("/users/view/$comment->user", "$comment->username", "class='url'") ?></div>
                     -
@@ -81,6 +36,5 @@
             </form>
         </div>
     <?php } ?>
-
 </div>
 <!-- END comments-box -->
