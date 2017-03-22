@@ -21,13 +21,10 @@
 <?php
 if (isset($themes) && $themes->num_rows > 0) {
     ?>
-    <div class="cs-items-list-container">
+    <div class="cs-items-list-container cs-items-list-theme cs-flex cs-flex-wrap">
         <?php
-        $i = 0;
+
         foreach ($themes->result() as $theme) {
-            if ($i == 0) {
-                echo '<div class="cs-items-list-row">';
-            }
 
             $array = preg_split("/,/", timespan($theme->last_edited, time()));
             $time_span = strtolower($array[0]) . " ago";
@@ -61,16 +58,8 @@ if (isset($themes) && $themes->num_rows > 0) {
                 </div>
             </div>
             <?php
-            $i++;
-            if ($i == 2) {
-                echo "</div>";
-                $i = 0;
-            }
-        }
-        if ($i > 0) {
-            echo "</div>";
-        }
-        ?>
+                }
+            ?>
     </div>
     <?php
 }

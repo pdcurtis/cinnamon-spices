@@ -1,13 +1,10 @@
 <?php
 if (isset($items) && $items->num_rows > 0) {
     ?>
-    <div class="cs-items-list-container">
+    <div class="cs-items-list-container cs-flex cs-flex-wrap">
         <?php
-        $i = 0;
+
         foreach ($items->result() as $item) {
-            if ($i == 0) {
-                echo '<div class="cs-items-list-row">';
-            }
 
             $array = preg_split("/,/", timespan($item->last_edited, time()));
             $time_span = strtolower($array[0]) . " ago";
@@ -37,16 +34,8 @@ if (isset($items) && $items->num_rows > 0) {
                 </div>
             </div>
             <?php
-            $i++;
-            if ($i == 3) {
-                echo "</div>";
-                $i = 0;
-            }
-        }
-        if ($i > 0) {
-            echo "</div>";
-        }
-        ?>
+                }
+            ?>
     </div>
     <?php
 }

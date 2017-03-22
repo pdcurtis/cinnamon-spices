@@ -10,10 +10,10 @@
 
 <div class="cs-jumbotron cs-jumbotron-small">
     <div class="cs-header cs-flex-row">
-        <div class="cs-header-logo cs-header-logo-inline cs-flex-row cs-flex-center">
+        <a href="/" class="cs-link-alternate cs-header-logo cs-header-logo-inline cs-flex-row cs-flex-center">
             <img src="/resources/cinnamon.svg" alt="">
             <div>spices</div>
-        </div>
+        </a>
         <?php require('header_links.php') ?>
     </div>
 </div>
