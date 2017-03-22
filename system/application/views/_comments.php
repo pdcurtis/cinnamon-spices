@@ -34,16 +34,8 @@
     <?php } else { ?>
         <hr>
         <h3>To leave comment - please authenticate:</h3>
-        <div class="cs-flex-row">
-            <a href="#" id="lnkLoginFacebook" style="width:100%;
-            padding: 10px; color: white;
-            display: block; background-color: blue">Login with Facebook</a>
-            <a href="#" id="lnkLoginGoogle" style="width:100%;
-            padding: 10px; color: white;
-            display: block; background-color: red">Login with Google</a>
-            <a href="#" id="lnkLoginGitHub" style="width:100%;
-            padding: 10px; color: white;
-            display: block; background-color: slategray">Login with GitHub</a>
+        <div class="cs-comment-login cs-flex-row">
+            <?php $this->view('oauth/_login-button') ?>
         </div>
     <?php } ?>
 </div>

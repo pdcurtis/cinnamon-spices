@@ -5,7 +5,7 @@
     <a class="cs-header-menu-link <?= preg_match('|^/desklets.*?|',$_SERVER['REQUEST_URI'])?'active':'' ?>" href="/desklets">Desklets</a>
     <a class="cs-header-menu-link <?= preg_match('|^/extensions.*?|',$_SERVER['REQUEST_URI'])?'active':'' ?>" href="/extensions">Extensions</a>
     <?php if (!$this->session->userdata('oauth')) { ?>
-        <a class="cs-header-menu-signup cs-button cs-button-thin-text <?= preg_match('|^/auth/login.*?|',$_SERVER['REQUEST_URI'])?'active':'' ?>" href="/auth/login">Log In</a>
+        <a class="cs-header-menu-login cs-button cs-button-thin-text <?= preg_match('|^/auth/login.*?|',$_SERVER['REQUEST_URI'])?'active':'' ?>" href="/auth/login">Log In</a>
     <?php } else { ?>
         <a class="cs-header-menu-link" href="<?php echo $this->session->userdata('link') ?>" target="_blank"><img align="top" src="<?php echo $this->session->userdata('avatar') ?>" style="max-width: 36px;max-height: 36px"></a>
         <a class="cs-header-menu-signup cs-button cs-button-thin-text" href="/auth/logout">Log Out</a>

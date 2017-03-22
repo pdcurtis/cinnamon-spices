@@ -446,9 +446,7 @@ button {
   display: inline-block;
   font-size: .875rem;
   font-weight: bolder;
-  height: 2.25rem;
-  line-height: 2.25rem;
-  padding: 0 1.625rem;
+  padding: .625rem 1.25rem;
   text-decoration: none;
   text-transform: uppercase;
   transition-property: background-color; }
@@ -609,11 +607,9 @@ textarea:focus {
     vertical-align: middle; }
   .cs-header-menu-login {
     padding-left: 1.75rem;
-    padding-right: 1.02941rem; }
-  .cs-header-menu-signup {
-    height: 2.25rem;
-    line-height: 2.25rem;
-    padding: 0 1.02941rem; }
+    padding-right: 1.02941rem;
+    padding: .625rem 1rem;
+    margin-left: .5rem; }
 
 .cs-breadcrumbs {
   margin-bottom: 1rem;
@@ -782,8 +778,8 @@ a.cs-items-list-details {
   background-color: #fff;
   border: solid 0.0625rem #c0c0c0;
   border-radius: .3rem;
-  padding: 1.0625rem 2.125rem;
-  width: 20rem; }
+  padding: 1.59375rem;
+  max-width: 20rem; }
 
 .cs-login-signup-form {
   font-size: .9rem;
@@ -808,8 +804,11 @@ a.cs-items-list-details {
 
 .cs-login-signup-call {
   font-size: .9rem;
-  margin: 1rem auto;
-  text-align: center; }
+  margin: -2.5rem auto 0; }
+  .cs-login-signup-call .cs-button-social {
+    margin-bottom: 1rem; }
+    .cs-login-signup-call .cs-button-social:last-child {
+      margin-bottom: 0; }
 
 .cs-sidebar {
   margin-right: .5rem; }
@@ -1089,6 +1088,9 @@ a.cs-items-list-details {
   margin-top: 1rem;
   padding: 1rem; }
 
+.cs-comment-login .cs-button-social {
+  margin: 1rem 1rem 0 0; }
+
 .cs-comments-title {
   margin-bottom: 1rem; }
 
@@ -1125,13 +1127,38 @@ a.cs-items-list-details {
 
 .cs-button-sm {
   font-size: .75rem;
-  padding: 0 1rem; }
+  padding: .625rem 1rem; }
 
 .cs-button-large {
-  padding: .325rem 2rem; }
+  padding: 1rem 2rem; }
 
 .cs-button-thin-text {
   font-weight: 600; }
+
+.cs-button-social span {
+  vertical-align: middle; }
+
+.cs-button-social svg {
+  fill: #fff;
+  height: 1.5rem;
+  margin-right: .5rem;
+  vertical-align: middle;
+  width: 1.5rem; }
+
+.cs-button-facebook {
+  background-color: #3C5A99; }
+  .cs-button-facebook:hover {
+    background-color: #354f87; }
+
+.cs-button-github {
+  background-color: #767676; }
+  .cs-button-github:hover {
+    background-color: dimgray; }
+
+.cs-button-google {
+  background-color: #D34935; }
+  .cs-button-google:hover {
+    background-color: #c43e2b; }
 
 .cs-header-logo-inline div {
   margin-left: .25rem; }
