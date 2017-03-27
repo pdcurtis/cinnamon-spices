@@ -28,8 +28,19 @@ class Extensions extends Controller
     function popular()
     {
         $this->db->order_by('score DESC, name ASC');
+
+        $this->load->library('pagination');
+
+        $config['base_url'] = '/extensions/popular';
+        $config['total_rows'] = $this->db->get('newextensions')->num_rows();
+        $config['per_page'] = 30;
+        $config['num_links'] = 10;
+
+        $this->pagination->initialize($config);
+
+        $data['items'] = $this->db->get('newextensions', $config['per_page'], $this->uri->segment(3));
         $data['mode'] = 'popular';
-        $data['items'] = $this->db->get('newextensions');
+
         $this->load->view('header', $data);
         $this->load->view('extensions', $data);
         $this->load->view('footer', $data);
@@ -38,8 +49,19 @@ class Extensions extends Controller
     function latest()
     {
         $this->db->order_by('last_edited DESC, name ASC');
+
+        $this->load->library('pagination');
+
+        $config['base_url'] = '/extensions/latest';
+        $config['total_rows'] = $this->db->get('newextensions')->num_rows();
+        $config['per_page'] = 30;
+        $config['num_links'] = 10;
+
+        $this->pagination->initialize($config);
+
+        $data['items'] = $this->db->get('newextensions', $config['per_page'], $this->uri->segment(3));
         $data['mode'] = 'latest';
-        $data['items'] = $this->db->get('newextensions');
+
         $this->load->view('header', $data);
         $this->load->view('extensions', $data);
         $this->load->view('footer', $data);

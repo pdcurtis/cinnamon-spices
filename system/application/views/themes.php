@@ -62,4 +62,8 @@ if (isset($themes) && $themes->num_rows > 0) {
             ?>
     </div>
     <?php
+
+    echo $this->pagination->create_links();
+
 }
+?>

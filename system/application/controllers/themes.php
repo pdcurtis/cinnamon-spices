@@ -26,9 +26,21 @@ class Themes extends Controller{
 	}
 
 	function popular() {
-		$this->db->order_by('score DESC, name ASC');
+        $this->db->order_by('score DESC, name ASC');
+
+        $this->load->library('pagination');
+
+        $config['base_url'] = '/themes/popular';
+        $config['total_rows'] = $this->db->get('newthemes')->num_rows();
+        $config['per_page'] = 20;
+        $config['num_links'] = 5;
+
+        $this->pagination->initialize($config);
+
+        $data['themes'] = $this->db->get('newthemes', $config['per_page'], $this->uri->segment(3));
+
 		$data['mode'] = 'popular';
-		$data['themes'] = $this->db->get('newthemes');
+
 
 		$this->load->view('header');
 		$this->load->view('themes', $data);
@@ -38,8 +50,19 @@ class Themes extends Controller{
 	function latest()
 	{
 		$this->db->order_by('last_edited DESC, name ASC');
+
+        $this->load->library('pagination');
+
+        $config['base_url'] = '/themes/latest';
+        $config['total_rows'] = $this->db->get('newthemes')->num_rows();
+        $config['per_page'] = 20;
+        $config['num_links'] = 5;
+
+        $this->pagination->initialize($config);
+
+        $data['themes'] = $this->db->get('newthemes', $config['per_page'], $this->uri->segment(3));
+
 		$data['mode'] = 'latest';
-		$data['themes'] = $this->db->get('newthemes');
 
 		$this->load->view('header', $data);
 		$this->load->view('themes', $data);

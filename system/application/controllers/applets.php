@@ -23,8 +23,19 @@ class Applets extends Controller{
 
 	function latest() {
 		$this->db->order_by('last_edited DESC, name ASC');
+
+        $this->load->library('pagination');
+
+        $config['base_url'] = '/applets/latest';
+        $config['total_rows'] = $this->db->get('newapplets')->num_rows();
+        $config['per_page'] = 30;
+        $config['num_links'] = 10;
+
+        $this->pagination->initialize($config);
+
+        $data['items'] = $this->db->get('newapplets', $config['per_page'], $this->uri->segment(3));
         $data['mode'] = 'latest';
-		$data['items'] = $this->db->get('newapplets');
+
 		$this->load->view('header');
 		$this->load->view('applets', $data);
 		$this->load->view('footer');
@@ -32,8 +43,19 @@ class Applets extends Controller{
 
 	function popular() {
 		$this->db->order_by('score DESC, name ASC');
+
+        $this->load->library('pagination');
+
+        $config['base_url'] = '/applets/popular';
+        $config['total_rows'] = $this->db->get('newapplets')->num_rows();
+        $config['per_page'] = 30;
+        $config['num_links'] = 10;
+
+        $this->pagination->initialize($config);
+
+        $data['items'] = $this->db->get('newapplets', $config['per_page'], $this->uri->segment(3));
         $data['mode'] = 'popular';
-		$data['items'] = $this->db->get('newapplets');
+
 		$this->load->view('header');
 		$this->load->view('applets', $data);
 		$this->load->view('footer');

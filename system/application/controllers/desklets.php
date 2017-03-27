@@ -24,22 +24,45 @@ class Desklets extends Controller
         $this->popular();
     }
 
-    function latest()
+
+    function popular()
     {
-        $this->db->order_by('last_edited DESC, name ASC');
-        $data['mode'] = 'latest';
-        $data['items'] = $this->db->get('newdesklets');
+        $this->db->order_by('score DESC, name ASC');
+
+        $this->load->library('pagination');
+
+        $config['base_url'] = '/desklets/popular';
+        $config['total_rows'] = $this->db->get('newdesklets')->num_rows();
+        // The per page amount is a bit of a magic number
+        $config['per_page'] = 30;
+        $config['num_links'] = 10;
+
+        $this->pagination->initialize($config);
+
+        $data['items'] = $this->db->get('newdesklets', $config['per_page'], $this->uri->segment(3));
+        $data['mode'] = 'popular';
 
         $this->load->view('header', $data);
         $this->load->view('desklets', $data);
         $this->load->view('footer', $data);
     }
 
-    function popular()
+    function latest()
     {
-        $this->db->order_by('score DESC, name ASC');
-        $data['mode'] = 'popular';
-        $data['items'] = $this->db->get('newdesklets');
+        $this->db->order_by('last_edited DESC, name ASC');
+
+        $this->load->library('pagination');
+
+        $config['base_url'] = '/desklets/latest';
+        $config['total_rows'] = $this->db->get('newdesklets')->num_rows();
+        $config['per_page'] = 30;
+        $config['num_links'] = 10;
+
+        $this->pagination->initialize($config);
+
+        $data['items'] = $this->db->get('newdesklets', $config['per_page'], $this->uri->segment(3));
+        $data['mode'] = 'latest';
+
         $this->load->view('header', $data);
         $this->load->view('desklets', $data);
         $this->load->view('footer', $data);
