@@ -7,7 +7,7 @@
         <div>by <?=$author?></div>
     </div>
     <div class="cs-flex cs-flex-center">
-        <?=anchor("https://github.com/linuxmint/cinnamon-spices-$type/tree/master/$uuid", "Website", "target='_blank' class='cs-button cs-details-head-button-w'")?>&nbsp;
-        <?=anchor("/files/$type/$uuid.zip", "Download", "class='cs-button cs-details-head-button'")?>
+        <?=anchor("https://github.com/linuxmint/cinnamon-spices-$type/tree/master/$uuid", "Website", "target='_blank' class='cs-button cs-button-white'")?>&nbsp;
+        <?=anchor("/files/$type/$uuid.zip", "Download", "class='cs-button'")?>
     </div>
 </div>
