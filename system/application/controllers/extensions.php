@@ -34,8 +34,7 @@ class Extensions extends Controller
         $config['base_url'] = '/extensions/popular';
         $config['total_rows'] = $this->db->get('newextensions')->num_rows();
         $config['per_page'] = 30;
-        $config['num_links'] = 10;
-
+        
         $this->pagination->initialize($config);
 
         $data['items'] = $this->db->get('newextensions', $config['per_page'], $this->uri->segment(3));
@@ -55,8 +54,7 @@ class Extensions extends Controller
         $config['base_url'] = '/extensions/latest';
         $config['total_rows'] = $this->db->get('newextensions')->num_rows();
         $config['per_page'] = 30;
-        $config['num_links'] = 10;
-
+        
         $this->pagination->initialize($config);
 
         $data['items'] = $this->db->get('newextensions', $config['per_page'], $this->uri->segment(3));

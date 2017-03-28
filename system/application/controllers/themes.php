@@ -33,7 +33,6 @@ class Themes extends Controller{
         $config['base_url'] = '/themes/popular';
         $config['total_rows'] = $this->db->get('newthemes')->num_rows();
         $config['per_page'] = 20;
-        $config['num_links'] = 5;
 
         $this->pagination->initialize($config);
 
@@ -56,12 +55,10 @@ class Themes extends Controller{
         $config['base_url'] = '/themes/latest';
         $config['total_rows'] = $this->db->get('newthemes')->num_rows();
         $config['per_page'] = 20;
-        $config['num_links'] = 5;
 
         $this->pagination->initialize($config);
 
         $data['themes'] = $this->db->get('newthemes', $config['per_page'], $this->uri->segment(3));
-
 		$data['mode'] = 'latest';
 
 		$this->load->view('header', $data);

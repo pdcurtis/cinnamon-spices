@@ -33,10 +33,8 @@ class Desklets extends Controller
 
         $config['base_url'] = '/desklets/popular';
         $config['total_rows'] = $this->db->get('newdesklets')->num_rows();
-        // The per page amount is a bit of a magic number
         $config['per_page'] = 30;
-        $config['num_links'] = 10;
-
+        
         $this->pagination->initialize($config);
 
         $data['items'] = $this->db->get('newdesklets', $config['per_page'], $this->uri->segment(3));
@@ -56,8 +54,7 @@ class Desklets extends Controller
         $config['base_url'] = '/desklets/latest';
         $config['total_rows'] = $this->db->get('newdesklets')->num_rows();
         $config['per_page'] = 30;
-        $config['num_links'] = 10;
-
+        
         $this->pagination->initialize($config);
 
         $data['items'] = $this->db->get('newdesklets', $config['per_page'], $this->uri->segment(3));
