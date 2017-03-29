@@ -10,7 +10,7 @@ $time_actual = date("Y-m-d, H:i", $last_edited);
     <div>Last edited: <span title="<?= $time_actual ?>"><?= $time_span ?></span></div>
     <div>Last commit: <?= anchor("https://github.com/linuxmint/cinnamon-spices-$type/commits/master/$uuid", $last_commit) ?></div>
     <br>
-    <?= anchor("/git/$type/$uuid/screenshot.png", "<img src='/git/$type/$uuid/screenshot.png' class='cs-item-details-screenshot'/>") ?><br/><br/>
+    <?= anchor("/git/$type/$uuid/screenshot.png", "<img src='/git/$type/$uuid/screenshot.png' class='cs-item-details-screenshot'/>") ?>
 
     <?php $this->view('_rate_item', ['type' => '$type', 'rate_message' => 'Give this spice the rating it deserves:']) ?>
 
