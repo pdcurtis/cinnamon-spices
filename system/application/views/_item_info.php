@@ -8,9 +8,9 @@ $time_actual = date("Y-m-d, H:i", $last_edited);
     <?php if(isset($uuid) && !empty($uuid)) echo "<div>UUID: $uuid</div>" ?>
     <div>Score: <?= $score ?></div>
     <div>Last edited: <span title="<?= $time_actual ?>"><?= $time_span ?></span></div>
-    <div>Last commit: <?= anchor("https://github.com/linuxmint/cinnamon-spices-$type/commits/master/$uuid", $last_commit) ?></div>
+    <div>Last commit: <?= anchor("https://github.com/linuxmint/cinnamon-spices-$type/commits/master/$uuid", $last_commit, ['target'=>'_blank']) ?></div>
     <br>
-    <?= anchor("/git/$type/$uuid/screenshot.png", "<img src='/git/$type/$uuid/screenshot.png' class='cs-item-details-screenshot'/>") ?>
+    <?= anchor("/git/$type/$uuid/screenshot.png", "<img src='/git/$type/$uuid/screenshot.png' class='cs-item-details-screenshot'/>", ['target'=>'_blank']) ?>
 
     <?php $this->view('_rate_item', ['type' => '$type', 'rate_message' => 'Give this spice the rating it deserves:']) ?>
 
