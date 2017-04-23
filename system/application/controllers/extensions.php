@@ -78,15 +78,27 @@ class Extensions extends Controller
             $this->db->order_by('timestamp DESC');
             $data['comments'] = $this->db->get('newextensions_comments');
 
-            $data['rating'] = 0;
-//			if ($this->dx_auth->is_logged_in()) {
-//				$this->db->where('user', $this->dx_auth->get_user_id());
-//				$this->db->where('extension', $id);
-//				$records = $this->db->get('extensions_ratings');
-//				if ($records->num_rows > 0) {
-//					$data['rating'] = $records->row()->rating;
-//				}
-//			}
+            $this->db->select('count(newextensions_ratings.id) AS score');
+            $this->db->where('newextensions_ratings.uuid', $data['uuid']);
+            $ratings_res = $this->db->get('newextensions_ratings');
+            if($ratings_res->num_rows() == 1) {
+                $ratings_data = $ratings_res->row_array();
+                $data['score'] = $ratings_data['score'];
+            }
+
+            $data['liked'] = false;
+            if ($this->session->userdata('oauth')) {
+                $this->db->select('count(newextensions_ratings.id) AS liked');
+                $this->db->where('newextensions_ratings.uuid', $data['uuid']);
+                $this->db->where('newextensions_ratings.user_link', $this->session->userdata('link'));
+                $ratings_res = $this->db->get('newextensions_ratings');
+                if($ratings_res->num_rows() == 1) {
+                    $ratings_data = $ratings_res->row_array();
+                    if($ratings_data['liked'] > 0) {
+                        $data['liked'] = true;
+                    }
+                }
+            }
 
             $this->load->view('header_short');
             $this->load->view('extension', $data);
@@ -129,17 +141,33 @@ class Extensions extends Controller
     function rate($id, $rating)
     {
         $id = intval($id);
-        $rating = intval($rating);
-        if ($this->dx_auth->is_logged_in() && $rating >= 1 && $rating <= 5) {
-            $this->db->where('user', $this->dx_auth->get_user_id());
-            $this->db->where('extension', $id);
-            $this->db->delete('extensions_ratings');
-            $this->db->set('user', $this->dx_auth->get_user_id());
-            $this->db->set('extension', $id);
-            $this->db->set('rating', $rating);
-            $this->db->insert('extensions_ratings');
-            $this->db->query("UPDATE extensions SET score = (SELECT SUM(rating-3) FROM extensions_ratings WHERE extension = $id) WHERE id = $id");
-            $this->_json();
+        $this->db->where('id', $id);
+        $records = $this->db->get('newextensions');
+        if ($records->num_rows() > 0) {
+            $data = $records->row_array();
+            if ($this->session->userdata('oauth')) {
+                $liked = false;
+                if ($this->session->userdata('oauth')) {
+                    $this->db->select('count(newextensions_ratings.id) AS liked');
+                    $this->db->where('newextensions_ratings.uuid', $data['uuid']);
+                    $this->db->where('newextensions_ratings.user_link', $this->session->userdata('link'));
+                    $ratings_res = $this->db->get('newextensions_ratings');
+                    if($ratings_res->num_rows() == 1) {
+                        $ratings_data = $ratings_res->row_array();
+                        if($ratings_data['liked'] > 0) {
+                            $liked = true;
+                        }
+                    }
+                }
+                if(!$liked) {
+                    $this->db->set('uuid', $data['uuid']);
+                    $this->db->set('user_full_name',$this->session->userdata('name'));
+                    $this->db->set('user_link',$this->session->userdata('link'));
+                    $this->db->set('user_avatar',$this->session->userdata('avatar'));
+                    $this->db->set('timestamp', now());
+                    $this->db->insert('newextensions_ratings');
+                }
+            }
         }
         redirect("/extensions/view/$id", "location");
     }

@@ -78,15 +78,27 @@ class Themes extends Controller{
 			$this->db->order_by('timestamp DESC');
 			$data['comments'] = $this->db->get('newthemes_comments');
 
-			$data['rating'] = 0;
-//			if ($this->dx_auth->is_logged_in()) {
-//				$this->db->where('user', $this->dx_auth->get_user_id());
-//				$this->db->where('theme', $id);
-//				$records = $this->db->get('themes_ratings');
-//				if ($records->num_rows > 0) {
-//					$data['rating'] = $records->row()->rating;
-//				}
-//			}
+            $this->db->select('count(newthemes_ratings.id) AS score');
+            $this->db->where('newthemes_ratings.uuid', $data['uuid']);
+            $ratings_res = $this->db->get('newthemes_ratings');
+            if($ratings_res->num_rows() == 1) {
+                $ratings_data = $ratings_res->row_array();
+                $data['score'] = $ratings_data['score'];
+            }
+
+            $data['liked'] = false;
+            if ($this->session->userdata('oauth')) {
+                $this->db->select('count(newthemes_ratings.id) AS liked');
+                $this->db->where('newthemes_ratings.uuid', $data['uuid']);
+                $this->db->where('newthemes_ratings.user_link', $this->session->userdata('link'));
+                $ratings_res = $this->db->get('newthemes_ratings');
+                if($ratings_res->num_rows() == 1) {
+                    $ratings_data = $ratings_res->row_array();
+                    if($ratings_data['liked'] > 0) {
+                        $data['liked'] = true;
+                    }
+                }
+            }
 
 			$this->load->view('header_short');
 			$this->load->view('theme', $data);
@@ -124,21 +136,36 @@ class Themes extends Controller{
 		// fclose($fp);
 	}
 
-	function rate($id, $rating) {
-		$id = intval($id);
-		$rating = intval($rating);
-		if ($this->dx_auth->is_logged_in() && $rating >= 1 && $rating <= 5) {
-			$this->db->where('user', $this->dx_auth->get_user_id());
-			$this->db->where('theme', $id);
-			$this->db->delete('themes_ratings');
-			$this->db->set('user', $this->dx_auth->get_user_id());
-			$this->db->set('theme', $id);
-			$this->db->set('rating', $rating);
-			$this->db->insert('themes_ratings');
-			$this->db->query("UPDATE newthemes SET score = (SELECT SUM(rating-3) FROM themes_ratings WHERE theme = $id) WHERE id = $id");
-			$this->_json();
-		}
-		redirect("/themes/view/$id", "location");
+    function rate($uuid) {
+        $this->db->where('uuid', $uuid);
+        $records = $this->db->get('newthemes');
+        if ($records->num_rows() > 0) {
+            $data = $records->row_array();
+            if ($this->session->userdata('oauth')) {
+                $liked = false;
+                if ($this->session->userdata('oauth')) {
+                    $this->db->select('count(newthemes_ratings.id) AS liked');
+                    $this->db->where('newthemes_ratings.uuid', $data['uuid']);
+                    $this->db->where('newthemes_ratings.user_link', $this->session->userdata('link'));
+                    $ratings_res = $this->db->get('newthemes_ratings');
+                    if($ratings_res->num_rows() == 1) {
+                        $ratings_data = $ratings_res->row_array();
+                        if($ratings_data['liked'] > 0) {
+                            $liked = true;
+                        }
+                    }
+                }
+                if(!$liked) {
+                    $this->db->set('uuid', $data['uuid']);
+                    $this->db->set('user_full_name',$this->session->userdata('name'));
+                    $this->db->set('user_link',$this->session->userdata('link'));
+                    $this->db->set('user_avatar',$this->session->userdata('avatar'));
+                    $this->db->set('timestamp', now());
+                    $this->db->insert('newthemes_ratings');
+                }
+            }
+        }
+		redirect("/themes/view/$uuid", "location");
 	}
 
 	function comment($id) {
