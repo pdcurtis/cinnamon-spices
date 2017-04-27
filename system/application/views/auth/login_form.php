@@ -66,6 +66,13 @@
         <button class="cs-button" type="submit">Login</button>
     </div>
 
+    <div class="cs-login-form-row cs-flex-row cs-flex-middle">
+        <span>Login with:</span>
+        <a href="/auth/session/facebook">Facebook</a>
+        <a href="/auth/session/google">Google</a>
+        <a href="/auth/session/github">GitHub</a>
+    </div>
+
     <?php echo form_close() ?>
     <div class="cs-login-signup cs-login-signup-call">
         New to CINNAMON?

@@ -38,4 +38,7 @@ if (isset($items) && $items->num_rows > 0) {
             ?>
     </div>
     <?php
+
+    echo $this->pagination->create_links();
 }
+?>

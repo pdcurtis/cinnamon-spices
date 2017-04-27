@@ -408,6 +408,9 @@ body {
   box-sizing: border-box;
   font-family: "Open Sans", sans-serif; }
 
+img {
+  max-width: 100%; }
+
 a {
   transition: .1s ease-in-out; }
   a:not(.cs-button) {
@@ -446,9 +449,7 @@ button {
   display: inline-block;
   font-size: .875rem;
   font-weight: bolder;
-  height: 2.25rem;
-  line-height: 2.25rem;
-  padding: 0 1.625rem;
+  padding: .625rem 1.25rem;
   text-decoration: none;
   text-transform: uppercase;
   transition-property: background-color; }
@@ -597,23 +598,31 @@ textarea:focus {
   text-align: right; }
   .cs-header-menu a {
     color: #fff; }
+  .cs-header-menu-avatar {
+    display: inline-block;
+    margin-top: -.125rem;
+    padding: 0 0.58333rem;
+    vertical-align: middle; }
+    .cs-header-menu-avatar img {
+      border-radius: .25rem;
+      height: 1.875rem;
+      width: 1.875rem; }
   .cs-header-menu-link.active, .cs-header-menu-login.active {
     border-bottom: 0.0625rem solid #dc682f; }
   .cs-header-menu-link {
     color: #fff;
+    display: inline-block;
     font-family: "Roboto", sans-serif;
     font-size: .875rem;
+    margin-right: 0;
     padding: 0.375rem 0.58333rem;
     text-decoration: none;
-    text-transform: uppercase;
-    vertical-align: middle; }
+    text-transform: uppercase; }
   .cs-header-menu-login {
-    padding-left: 1.75rem;
-    padding-right: 1.02941rem; }
-  .cs-header-menu-signup {
-    height: 2.25rem;
-    line-height: 2.25rem;
-    padding: 0 1.02941rem; }
+    margin-left: .5rem;
+    padding: .625rem 1rem; }
+  .cs-header-menu-logout {
+    padding: .5rem 1rem; }
 
 .cs-breadcrumbs {
   margin-bottom: 1rem;
@@ -648,17 +657,16 @@ textarea:focus {
   .cs-items-list-image:hover .cs-items-bg-image {
     opacity: 1; }
 
-a.cs-items-list-details {
+.cs-items-list-details {
   -ms-flex-wrap: nowrap;
       flex-wrap: nowrap;
   line-height: 2rem;
   padding: .625rem;
-  text-decoration: none;
-  width: 17.1875rem; }
-  a.cs-items-list-details > img {
+  text-decoration: none; }
+  .cs-items-list-details > img {
     height: 3rem;
     width: 3rem; }
-  a.cs-items-list-details > label {
+  .cs-items-list-details > label {
     color: #dc6830;
     cursor: pointer;
     -ms-flex-positive: 1;
@@ -782,8 +790,8 @@ a.cs-items-list-details {
   background-color: #fff;
   border: solid 0.0625rem #c0c0c0;
   border-radius: .3rem;
-  padding: 1.0625rem 2.125rem;
-  width: 20rem; }
+  max-width: 20rem;
+  padding: 1.59375rem; }
 
 .cs-login-signup-form {
   font-size: .9rem;
@@ -808,8 +816,11 @@ a.cs-items-list-details {
 
 .cs-login-signup-call {
   font-size: .9rem;
-  margin: 1rem auto;
-  text-align: center; }
+  margin: -2.5rem auto 0; }
+  .cs-login-signup-call .cs-button-social {
+    margin-bottom: 1rem; }
+    .cs-login-signup-call .cs-button-social:last-child {
+      margin-bottom: 0; }
 
 .cs-sidebar {
   margin-right: .5rem; }
@@ -1050,33 +1061,14 @@ a.cs-items-list-details {
   margin-right: .5rem;
   width: 3rem; }
 
+.cs-details-head .cs-button:not(.cs-button-outline) {
+  border: .0625rem solid transparent; }
+
 .cs-details-body {
   border-bottom: 0.0625rem solid #414141;
   border-top: 0.0625rem solid #414141;
   margin: 1rem 0;
-  padding: 1rem 0; }
-
-.cs-details-head-button {
-  font-size: .75rem;
-  font-weight: normal;
-  height: 1.75rem;
-  line-height: 1.75rem;
-  padding: 0 1rem;
-  text-transform: none; }
-
-.cs-details-head-button-w {
-  background-color: transparent;
-  border: solid 0.0625rem #c0c0c0;
-  color: #000;
-  font-size: .75rem;
-  font-weight: normal;
-  height: 1.75rem;
-  line-height: 1.75rem;
-  padding: 0 1rem;
-  text-transform: none;
-  transition-property: all; }
-  .cs-details-head-button-w:hover {
-    border-color: transparent; }
+  padding: 1.25rem 0 1.5rem; }
 
 .cs-item-details-screenshot {
   max-width: 100%;
@@ -1086,24 +1078,29 @@ a.cs-items-list-details {
   background-color: #fff;
   border: solid 1px #c0c0c0;
   border-radius: .5rem;
-  margin-top: 1rem;
+  margin-top: 1.25rem;
   padding: 1rem; }
 
-.cs-comments-title {
+.cs-comment-login .cs-button-social {
+  margin: 0 1rem 0 0; }
+
+.cs-comments-amount {
+  font-size: 1.5rem;
   margin-bottom: 1rem; }
 
-.cs-comment-avatar > img {
-  border-radius: .5rem;
-  height: 5rem;
-  width: 5rem; }
+.cs-comments-title {
+  font-size: 1.675rem;
+  margin-bottom: 1rem; }
 
 .cs-comment-row {
-  margin-bottom: 3rem; }
+  margin-bottom: 3rem;
+  max-width: 55rem; }
 
 .cs-comment-author {
   margin-bottom: .5rem; }
 
 .cs-comment-image img {
+  border-radius: .5rem;
   height: 5rem;
   width: 5rem; }
 
@@ -1115,23 +1112,63 @@ a.cs-items-list-details {
   color: #c0c0c0;
   margin-left: 1rem; }
 
-.cs-comment-form > h3,
-.cs-comment-form > form {
-  margin-bottom: .5rem; }
-
-.cs-comment-form > form > textarea {
-  display: block;
-  margin-bottom: .5rem; }
+.cs-comment-form {
+  border-bottom: 0.0625rem solid #414141;
+  margin-bottom: 1rem;
+  padding: 0 0 1.25rem; }
+  .cs-comment-form > form {
+    margin-bottom: 0;
+    max-width: 55rem; }
+    .cs-comment-form > form > textarea {
+      display: block;
+      margin-bottom: 1rem; }
 
 .cs-button-sm {
   font-size: .75rem;
-  padding: 0 1rem; }
+  padding: .625rem 1rem; }
 
 .cs-button-large {
-  padding: .325rem 2rem; }
+  padding: 1rem 2rem; }
 
 .cs-button-thin-text {
   font-weight: 600; }
+
+.cs-button-social span {
+  vertical-align: middle; }
+
+.cs-button-social svg {
+  fill: #fff;
+  height: 1.5rem;
+  margin-right: .5rem;
+  vertical-align: middle;
+  width: 1.5rem; }
+
+.cs-button-outline {
+  background: transparent;
+  border: .125rem solid;
+  border-color: #dc6830;
+  transition-property: all; }
+  .cs-button-outline:hover {
+    border-color: transparent; }
+  .cs-button-outline-gray {
+    border-color: #999;
+    border-width: .0625rem;
+    color: #333; }
+
+.cs-button-facebook {
+  background-color: #3c5a99; }
+  .cs-button-facebook:hover {
+    background-color: #354f87; }
+
+.cs-button-github {
+  background-color: #767676; }
+  .cs-button-github:hover {
+    background-color: dimgray; }
+
+.cs-button-google {
+  background-color: #d34935; }
+  .cs-button-google:hover {
+    background-color: #c43e2b; }
 
 .cs-header-logo-inline div {
   margin-left: .25rem; }
@@ -1154,5 +1191,15 @@ a.cs-items-list-details {
 .cs-items-list-theme .cs-items-list-item {
   -ms-flex: 1 0 20rem;
       flex: 1 0 20rem; }
+
+.cs-pagination {
+  background-color: #fff;
+  border: solid 0.0625rem #c0c0c0;
+  border-radius: .25rem;
+  margin-left: 1.25rem;
+  margin-top: .5rem;
+  padding: .625rem; }
+  .cs-pagination li {
+    margin-right: .5rem; }
 
 /*# sourceMappingURL=style.css.map */
