@@ -4,7 +4,11 @@
             <img src='<?= $icon ?>'/>
         <?php } ?>
         <h1><?= $name ?></h1>
-        <div>by <?= $author ?></div>
+        <div>
+            <?php if ($author != "" && $author != "none") { ?>
+                by <?= $author ?>
+            <?php } ?>
+        </div>
     </div>
     <div class="cs-flex cs-flex-center">
         <?php if ($this->session->userdata('oauth')) { ?>
