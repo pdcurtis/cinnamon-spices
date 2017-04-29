@@ -44,7 +44,7 @@ if (isset($themes) && $themes->num_rows > 0) {
                 <div class="cs-items-list-info-bar">
                     <a href="/files/themes/<?= $theme->uuid ?>.zip" class="cs-button cs-button-sm">Download</a>
                     <span>
-                        <svg><use xlink:href="resources/icons/sprite.svg#cs-star"></use></svg>
+                        <svg><use xlink:href="/resources/icons/sprite.svg#cs-star"></use></svg>
                         <?= $theme->score ?>
                     </span>
                     <!--span>
@@ -52,7 +52,7 @@ if (isset($themes) && $themes->num_rows > 0) {
                         123
                     </span-->
                     <span title="<?= $time_actual ?>">
-                        <svg><use xlink:href="resources/icons/sprite.svg#cs-update"></use></svg>
+                        <svg><use xlink:href="/resources/icons/sprite.svg#cs-update"></use></svg>
                         <?= $time_span ?>
                     </span>
                 </div>
