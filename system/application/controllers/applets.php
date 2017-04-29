@@ -22,16 +22,14 @@ class Applets extends Controller{
 	}
 
 	function latest() {
-		$this->db->order_by('last_edited DESC, name ASC');
-
         $this->load->library('pagination');
 
         $config['base_url'] = '/applets/latest';
         $config['total_rows'] = $this->db->get('newapplets')->num_rows();;
         $config['per_page'] = 30;
-        
-        $this->pagination->initialize($config);
 
+        $this->pagination->initialize($config);
+        $this->db->order_by('last_edited DESC, name ASC');
         $data['items'] = $this->db->get('newapplets', $config['per_page'], $this->uri->segment(3));
         $data['mode'] = 'latest';
 
@@ -41,16 +39,14 @@ class Applets extends Controller{
 	}
 
 	function popular() {
-		$this->db->order_by('score DESC, name ASC');
-
         $this->load->library('pagination');
 
         $config['base_url'] = '/applets/popular';
         $config['total_rows'] = $this->db->get('newapplets')->num_rows();
         $config['per_page'] = 30;
-        
-        $this->pagination->initialize($config);
 
+        $this->pagination->initialize($config);
+        $this->db->order_by('score DESC, name ASC');
         $data['items'] = $this->db->get('newapplets', $config['per_page'], $this->uri->segment(3));
         $data['mode'] = 'popular';
 
@@ -70,14 +66,6 @@ class Applets extends Controller{
             $this->db->where('newapplets_comments.uuid', $data['uuid']);
             $this->db->order_by('timestamp DESC');
             $data['comments'] = $this->db->get('newapplets_comments');
-
-            $this->db->select('count(newapplets_ratings.id) AS score');
-            $this->db->where('newapplets_ratings.uuid', $data['uuid']);
-            $ratings_res = $this->db->get('newapplets_ratings');
-            if($ratings_res->num_rows() == 1) {
-                $ratings_data = $ratings_res->row_array();
-                $data['score'] = $ratings_data['score'];
-            }
 
             $data['liked'] = false;
             if ($this->session->userdata('oauth')) {
@@ -131,6 +119,18 @@ class Applets extends Controller{
 		// fclose($fp);
 	}
 
+    function _update_score($id, $uuid) {
+        // Calculate the score
+        $this->db->where('uuid', $uuid);
+        $this->db->where('FROM_UNIXTIME(timestamp) >= DATE_SUB(NOW(), INTERVAL 1 MONTH)');
+        $score = $this->db->get('newapplets_ratings')->num_rows();
+        // Update the score field
+        $id = intval($id);
+        $this->db->where('id', $id);
+        $this->db->set('score', $score);
+        $this->db->update('newapplets');
+    }
+
 	function rate($id) {
 		$id = intval($id);
         $this->db->where('id', $id);
@@ -158,6 +158,7 @@ class Applets extends Controller{
                     $this->db->set('user_avatar',$this->session->userdata('avatar'));
                     $this->db->set('timestamp', now());
                     $this->db->insert('newapplets_ratings');
+                    $this->_update_score($id, $data['uuid']);
                 }
             }
         }
@@ -184,3 +185,4 @@ class Applets extends Controller{
 	}
 
 }
+

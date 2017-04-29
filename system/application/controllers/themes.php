@@ -26,8 +26,6 @@ class Themes extends Controller{
 	}
 
 	function popular() {
-        $this->db->order_by('score DESC, name ASC');
-
         $this->load->library('pagination');
 
         $config['base_url'] = '/themes/popular';
@@ -35,7 +33,7 @@ class Themes extends Controller{
         $config['per_page'] = 20;
 
         $this->pagination->initialize($config);
-
+        $this->db->order_by('score DESC, name ASC');
         $data['themes'] = $this->db->get('newthemes', $config['per_page'], $this->uri->segment(3));
 
 		$data['mode'] = 'popular';
@@ -48,8 +46,6 @@ class Themes extends Controller{
 
 	function latest()
 	{
-		$this->db->order_by('last_edited DESC, name ASC');
-
         $this->load->library('pagination');
 
         $config['base_url'] = '/themes/latest';
@@ -57,7 +53,7 @@ class Themes extends Controller{
         $config['per_page'] = 20;
 
         $this->pagination->initialize($config);
-
+        $this->db->order_by('last_edited DESC, name ASC');
         $data['themes'] = $this->db->get('newthemes', $config['per_page'], $this->uri->segment(3));
 		$data['mode'] = 'latest';
 
@@ -77,14 +73,6 @@ class Themes extends Controller{
 			$this->db->where('newthemes_comments.uuid', $id);
 			$this->db->order_by('timestamp DESC');
 			$data['comments'] = $this->db->get('newthemes_comments');
-
-            $this->db->select('count(newthemes_ratings.id) AS score');
-            $this->db->where('newthemes_ratings.uuid', $data['uuid']);
-            $ratings_res = $this->db->get('newthemes_ratings');
-            if($ratings_res->num_rows() == 1) {
-                $ratings_data = $ratings_res->row_array();
-                $data['score'] = $ratings_data['score'];
-            }
 
             $data['liked'] = false;
             if ($this->session->userdata('oauth')) {
@@ -136,6 +124,18 @@ class Themes extends Controller{
 		// fclose($fp);
 	}
 
+    function _update_score($id, $uuid) {
+        // Calculate the score
+        $this->db->where('uuid', $uuid);
+        $this->db->where('FROM_UNIXTIME(timestamp) >= DATE_SUB(NOW(), INTERVAL 1 MONTH)');
+        $score = $this->db->get('newthemes_ratings')->num_rows();
+        // Update the score field
+        $id = intval($id);
+        $this->db->where('id', $id);
+        $this->db->set('score', $score);
+        $this->db->update('newthemes');
+    }
+
     function rate($uuid) {
         $this->db->where('uuid', $uuid);
         $records = $this->db->get('newthemes');
@@ -162,6 +162,7 @@ class Themes extends Controller{
                     $this->db->set('user_avatar',$this->session->userdata('avatar'));
                     $this->db->set('timestamp', now());
                     $this->db->insert('newthemes_ratings');
+                    $this->_update_score($id, $data['uuid']);
                 }
             }
         }
