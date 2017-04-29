@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/style.css?<?= time() ?>">
     <script src="/oauth.js" type="text/javascript"></script>
 </head>
-<body>
+<body class="cs-flex-column">
 
 <div class="cs-jumbotron cs-jumbotron-small">
     <div class="cs-header cs-flex-row">
