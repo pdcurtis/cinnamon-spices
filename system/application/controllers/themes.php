@@ -131,7 +131,7 @@ class Themes extends Controller{
         $score = $this->db->get('newthemes_ratings')->num_rows();
         // Update the score field
         $id = intval($id);
-        $this->db->where('id', $id);
+        $this->db->where('uuid', $uuid);
         $this->db->set('score', $score);
         $this->db->update('newthemes');
     }
