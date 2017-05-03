@@ -178,6 +178,7 @@ class Applets extends Controller{
                 $this->db->set('user_avatar',$this->session->userdata('avatar'));
                 $this->db->set('timestamp', now());
                 $this->db->set('message', $_POST['body']);
+                $this->db->set('parent_id', $_POST['parent_id']);
                 $this->db->insert('newapplets_comments');
             }
         }
@@ -185,4 +186,3 @@ class Applets extends Controller{
 	}
 
 }
-
