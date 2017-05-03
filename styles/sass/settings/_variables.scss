@@ -1,0 +1,69 @@
+// GLOBAL Variabels
+$global-padding: 1.0625rem;
+$global-max-width: 70rem;
+
+// Button
+$button-bg-color: $primary-color;
+$button-bg-hover: darken($primary-color, 5%);
+$button-text-color: $color-white;
+
+// Links
+$links-main-color: $primary-color;
+$links-main-hover: $primary-color-darker;
+$links-alt-color: $color-white;
+$links-alt-hover: $primary-color;
+
+// Header
+$header-color: $color-white;
+$header-padding-vertical: ($global-padding * 1.25);
+$header-height: 2.25rem;
+$header-subtitle-color: $color-off-white-2;
+$header-link-separation-between: 1.75rem;
+$header-signup-horizontal-padding: $header-link-separation-between / 1.7;
+$header-link-active-color: $primary-color-dark;
+
+// Jumbotron
+$landing-jumbotron-height: 28.125rem;
+$intro-text-color: #d09f85;
+
+// Content Filter
+$filter-link-color: #161616;
+$filter-link-hover-color: #161616;
+$filter-active-link-border-bottom-color: #646464;
+
+// Item Card
+$item-title-color: $primary-color;
+
+// Main Sidebar
+$sidebar-link-color: #161616;
+$sidebar-link-hover-color: $color-black;
+$sidebar-title-color: #858585;
+$sidebar-gradient-a: #fbfbfb;
+$sidebar-gradient-b: #f7f7f7;
+$sidebar-gradient-c: #f1f1f1;
+$sidebar-gradient-d: #e7e7e7;
+$sidebar-gradient-e: #e1e1e1;
+
+// Main Wrap
+$main-background-color: $color-off-white-1;
+$main-color: $color-black;
+
+// Addons
+$addons-icon-fill: $color-white;
+$addons-item-content-color: $color-silver-2;
+$addons-item-icon-background: $primary-color;
+
+// Spotlight
+$spotlight-background-color: $color-yellow;
+$spotlight-header-color: $primary-color-dark;
+$spotlight-item-header-color: $primary-color;
+$spotlight-item-description-color: $color-silver-3;
+$spotlight-item-publish-color: $color-silver-2;
+
+// Comments
+$comment-date-color: $color-silver;
+
+
+// Footer
+$footer-bg-color: $color-black;
+$footer-bg-fact: $primary-color;

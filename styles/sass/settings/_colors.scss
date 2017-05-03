@@ -1,0 +1,39 @@
+// Primary Colors
+$primary-color: #dc6830;
+$primary-color-dark: #dc682f;
+$primary-color-darker: darken($primary-color, 7.5%);
+$primary-color-light: lighten($primary-color, 3%);
+
+// Brand Colors
+$brand-color-darker: #372318;
+$brand-color-dark: #843f18;
+
+$brand-facebook: #3c5a99;
+$brand-google: #d34935;
+$brand-github: #767676;
+
+$lm-brand-color: #73bb3d;
+
+// General Colors
+$color-white: #fff;
+$color-off-white-1: #f4f4f4;
+$color-off-white-2: #fdfdfd;
+$color-off-white-3: #6d7986;
+$color-off-white-4: #fcfcfc;
+$color-almost-white: #f8f8f8;
+
+$color-silver: #c0c0c0;
+$color-silver-1: darken($color-silver, 5%);
+$color-silver-2: #6d7986;
+$color-silver-3: darken($color-silver, 50%);
+
+$color-gray-1: #333;
+$color-gray-2: #999;
+$color-gray-3: #414141;
+
+$color-yellow: #faf6ec;
+
+$color-black: #000;
+$color-light-black: #090909;
+
+$color-error: #f40000;

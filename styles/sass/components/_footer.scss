@@ -1,0 +1,107 @@
+.cs-footer {
+    background-color: $footer-bg-color;
+}
+
+.cs-footer-fact {
+    background-color: $footer-bg-fact;
+    padding: $header-padding-vertical * 2;
+    text-align: center;
+
+    h4 {
+        color: $color-white;
+        font-family: $font-merriweather;
+        font-size: 1.65rem;
+        letter-spacing: .046875rem;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+}
+
+.cs-footer-downloads,
+.cs-footer-navigation {
+    background-color: $color-light-black;
+}
+
+.cs-footer-navigation {
+    .cs-main-wrap {
+        justify-content: space-between;
+    }
+}
+
+.cs-footer-download-card {
+    font-family: $font-open-sans;
+    font-weight: 300;
+    margin: 0 auto;
+    padding: ($global-padding * 2) 0 $global-padding;
+}
+
+.cs-footer-download-item {
+    margin: $global-padding 0;
+    text-align: center;
+
+    h4 {
+        color: $color-white;
+        font-weight: 100;
+        margin: 0 0 ($global-padding / 2);
+    }
+
+    span {
+        color: $primary-color;
+        font-size: 1rem;
+        font-weight: normal;
+    }
+
+    svg {
+        fill: $primary-color;
+    }
+}
+
+.cs-footer-sub-navigation {
+    font-size: .75rem;
+
+    .active {
+        color: $primary-color;
+        cursor: default;
+    }
+
+    a {
+        color: $links-alt-color;
+        font-weight: bold;
+    }
+
+    li {
+        padding-left: .875rem;
+
+        &:first-child {
+            padding-left: 0;
+        }
+    }
+}
+
+.cs-footer-copyright {
+    color: $color-off-white-3;
+    font-size: .75rem;
+    justify-content: space-between;
+    padding: .5rem 1rem;
+
+    .cs-sponsor {
+        a {
+            display: inline-block;
+            float: right;
+            font-size: 1rem;
+            margin-left: .25rem;
+            margin-top: -.1675rem;
+
+            &:hover,
+            &:active {
+                color: $lm-brand-color;
+            }
+        }
+    }
+
+    @media (min-width: 72rem) {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

@@ -1,0 +1,21 @@
+@import '../settings/__index';
+
+html,
+body {
+    background-color: $main-background-color;
+}
+
+body {
+    min-height: 100vh;
+    //overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: $font-open-sans;
+}
+
+img {
+    max-width: 100%;
+}

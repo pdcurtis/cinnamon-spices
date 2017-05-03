@@ -1,0 +1,63 @@
+.cs-comment-login {
+    .cs-button-social {
+        margin: 0 1rem 0 0;
+    }
+}
+
+.cs-comments-amount {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.cs-comments-title {
+    font-size: 1.675rem;
+    margin-bottom: 1rem;
+}
+
+.cs-comment-row {
+    margin-bottom: 3rem;
+    max-width:  55rem;
+
+    // Setting a max-width to the comments might improve readability
+    // margin-left: auto;
+    // margin-right: auto;
+
+}
+
+.cs-comment-author {
+    margin-bottom: .5rem;
+}
+
+.cs-comment-image {
+    img {
+        border-radius: .5rem;
+        height: 5rem;
+        width: 5rem;
+    }
+}
+
+.cs-comment-author-name {
+    font-weight: bold;
+    margin-right: 1rem;
+}
+
+.cs-comment-date {
+    color: $comment-date-color;
+    margin-left: 1rem;
+}
+
+.cs-comment-form {
+    border-bottom: .0625rem solid $color-gray-3;
+    margin-bottom: 1rem;
+    padding: 0 0 1.25rem;
+
+    & > form {
+        margin-bottom: 0;
+        max-width: 55rem;
+
+        & > textarea {
+            display: block;
+            margin-bottom: 1rem;
+        }
+    }
+}

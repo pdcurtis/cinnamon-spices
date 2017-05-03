@@ -1,0 +1,10 @@
+.cs-no-flex-container {
+    margin: 0 auto;
+    max-width: $global-max-width;
+
+    &::after {
+        clear: both;
+        content: '';
+        display: table;
+    }
+}

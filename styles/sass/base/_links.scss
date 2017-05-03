@@ -1,0 +1,25 @@
+// The linter makes me cry when it comes to this one.
+// -darryn
+
+a {
+    transition: .1s ease-in-out;
+
+    &:not(.cs-button) {
+        color: $links-main-color;
+        text-decoration: none;
+
+        &:hover,
+        &:active {
+            color: $links-main-hover;
+        }
+
+        &.cs-link-alternate {
+            color: $links-alt-color;
+
+            &:hover,
+            &:active {
+                color: $links-alt-hover;
+            }
+        }
+    }
+}

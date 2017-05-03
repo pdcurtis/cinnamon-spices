@@ -1,0 +1,32 @@
+.cs-profile {
+    max-width: $global-max-width / 1.5;
+
+    label {
+        font-weight: bold;
+    }
+}
+
+.cs-profile-avatar {
+    background: center no-repeat;
+    background-size: cover;
+    border-radius: 4rem;
+    height: 8rem;
+    margin: 0 0 1rem;
+    width: 8rem;
+}
+
+.cs-profile-form,
+.cs-profile-view {
+    margin-top: 1rem;
+
+    button {
+        margin-top: .5rem;
+    }
+
+    .cs-sidebar {
+        img {
+            margin-right: .25rem;
+            max-height: 1rem;
+        }
+    }
+}
