@@ -66,32 +66,50 @@ class Extensions extends Controller
         $id = intval($id);
         $this->db->where('id', $id);
         $records = $this->db->get('newextensions');
-        if ($records->num_rows() > 0) {
+
+        $this->load->library('comments');
+
+        $auth = false;
+
+        if ($records->num_rows() > 0)
+        {
             $data = $records->row_array();
 
-            $this->db->select('newextensions_comments.*');
-            $this->db->where('newextensions_comments.uuid', $data['uuid']);
-            $this->db->order_by('timestamp DESC');
-            $data['comments'] = $this->db->get('newextensions_comments');
-
             $data['liked'] = false;
-            if ($this->session->userdata('oauth')) {
+            if ($this->session->userdata('oauth'))
+            {
+                $auth = true;
+
                 $this->db->select('count(newextensions_ratings.id) AS liked');
                 $this->db->where('newextensions_ratings.uuid', $data['uuid']);
                 $this->db->where('newextensions_ratings.user_link', $this->session->userdata('link'));
                 $ratings_res = $this->db->get('newextensions_ratings');
-                if($ratings_res->num_rows() == 1) {
+                if($ratings_res->num_rows() == 1)
+                {
                     $ratings_data = $ratings_res->row_array();
-                    if($ratings_data['liked'] > 0) {
+                    if($ratings_data['liked'] > 0)
+                    {
                         $data['liked'] = true;
                     }
                 }
             }
 
+            $this->db->select('newextensions_comments.*');
+            $this->db->where('newextensions_comments.uuid', $data['uuid']);
+            $this->db->order_by('timestamp DESC');
+            $comments = $this->db->get('newextensions_comments');
+
+            $count = $comments->num_rows;
+            $comments = $comments->result_object();
+
+            $data['count'] = $count;
+            $data['comments'] = $this->comments->arrange($comments, $auth);
+
             $this->load->view('header_short');
             $this->load->view('extension', $data);
             $this->load->view('footer');
-        } else {
+        }
+        else {
             $data["error"] = "Not found";
             $data["details"] = "This extension does not exist.";
             $this->load->view("header_short");
@@ -126,7 +144,8 @@ class Extensions extends Controller
         // fclose($fp);
     }
 
-    function _update_score($id, $uuid) {
+    function _update_score($id, $uuid)
+    {
         // Calculate the score
         $this->db->where('uuid', $uuid);
         $this->db->where('FROM_UNIXTIME(timestamp) >= DATE_SUB(NOW(), INTERVAL 1 MONTH)');
@@ -143,23 +162,29 @@ class Extensions extends Controller
         $id = intval($id);
         $this->db->where('id', $id);
         $records = $this->db->get('newextensions');
-        if ($records->num_rows() > 0) {
+        if ($records->num_rows() > 0)
+        {
             $data = $records->row_array();
-            if ($this->session->userdata('oauth')) {
+            if ($this->session->userdata('oauth'))
+            {
                 $liked = false;
-                if ($this->session->userdata('oauth')) {
+                if ($this->session->userdata('oauth'))
+                {
                     $this->db->select('count(newextensions_ratings.id) AS liked');
                     $this->db->where('newextensions_ratings.uuid', $data['uuid']);
                     $this->db->where('newextensions_ratings.user_link', $this->session->userdata('link'));
                     $ratings_res = $this->db->get('newextensions_ratings');
-                    if($ratings_res->num_rows() == 1) {
+                    if($ratings_res->num_rows() == 1)
+                    {
                         $ratings_data = $ratings_res->row_array();
-                        if($ratings_data['liked'] > 0) {
+                        if($ratings_data['liked'] > 0)
+                        {
                             $liked = true;
                         }
                     }
                 }
-                if(!$liked) {
+                if(!$liked)
+                {
                     $this->db->set('uuid', $data['uuid']);
                     $this->db->set('user_full_name',$this->session->userdata('name'));
                     $this->db->set('user_link',$this->session->userdata('link'));
@@ -176,10 +201,12 @@ class Extensions extends Controller
     function comment($id)
     {
         $id = intval($id);
-        if ($this->session->userdata('oauth') && isset($_POST['body']) && !empty($_POST['body'])) {
+        if ($this->session->userdata('oauth') && isset($_POST['body']) && !empty($_POST['body']))
+        {
             $this->db->where('newextensions.id', $id);
             $records = $this->db->get('newextensions');
-            if ($records->num_rows() > 0) {
+            if ($records->num_rows() > 0)
+            {
                 $data = $records->row_array();
                 $this->db->set('uuid', $data['uuid']);
                 $this->db->set('user_full_name', $this->session->userdata('name'));
