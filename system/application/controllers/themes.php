@@ -7,6 +7,9 @@
  * @property CI_DB_active_record $db
  * @property DX_Auth             $dx_auth
  * @property CI_Session          $session
+ * @property CI_Pagination       $pagination
+ * @property Comments            $comments
+ * @property CI_URI              $uri
  */
 class Themes extends Controller{
 
@@ -124,13 +127,14 @@ class Themes extends Controller{
 		// fclose($fp);
 	}
 
-    function _update_score($id, $uuid) {
+    function _update_score($uuid)
+    {
         // Calculate the score
         $this->db->where('uuid', $uuid);
         $this->db->where('FROM_UNIXTIME(timestamp) >= DATE_SUB(NOW(), INTERVAL 1 MONTH)');
         $score = $this->db->get('newthemes_ratings')->num_rows();
         // Update the score field
-        $id = intval($id);
+        // $id = intval($id);
         $this->db->where('uuid', $uuid);
         $this->db->set('score', $score);
         $this->db->update('newthemes');
@@ -162,7 +166,7 @@ class Themes extends Controller{
                     $this->db->set('user_avatar',$this->session->userdata('avatar'));
                     $this->db->set('timestamp', now());
                     $this->db->insert('newthemes_ratings');
-                    $this->_update_score($id, $data['uuid']);
+                    $this->_update_score($uuid);
                 }
             }
         }
