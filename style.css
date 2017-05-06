@@ -1085,24 +1085,40 @@ textarea:focus {
   margin: 0 1rem 0 0; }
 
 .cs-comments-amount {
-  font-size: 1.5rem;
-  margin-bottom: 1rem; }
+  font-size: 1.5rem; }
 
 .cs-comments-title {
   font-size: 1.675rem;
   margin-bottom: 1rem; }
 
-.cs-comment-row {
-  margin-bottom: 3rem;
+.cs-comment {
+  margin-top: 1rem;
+  padding: 1rem 0; }
+
+.cs-comment-parent {
   max-width: 55rem; }
+  .cs-comment-parent:first-child .cs-comment {
+    margin-top: .5rem; }
+  .cs-comment-parent:last-child {
+    margin-bottom: 2rem; }
+
+.cs-comment-child {
+  border-left: 0.25rem solid #c0c0c0;
+  padding-left: 2rem; }
+  .cs-comment-child .cs-comment-child {
+    border-color: #ddd; }
+
+.cs-comment-no-indent {
+  border-left: 0;
+  padding-left: 0; }
 
 .cs-comment-author {
   margin-bottom: .5rem; }
 
 .cs-comment-image img {
   border-radius: .5rem;
-  height: 5rem;
-  width: 5rem; }
+  height: 4rem;
+  width: 4rem; }
 
 .cs-comment-author-name {
   font-weight: bold;

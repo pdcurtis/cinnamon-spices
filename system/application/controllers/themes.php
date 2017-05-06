@@ -99,7 +99,7 @@ class Themes extends Controller
 
             $this->db->select('newthemes_comments.*');
 			$this->db->where('newthemes_comments.uuid', $id);
-			$this->db->order_by('timestamp ASC');
+			$this->db->order_by('timestamp DESC');
             $comments = $this->db->get('newthemes_comments');
 
             $count = $comments->num_rows;
