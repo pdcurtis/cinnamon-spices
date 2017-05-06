@@ -30,8 +30,8 @@ if (isset($themes) && $themes->num_rows > 0) {
         foreach ($themes->result() as $theme) {
 
             $themePreviewUrl = "/git/themes/".$theme->uuid."/screenshot.png";
-            if(file_exists($wwwroot.'/uploads/themes/preview/'.$theme->uuid.'.png')) {
-                $themePreviewUrl = '/uploads/themes/preview/'.$theme->uuid.'.png';
+            if(file_exists($wwwroot.'/uploads/themes/preview/'.$theme->uuid.'.jpg')) {
+                $themePreviewUrl = '/uploads/themes/preview/'.$theme->uuid.'.jpg';
             } else if(file_exists($wwwroot.'/uploads/themes/thumbs/'.$theme->uuid.'.png')) {
                 $themePreviewUrl = '/uploads/themes/thumbs/'.$theme->uuid.'.png';
             }
