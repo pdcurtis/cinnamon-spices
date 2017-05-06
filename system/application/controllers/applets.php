@@ -6,11 +6,14 @@
  * @property CI_DB_active_record $db
  * @property DX_Auth             $dx_auth
  * @property CI_Session          $session
+ * @property CI_Pagination       $pagination
+ * @property Comments            $comments
+ * @property CI_URI              $uri
  */
 class Applets extends Controller
 {
 
-	function Applets()
+	function __construct()
     {
 		parent::Controller();
 		$this->load->helper('url');

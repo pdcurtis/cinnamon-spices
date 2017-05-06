@@ -6,11 +6,14 @@
  * @property CI_DB_active_record $db
  * @property DX_Auth $dx_auth
  * @property CI_Session $session
+ * @property CI_Pagination       $pagination
+ * @property Comments            $comments
+ * @property CI_URI              $uri
  */
 class Desklets extends Controller
 {
 
-    function Desklets()
+    function __construct()
     {
         parent::Controller();
         $this->load->helper('url');
@@ -218,14 +221,6 @@ class Desklets extends Controller
                 $this->db->insert('newdesklets_comments');
             }
         }
-
-//		if ($this->dx_auth->is_logged_in()) {
-//			$this->db->set('user', $this->dx_auth->get_user_id());
-//			$this->db->set('desklet', $id);
-//			$this->db->set('timestamp', now());
-//			$this->db->set('body', $_POST['body']);
-//			$this->db->insert('desklets_comments');
-//		}
         redirect("/desklets/view/$id", "location");
     }
 

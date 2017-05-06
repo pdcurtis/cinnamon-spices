@@ -7,11 +7,14 @@
  * @property CI_DB_active_record $db
  * @property DX_Auth $dx_auth
  * @property CI_Session $session
+ * @property CI_Pagination       $pagination
+ * @property Comments            $comments
+ * @property CI_URI              $uri
  */
 class Extensions extends Controller
 {
 
-    function Extensions()
+    function __construct()
     {
         parent::Controller();
         $this->load->helper('url');
@@ -157,7 +160,7 @@ class Extensions extends Controller
         $this->db->update('newextensions');
     }
 
-    function rate($id, $rating)
+    function rate($id)
     {
         $id = intval($id);
         $this->db->where('id', $id);
