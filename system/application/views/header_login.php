@@ -3,7 +3,6 @@
 <head>
     <title>Cinnamon Spices</title>
     <link rel="stylesheet" href="/style.css?<?= time() ?>">
-    <script src="/oauth.js" type="text/javascript"></script>
 </head>
 <body class="cs-flex-column">
 
