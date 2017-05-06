@@ -1,8 +1,8 @@
 <!-- START comments-box -->
-<div class="cs-comment-box">
+<div id="comment-box" class="cs-comment-box">
     <?php if ($this->session->userdata('oauth')) { ?>
         <h2 class="cs-comments-title">Leave A Comment</h2>
-        <div id="comment-form" class="cs-comment-form">
+        <div class="cs-comment-form">
             <?= form_open("$type/comment/$id") ?>
             <textarea name="body" style="width:100%" rows="5" placeholder="comment here....."></textarea>
             <input name="parent_id" value="0" id="parent_id" style="display: none;"/>
