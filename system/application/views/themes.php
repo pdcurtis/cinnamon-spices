@@ -1,3 +1,6 @@
+<?php
+$wwwroot = realpath(BASEPATH.'/../');
+?>
 <div class="cs-content-filter">
     <ul>
         <!--        <li class="active">-->
@@ -26,6 +29,13 @@ if (isset($themes) && $themes->num_rows > 0) {
 
         foreach ($themes->result() as $theme) {
 
+            $themePreviewUrl = "/git/themes/".$theme->uuid."/screenshot.png";
+            if(file_exists($wwwroot.'/uploads/themes/preview/'.$theme->uuid.'.jpg')) {
+                $themePreviewUrl = '/uploads/themes/preview/'.$theme->uuid.'.jpg';
+            } else if(file_exists($wwwroot.'/uploads/themes/thumbs/'.$theme->uuid.'.png')) {
+                $themePreviewUrl = '/uploads/themes/thumbs/'.$theme->uuid.'.png';
+            }
+
             $array = preg_split("/,/", timespan($theme->last_edited, time()));
             $time_span = strtolower($array[0]) . " ago";
             $time_actual = date("Y-m-d, H:i", $theme->last_edited);
@@ -38,7 +48,7 @@ if (isset($themes) && $themes->num_rows > 0) {
                             <div class="cs-items-list-title"><?= $theme->name ?></div>
                         </div>
                         <div class="cs-items-bg-image"
-                             style="background-image: url(/git/themes/<?= $theme->uuid ?>/screenshot.png"></div>
+                             style="background-image: url(<?= $themePreviewUrl ?>)"></div>
                     </div>
                 </a>
                 <div class="cs-items-list-info-bar">
@@ -66,4 +76,3 @@ if (isset($themes) && $themes->num_rows > 0) {
     echo $this->pagination->create_links();
 
 }
-?>
