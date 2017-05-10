@@ -6,4 +6,9 @@ module.exports = {
         src_watch: 'styles/sass/**/*.scss',
         dist: './'
     },
+
+    js: {
+        src: 'js/**/*.js',
+        dest: './'
+    }
 }
