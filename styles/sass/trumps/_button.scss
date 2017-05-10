@@ -11,6 +11,14 @@
     font-weight: 600;
 }
 
+.cs-button-cancel {
+    background-color: $button-cancel-bg;
+
+    &:hover {
+        background-color: darken($button-cancel-bg, 10%);
+    }
+}
+
 .cs-button-social {
     span {
         vertical-align: middle;

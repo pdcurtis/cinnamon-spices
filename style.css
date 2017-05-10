@@ -1067,7 +1067,7 @@ textarea:focus {
 .cs-details-body {
   border-bottom: 0.0625rem solid #414141;
   border-top: 0.0625rem solid #414141;
-  margin: 1rem 0;
+  margin: 1rem 0 0;
   padding: 1.25rem 0 1.5rem; }
 
 .cs-item-details-screenshot {
@@ -1089,7 +1089,7 @@ textarea:focus {
 
 .cs-comments-title {
   font-size: 1.675rem;
-  margin-bottom: 1rem; }
+  padding: 1.25rem 0; }
 
 .cs-comment {
   margin-top: 1rem;
@@ -1148,6 +1148,11 @@ textarea:focus {
 
 .cs-button-thin-text {
   font-weight: 600; }
+
+.cs-button-cancel {
+  background-color: #bbb; }
+  .cs-button-cancel:hover {
+    background-color: #a2a2a2; }
 
 .cs-button-social span {
   vertical-align: middle; }

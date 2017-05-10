@@ -10,7 +10,7 @@
 
 .cs-comments-title {
     font-size: 1.675rem;
-    margin-bottom: 1rem;
+    padding: 1.25rem 0;
 }
 
 .cs-comment {
@@ -33,11 +33,11 @@
 }
 
 .cs-comment-child {
-    border-left: .25rem solid $color-silver;
+    border-left: .25rem solid $comment-child-border;
     padding-left: 2rem;
 
     .cs-comment-child {
-        border-color: $color-gray-4;
+        border-color: $comment-child-child-border;
     }
 }
 

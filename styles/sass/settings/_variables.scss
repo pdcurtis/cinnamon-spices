@@ -6,6 +6,7 @@ $global-max-width: 70rem;
 $button-bg-color: $primary-color;
 $button-bg-hover: darken($primary-color, 5%);
 $button-text-color: $color-white;
+$button-cancel-bg: $color-gray-5;
 
 // Links
 $links-main-color: $primary-color;
@@ -62,7 +63,8 @@ $spotlight-item-publish-color: $color-silver-2;
 
 // Comments
 $comment-date-color: $color-silver;
-
+$comment-child-border: $color-silver;
+$comment-child-child-border: $color-gray-4;
 
 // Footer
 $footer-bg-color: $color-black;
