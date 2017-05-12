@@ -1,0 +1,75 @@
+.cs-button-sm {
+    font-size: .75rem;
+    padding: .625rem 1rem;
+}
+
+.cs-button-large {
+    padding: 1rem 2rem;
+}
+
+.cs-button-thin-text {
+    font-weight: 600;
+}
+
+.cs-button-cancel {
+    background-color: $button-cancel-bg;
+
+    &:hover {
+        background-color: darken($button-cancel-bg, 10%);
+    }
+}
+
+.cs-button-social {
+    span {
+        vertical-align: middle;
+    }
+
+    svg {
+        fill: $color-white;
+        height: 1.5rem;
+        margin-right: .5rem;
+        vertical-align: middle;
+        width: 1.5rem;
+    }
+}
+
+.cs-button-outline {
+    background: transparent;
+    border: .125rem solid;
+    border-color: $primary-color;
+    transition-property: all;
+
+    &:hover {
+        border-color: transparent;
+    }
+
+    &-gray {
+        border-color: $color-gray-2;
+        border-width: .0625rem;
+        color: $color-gray-1;
+    }
+}
+
+.cs-button-facebook {
+    background-color: $brand-facebook;
+
+    &:hover {
+        background-color: darken($brand-facebook, 5%);
+    }
+}
+
+.cs-button-github {
+    background-color: $brand-github;
+
+    &:hover {
+        background-color: darken($brand-github, 5%);
+    }
+}
+
+.cs-button-google {
+    background-color: $brand-google;
+
+    &:hover {
+        background-color: darken($brand-google, 5%);
+    }
+}

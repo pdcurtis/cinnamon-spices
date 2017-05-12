@@ -15,7 +15,7 @@ class Auth extends Controller
 	var $min_password = 4;
 	var $max_password = 20;
 
-	function Auth()
+	function __construct()
 	{
 		parent::Controller();
 
@@ -42,6 +42,7 @@ class Auth extends Controller
             redirect('/auth/success');
         }
 
+        /** @var array $ocnf */
         $ocnf = $this->config->item('oauth');
 		$clientid = $ocnf['facebook']['client_id'];
         $client_secret = $ocnf['facebook']['client_secret'];
@@ -91,7 +92,7 @@ class Auth extends Controller
         if($this->session->userdata('oauth')) {
             redirect('/auth/success');
         }
-
+        /** @var array $ocnf */
         $ocnf = $this->config->item('oauth');
 		$clientid = $ocnf['google']['client_id'];
         $client_secret = $ocnf['google']['client_secret'];
@@ -159,7 +160,7 @@ class Auth extends Controller
         if($this->session->userdata('oauth')) {
             redirect('/auth/success');
         }
-
+        /** @var array $ocnf */
         $ocnf = $this->config->item('oauth');
         $clientid = $ocnf['github']['client_id'];
         $client_secret = $ocnf['github']['client_secret'];
@@ -231,7 +232,7 @@ class Auth extends Controller
     {
         echo "
 <script>
-if(window.name=='CinnamonSpicesOAuthLoginWindow'){
+if(window.name==='CinnamonSpicesOAuthLoginWindow'){
     window.opener.location.reload();
     window.close();
 }

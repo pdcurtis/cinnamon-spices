@@ -11,9 +11,11 @@
  * @property Comments            $comments
  * @property CI_URI              $uri
  */
-class Themes extends Controller{
+class Themes extends Controller
+{
 
-	function Themes() {
+	function __construct()
+    {
 		parent::Controller();
 		$this->load->helper('url');
 		$this->load->helper('form');
@@ -24,11 +26,13 @@ class Themes extends Controller{
 		ini_set('display_errors', '1');
 	}
 
-	function index() {
+	function index()
+    {
 		$this->popular();
 	}
 
-	function popular() {
+	function popular()
+    {
         $this->load->library('pagination');
 
         $config['base_url'] = '/themes/popular';
@@ -38,9 +42,7 @@ class Themes extends Controller{
         $this->pagination->initialize($config);
         $this->db->order_by('score DESC, name ASC');
         $data['themes'] = $this->db->get('newthemes', $config['per_page'], $this->uri->segment(3));
-
 		$data['mode'] = 'popular';
-
 
 		$this->load->view('header');
 		$this->load->view('themes', $data);
@@ -48,7 +50,7 @@ class Themes extends Controller{
 	}
 
 	function latest()
-	{
+    {
         $this->load->library('pagination');
 
         $config['base_url'] = '/themes/latest';
@@ -57,6 +59,7 @@ class Themes extends Controller{
 
         $this->pagination->initialize($config);
         $this->db->order_by('last_edited DESC, name ASC');
+
         $data['themes'] = $this->db->get('newthemes', $config['per_page'], $this->uri->segment(3));
 		$data['mode'] = 'latest';
 
@@ -65,31 +68,49 @@ class Themes extends Controller{
 		$this->load->view('footer', $data);
 	}
 
-	function view($id) {
+	function view($id)
+    {
         $this->db->where('newthemes.uuid', $id);
-		$records = $this->db->get('newthemes');
-		if ($records->num_rows() > 0) {
-			$data = $records->row_array();
-			$data['id'] = $data['uuid'];
+        $records = $this->db->get('newthemes');
 
-			$this->db->select('newthemes_comments.*');
-			$this->db->where('newthemes_comments.uuid', $id);
-			$this->db->order_by('timestamp DESC');
-			$data['comments'] = $this->db->get('newthemes_comments');
+        $this->load->library('comments');
 
+        $auth = false;
+
+		if ($records->num_rows() > 0)
+        {
+            $data = $records->row_array();
             $data['liked'] = false;
-            if ($this->session->userdata('oauth')) {
+
+            if ($this->session->userdata('oauth'))
+            {
+                $auth = true;
+
                 $this->db->select('count(newthemes_ratings.id) AS liked');
                 $this->db->where('newthemes_ratings.uuid', $data['uuid']);
                 $this->db->where('newthemes_ratings.user_link', $this->session->userdata('link'));
                 $ratings_res = $this->db->get('newthemes_ratings');
-                if($ratings_res->num_rows() == 1) {
+                if($ratings_res->num_rows() == 1)
+                {
                     $ratings_data = $ratings_res->row_array();
-                    if($ratings_data['liked'] > 0) {
+                    if($ratings_data['liked'] > 0)
+                    {
                         $data['liked'] = true;
                     }
                 }
             }
+
+            $this->db->select('newthemes_comments.*');
+			$this->db->where('newthemes_comments.uuid', $id);
+			$this->db->order_by('timestamp DESC');
+            $comments = $this->db->get('newthemes_comments');
+
+            $count = $comments->num_rows;
+            $comments = $comments->result_object();
+
+            $data['count'] = $count;
+            $data['comments'] = $this->comments->arrange($comments, $auth);
+            $data['id'] = $data['uuid'];
 
 			$this->load->view('header_short');
 			$this->load->view('theme', $data);
@@ -109,19 +130,19 @@ class Themes extends Controller{
 		// $this->db->join('users', 'users.id = themes.user');
 		// $spices = $this->db->get('newthemes');
 		// foreach ($spices->result() as $spice) {
-  //           $json[$spice->id] = array(
-	 //            'spices-id' => $spice->id,
-  //       	    'name' => $spice->name,
-  //               'description' => $spice->description,
-	 //            'score' => $spice->score,
-  //       	    'created' => $spice->created,
-  //               'last_edited' => $spice->last_edited,
-	 //            'file' => $spice->file,
-  //               'screenshot' => $spice->screenshot,
-	 //            'author_id' => $spice->user,
-  //       	    'author_user' => $spice->username
-  //           );
-  //   	}
+    //     $json[$spice->id] = array(
+    //         'spices-id' => $spice->id,
+    // 	       'name' => $spice->name,
+    //         'description' => $spice->description,
+    //         'score' => $spice->score,
+    // 	       'created' => $spice->created,
+    //         'last_edited' => $spice->last_edited,
+    //         'file' => $spice->file,
+    //         'screenshot' => $spice->screenshot,
+    //         'author_id' => $spice->user,
+    // 	       'author_user' => $spice->username
+    //     );
+    // }
 		// $fp = fopen('/var/www/cinnamon-spices.linuxmint.com/json/themes.json', 'w');
 		// fwrite($fp, json_encode($json));
 		// fclose($fp);
@@ -140,26 +161,33 @@ class Themes extends Controller{
         $this->db->update('newthemes');
     }
 
-    function rate($uuid) {
+    function rate($uuid)
+    {
         $this->db->where('uuid', $uuid);
         $records = $this->db->get('newthemes');
-        if ($records->num_rows() > 0) {
+        if ($records->num_rows() > 0)
+        {
             $data = $records->row_array();
-            if ($this->session->userdata('oauth')) {
+            if ($this->session->userdata('oauth'))
+            {
                 $liked = false;
-                if ($this->session->userdata('oauth')) {
+                if ($this->session->userdata('oauth'))
+                {
                     $this->db->select('count(newthemes_ratings.id) AS liked');
                     $this->db->where('newthemes_ratings.uuid', $data['uuid']);
                     $this->db->where('newthemes_ratings.user_link', $this->session->userdata('link'));
                     $ratings_res = $this->db->get('newthemes_ratings');
-                    if($ratings_res->num_rows() == 1) {
+                    if($ratings_res->num_rows() == 1)
+                    {
                         $ratings_data = $ratings_res->row_array();
-                        if($ratings_data['liked'] > 0) {
+                        if($ratings_data['liked'] > 0)
+                        {
                             $liked = true;
                         }
                     }
                 }
-                if(!$liked) {
+                if(!$liked)
+                {
                     $this->db->set('uuid', $data['uuid']);
                     $this->db->set('user_full_name',$this->session->userdata('name'));
                     $this->db->set('user_link',$this->session->userdata('link'));
@@ -173,11 +201,14 @@ class Themes extends Controller{
 		redirect("/themes/view/$uuid", "location");
 	}
 
-	function comment($id) {
-		if($this->session->userdata('oauth') && isset($_POST['body']) && !empty($_POST['body'])) {
+    function comment($id)
+    {
+		if($this->session->userdata('oauth') && isset($_POST['body']) && !empty($_POST['body']))
+        {
             $this->db->where('newthemes.uuid', $id);
             $records = $this->db->get('newthemes');
-            if ($records->num_rows() > 0) {
+            if ($records->num_rows() > 0)
+            {
                 $data = $records->row_array();
                 $this->db->set('uuid',$data['uuid']);
                 $this->db->set('user_full_name',$this->session->userdata('name'));
@@ -185,22 +216,10 @@ class Themes extends Controller{
                 $this->db->set('user_avatar',$this->session->userdata('avatar'));
                 $this->db->set('timestamp', now());
                 $this->db->set('message', $_POST['body']);
+                $this->db->set('parent_id', $_POST['parent_id']);
                 $this->db->insert('newthemes_comments');
             }
 		}
         redirect("/themes/view/$id", "location");
 	}
-
-//	function _old_comment($id) {
-//		$id = intval($id);
-//		if ($this->dx_auth->is_logged_in()) {
-//			$this->db->set('user', $this->dx_auth->get_user_id());
-//			$this->db->set('theme', $id);
-//			$this->db->set('timestamp', now());
-//			$this->db->set('body', $_POST['body']);
-//			$this->db->insert('themes_comments');
-//		}
-//		redirect("/themes/view/$id", "location");
-//	}
-
 }

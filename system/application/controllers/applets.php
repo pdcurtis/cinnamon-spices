@@ -6,10 +6,15 @@
  * @property CI_DB_active_record $db
  * @property DX_Auth             $dx_auth
  * @property CI_Session          $session
+ * @property CI_Pagination       $pagination
+ * @property Comments            $comments
+ * @property CI_URI              $uri
  */
-class Applets extends Controller{
+class Applets extends Controller
+{
 
-	function Applets() {
+	function __construct()
+    {
 		parent::Controller();
 		$this->load->helper('url');
 		$this->load->helper('form');
@@ -17,11 +22,13 @@ class Applets extends Controller{
 		$this->load->library('email');
 	}
 
-	function index() {
+	function index()
+    {
 		$this->popular();
 	}
 
-	function latest() {
+	function latest()
+    {
         $this->load->library('pagination');
 
         $config['base_url'] = '/applets/latest';
@@ -38,7 +45,8 @@ class Applets extends Controller{
 		$this->load->view('footer');
 	}
 
-	function popular() {
+	function popular()
+    {
         $this->load->library('pagination');
 
         $config['base_url'] = '/applets/popular';
@@ -55,37 +63,55 @@ class Applets extends Controller{
 		$this->load->view('footer');
 	}
 
-	function view($id) {
+	function view($id)
+    {
 		$id = intval($id);
 		$this->db->where('id', $id);
 		$records = $this->db->get('newapplets');
-		if ($records->num_rows() > 0) {
+
+        $this->load->library('comments');
+
+        $auth = false;
+
+		if ($records->num_rows() > 0)
+        {
 			$data = $records->row_array();
 
-            $this->db->select('newapplets_comments.*');
-            $this->db->where('newapplets_comments.uuid', $data['uuid']);
-            $this->db->order_by('timestamp DESC');
-            $data['comments'] = $this->db->get('newapplets_comments');
-
             $data['liked'] = false;
-            if ($this->session->userdata('oauth')) {
+            if ($this->session->userdata('oauth'))
+            {
+                $auth = true;
+
                 $this->db->select('count(newapplets_ratings.id) AS liked');
                 $this->db->where('newapplets_ratings.uuid', $data['uuid']);
                 $this->db->where('newapplets_ratings.user_link', $this->session->userdata('link'));
                 $ratings_res = $this->db->get('newapplets_ratings');
-                if($ratings_res->num_rows() == 1) {
+                if($ratings_res->num_rows() == 1)
+                {
                     $ratings_data = $ratings_res->row_array();
-                    if($ratings_data['liked'] > 0) {
+                    if($ratings_data['liked'] > 0)
+                    {
                         $data['liked'] = true;
                     }
                 }
             }
 
+            $this->db->select('newapplets_comments.*');
+            $this->db->where('newapplets_comments.uuid', $data['uuid']);
+            $this->db->order_by('timestamp DESC');
+            $comments = $this->db->get('newapplets_comments');
+
+            $count = $comments->num_rows;
+            $comments = $comments->result_object();
+
+            $data['count'] = $count;
+            $data['comments'] = $this->comments->arrange($comments, $auth);
+
             $this->load->view('header_short');
 			$this->load->view('applet', $data);
 			$this->load->view('footer');
 		}
-		else {
+		else{
 			$data["error"] = "Not found";
 			$data["details"] = "This applet does not exist.";
 			$this->load->view("header_short");
@@ -94,7 +120,8 @@ class Applets extends Controller{
 		}
 	}
 
-	function _json() {
+	function _json()
+    {
 		// $this->db->select('applets.*, users.id as user_id, users.username, users.signature, users.biography');
 		// $this->db->join('users', 'users.id = applets.user');
 		// $spices = $this->db->get('newapplets');
@@ -119,7 +146,8 @@ class Applets extends Controller{
 		// fclose($fp);
 	}
 
-    function _update_score($id, $uuid) {
+    function _update_score($id, $uuid)
+    {
         // Calculate the score
         $this->db->where('uuid', $uuid);
         $this->db->where('FROM_UNIXTIME(timestamp) >= DATE_SUB(NOW(), INTERVAL 1 MONTH)');
@@ -131,27 +159,34 @@ class Applets extends Controller{
         $this->db->update('newapplets');
     }
 
-	function rate($id) {
+	function rate($id)
+    {
 		$id = intval($id);
         $this->db->where('id', $id);
         $records = $this->db->get('newapplets');
-        if ($records->num_rows() > 0) {
+        if ($records->num_rows() > 0)
+        {
             $data = $records->row_array();
-            if ($this->session->userdata('oauth')) {
+            if ($this->session->userdata('oauth'))
+            {
                 $liked = false;
-                if ($this->session->userdata('oauth')) {
+                if ($this->session->userdata('oauth'))
+                {
                     $this->db->select('count(newapplets_ratings.id) AS liked');
                     $this->db->where('newapplets_ratings.uuid', $data['uuid']);
                     $this->db->where('newapplets_ratings.user_link', $this->session->userdata('link'));
                     $ratings_res = $this->db->get('newapplets_ratings');
-                    if($ratings_res->num_rows() == 1) {
+                    if($ratings_res->num_rows() == 1)
+                    {
                         $ratings_data = $ratings_res->row_array();
-                        if($ratings_data['liked'] > 0) {
+                        if($ratings_data['liked'] > 0)
+                        {
                             $liked = true;
                         }
                     }
                 }
-                if(!$liked) {
+                if(!$liked)
+                {
                     $this->db->set('uuid', $data['uuid']);
                     $this->db->set('user_full_name',$this->session->userdata('name'));
                     $this->db->set('user_link',$this->session->userdata('link'));
@@ -165,12 +200,15 @@ class Applets extends Controller{
 		redirect("/applets/view/$id", "location");
 	}
 
-	function comment($id) {
+	function comment($id)
+    {
 		$id = intval($id);
-        if($this->session->userdata('oauth') && isset($_POST['body']) && !empty($_POST['body'])) {
+        if($this->session->userdata('oauth') && isset($_POST['body']) && !empty($_POST['body']))
+        {
             $this->db->where('newapplets.id', $id);
             $records = $this->db->get('newapplets');
-            if ($records->num_rows() > 0) {
+            if ($records->num_rows() > 0)
+            {
                 $data = $records->row_array();
                 $this->db->set('uuid',$data['uuid']);
                 $this->db->set('user_full_name',$this->session->userdata('name'));
@@ -178,11 +216,11 @@ class Applets extends Controller{
                 $this->db->set('user_avatar',$this->session->userdata('avatar'));
                 $this->db->set('timestamp', now());
                 $this->db->set('message', $_POST['body']);
+                $this->db->set('parent_id', $_POST['parent_id']);
                 $this->db->insert('newapplets_comments');
             }
         }
 		redirect("/applets/view/$id", "location");
 	}
-
+    
 }
-

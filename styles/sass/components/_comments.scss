@@ -1,0 +1,85 @@
+.cs-comment-login {
+    .cs-button-social {
+        margin: 0 1rem 0 0;
+    }
+}
+
+.cs-comments-amount {
+    font-size: 1.5rem;
+}
+
+.cs-comments-title {
+    font-size: 1.675rem;
+    padding: 1.25rem 0;
+}
+
+.cs-comment {
+    margin-top: 1rem;
+    padding: 1rem 0;
+}
+
+.cs-comment-parent {
+    max-width: 55rem;
+
+    &:first-child {
+        .cs-comment {
+            margin-top: .5rem;
+        }
+    }
+
+    &:last-child {
+        margin-bottom: 2rem;
+    }
+}
+
+.cs-comment-child {
+    border-left: .25rem solid $comment-child-border;
+    padding-left: 2rem;
+
+    .cs-comment-child {
+        border-color: $comment-child-child-border;
+    }
+}
+
+.cs-comment-no-indent {
+    border-left: 0;
+    padding-left: 0;
+}
+
+.cs-comment-author {
+    margin-bottom: .5rem;
+}
+
+.cs-comment-image {
+    img {
+        border-radius: .5rem;
+        height: 4rem;
+        width: 4rem;
+    }
+}
+
+.cs-comment-author-name {
+    font-weight: bold;
+    margin-right: 1rem;
+}
+
+.cs-comment-date {
+    color: $comment-date-color;
+    margin-left: 1rem;
+}
+
+.cs-comment-form {
+    border-bottom: .0625rem solid $color-gray-3;
+    margin-bottom: 1rem;
+    padding: 0 0 1.25rem;
+
+    & > form {
+        margin-bottom: 0;
+        max-width: 55rem;
+
+        & > textarea {
+            display: block;
+            margin-bottom: 1rem;
+        }
+    }
+}

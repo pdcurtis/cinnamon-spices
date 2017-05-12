@@ -1,0 +1,16 @@
+.cs-main-wrap {
+    margin: auto;
+    max-width: $global-max-width;
+    padding: $global-padding 1rem;
+    width: 100%;
+
+    @media (min-width: 72rem) {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+
+.cs-main-content {
+    flex-grow: 1;
+}

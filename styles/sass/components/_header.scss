@@ -1,0 +1,77 @@
+.cs-header {
+    color: $header-color;
+    justify-content: space-between;
+    margin: auto;
+    max-width: $global-max-width;
+    padding: $header-padding-vertical 1rem;
+    width: 100%;
+
+    @media (min-width: 72rem) {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.cs-header-logo {
+
+    img {
+        display: block;
+        width: 10.3125rem;
+    }
+
+    div {
+        font-family: $font-roboto;
+        font-size: 1.125rem;
+        font-weight: 200;
+        margin-top: .0625rem;
+        text-align: right;
+    }
+}
+
+.cs-header-menu {
+    text-align: right;
+
+    a {
+        color: $links-alt-color;
+    }
+
+    &-avatar {
+        display: inline-block;
+        margin-top: -.125rem;
+        padding: 0 ($header-link-separation-between / 3);
+        vertical-align: middle;
+
+        img {
+            border-radius: .25rem;
+            height: 1.875rem;
+            width: 1.875rem;
+        }
+    }
+
+    &-link,
+    &-login {
+        &.active {
+            border-bottom: .0625rem solid $header-link-active-color;
+        }
+    }
+
+    &-link {
+        color: $header-color;
+        display: inline-block;
+        font-family: $font-roboto;
+        font-size: .875rem;
+        margin-right: 0;
+        padding: .375rem $header-link-separation-between / 3;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+
+    &-login {
+        margin-left: .5rem;
+        padding: .625rem 1rem;
+    }
+
+    &-logout {
+        padding: .5rem 1rem;
+    }
+}

@@ -4,7 +4,6 @@
     <!-- Stylesheet & Favicon -->
     <link rel="shortcut icon" href="/favicon.ico"/>
     <link rel="stylesheet" href="/style.css?<?= time() ?>">
-    <script src="/oauth.js" type="text/javascript"></script>
 </head>
 <body class="cs-flex-column">
 

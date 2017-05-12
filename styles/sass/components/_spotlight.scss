@@ -1,0 +1,40 @@
+.cs-spotlight {
+    background-color: $spotlight-background-color;
+    padding: ($global-padding * 2) 0 ($global-padding * 4);
+}
+
+.cs-spotlight-header,
+.cs-addons-header {
+    color: $spotlight-header-color;
+    font-size: 2.25rem;
+    text-align: center;
+}
+
+.cs-spotlight-header {
+    margin: 2.125rem auto;
+}
+
+.cs-spotlight-item {
+    flex: 1;
+    margin: 0 ($global-padding / 2);
+}
+
+.cs-spotlight-item-header {
+    margin: 0;
+}
+
+.cs-spotlight-item-description {
+    color: $spotlight-item-description-color;
+    margin: .375rem 0 .125rem;
+}
+
+.cs-spotlight-item-publish {
+    color: $spotlight-item-publish-color;
+    font-size: .8125rem;
+    margin: 0;
+
+    span {
+        color: $color-light-black;
+        font-weight: 600;
+    }
+}

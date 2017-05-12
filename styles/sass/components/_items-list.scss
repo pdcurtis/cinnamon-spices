@@ -1,0 +1,105 @@
+.cs-items-list-container {
+    margin: .75rem 0 0;
+}
+
+.cs-items-list-image {
+    background-color: $color-white;
+    line-height: 0;
+    position: relative;
+    text-align: center;
+
+    .cs-items-bg-image {
+        background-position: left bottom;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 15.3125rem;
+        opacity: .85;
+        width: 100%;
+    }
+
+    &:hover {
+        .cs-items-list-overlay {
+            opacity: .75;
+        }
+
+        .cs-items-bg-image {
+            opacity: 1;
+        }
+    }
+}
+
+.cs-items-list-details {
+    flex-wrap: nowrap;
+    line-height: 2rem;
+    padding: .625rem;
+    text-decoration: none;
+
+    & > img {
+        height: 3rem;
+        width: 3rem;
+    }
+
+    & > label {
+        color: $item-title-color;
+        cursor: pointer;
+        flex-grow: 1;
+        font-size: 1.25rem;
+        margin-left: .625rem;
+        text-decoration: none;
+        width: 100%;
+    }
+}
+
+.cs-items-list-overlay {
+    background-color: $color-black;
+    height: 1.875rem;
+    opacity: .5;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+}
+
+.cs-items-list-title {
+    color: $color-white;
+    font-size: .875rem;
+    left: .625rem;
+    position: absolute;
+    top: .9375rem;
+}
+
+.cs-items-list-item {
+    align-items: stretch;
+    background-color: $color-white;
+    border: solid .0625rem $color-silver;
+    border-radius: .25rem;
+    flex: 1 0 18rem;
+    justify-content: space-between;
+    margin: .625rem 0 .625rem 1.25rem;
+    overflow: hidden;
+    width: auto;
+}
+
+.cs-items-list-info-bar {
+    background: $color-off-white-1;
+    box-sizing: border-box;
+    font-size: .875rem;
+    padding: .625rem;
+
+    a {
+        text-transform: none;
+    }
+
+    span {
+        display: flex;
+        float: right;
+        height: 2.1875rem;
+        line-height: 2.1875rem;
+        margin-left: .5rem;
+
+        &>svg {
+            fill: $color-off-white-3;
+            margin-right: .25rem;
+            width: 1.25rem;
+        }
+    }
+}

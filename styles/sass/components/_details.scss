@@ -1,0 +1,41 @@
+.cs-details-head {
+
+    h1 {
+        font-size: 1.9rem;
+        margin-right: .5rem;
+    }
+
+    & > div {
+        & > img {
+            height: 3rem;
+            margin-right: .5rem;
+            width: 3rem;
+        }
+    }
+
+    .cs-button {
+        &:not(.cs-button-outline) {
+            border: .0625rem solid transparent;
+        }
+    }
+}
+
+.cs-details-body {
+    border-bottom: .0625rem solid $color-silver-3;
+    border-top: .0625rem solid $color-silver-3;
+    margin: 1rem 0 0;
+    padding: 1.25rem 0 1.5rem;
+}
+
+.cs-item-details-screenshot {
+    max-width: 100%;
+    width: auto;
+}
+
+.cs-item-details-description {
+    background-color: $color-white;
+    border: solid 1px $color-silver;
+    border-radius: .5rem;
+    margin-top: 1.25rem;
+    padding: 1rem;
+}

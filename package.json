@@ -1,0 +1,32 @@
+{
+  "name": "cinnamon-spices",
+  "version": "1.0.0",
+  "description": "cinnamon spices web app",
+  "main": "index.js",
+  "scripts": {
+    "dev": "gulp",
+    "release": "gulp release",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clefebvre/cinnamon-spices.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/clefebvre/cinnamon-spices/issues"
+  },
+  "homepage": "https://github.com/clefebvre/cinnamon-spices#readme",
+  "devDependencies": {
+    "gulp": "~3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-connect": "~5.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "~2.3.2",
+    "gulp-sass-lint": "~1.2.0",
+    "gulp-sourcemaps": "~1.6.0",
+    "normalize-scss": "~5.0.3"
+  }
+}

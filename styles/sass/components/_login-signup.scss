@@ -1,0 +1,94 @@
+.cs-login-signup-header {
+    align-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, $brand-color-darker 0%, $brand-color-dark 100%);
+    min-height: 12.5rem;
+
+    .cs-login-signup-header-logo {
+        margin-bottom: .5rem;
+        margin-top: 2rem;
+
+        img {
+            height: 3.625rem;
+            width: 3.625rem;
+        }
+
+        svg {
+            fill: $links-main-color;
+            height: 3.625rem;
+            width: 3.625rem;
+
+            &:hover {
+                fill: $links-main-hover;
+            }
+        }
+    }
+
+    .cs-login-signup-header-text {
+        color: $color-white;
+        font-size: 2rem;
+        font-weight: 300;
+    }
+}
+
+.cs-login-wrap {
+    flex: 1;
+}
+
+.cs-login-signup {
+    background-color: $color-white;
+    border: solid .0625rem $color-silver;
+    border-radius: .3rem;
+    max-width: 20rem;
+    padding: $global-padding * 1.5;
+}
+
+.cs-login-signup-form {
+    font-size: .9rem;
+    margin: -2.75rem auto auto;
+}
+
+.cs-login-form-row {
+    margin: .5rem 0;
+
+    p {
+        color: $color-error;
+        margin: .5rem 0 0;
+    }
+
+    &:first-of-type {
+        margin-top: 0;
+    }
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+
+    .cs-login-form-forgot-password {
+        label {
+            float: left;
+        }
+
+        a {
+            float: right;
+        }
+    }
+}
+
+.cs-login-form-row-tall {
+    margin: .625rem 0;
+}
+
+.cs-login-signup-call {
+    font-size: .9rem;
+    margin: -2.5rem auto 0;
+
+    .cs-button-social {
+        margin-bottom: 1rem;
+
+        &:last-child {
+            margin-bottom: 0;
+
+        }
+    }
+}
