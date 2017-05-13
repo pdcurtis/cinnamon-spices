@@ -575,40 +575,40 @@ textarea:focus {
           color: #161616;
           line-height: 50px; }
         .cs-content-filter ul li.search .cs-xlet-search-results-container {
-          border: solid 1px silver;
-          padding: 0.25rem;
-          overflow: hidden;
-          position: absolute;
-          background-color: white;
+          background-color: #fff;
+          border: solid 1px #c0c0c0;
+          border-radius: .25rem;
           margin-left: 100px;
-          min-width: 195px;
-          border-radius: 0.25rem;
           margin-top: -6px;
+          min-width: 195px;
+          overflow: hidden;
+          padding: .25rem;
+          position: absolute;
           z-index: 10; }
           .cs-content-filter ul li.search .cs-xlet-search-results-container ul {
             padding: 0; }
             .cs-content-filter ul li.search .cs-xlet-search-results-container ul li {
-              float: none;
-              margin: 0;
               display: -ms-flexbox;
               display: flex;
               -ms-flex-direction: row;
-                  flex-direction: row; }
+                  flex-direction: row;
+              float: none;
+              margin: 0; }
               .cs-content-filter ul li.search .cs-xlet-search-results-container ul li a {
-                padding: .5rem 0;
                 display: -ms-flexbox;
                 display: flex;
                 -ms-flex-direction: row;
                     flex-direction: row;
                 line-height: 2rem;
+                padding: .5rem 0;
                 width: 100%; }
                 .cs-content-filter ul li.search .cs-xlet-search-results-container ul li a img {
-                  width: 2rem;
                   height: 2rem;
-                  margin-right: 1rem; }
+                  margin-right: 1rem;
+                  width: 2rem; }
               .cs-content-filter ul li.search .cs-xlet-search-results-container ul li:hover, .cs-content-filter ul li.search .cs-xlet-search-results-container ul li.active {
-                background-color: lightgrey;
-                border: none; }
+                background-color: #ddd;
+                border: 0; }
 
 .cs-header {
   color: #fff;
