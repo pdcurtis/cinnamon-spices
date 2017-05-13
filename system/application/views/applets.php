@@ -9,23 +9,8 @@
         <li class="search">
             <label>Search Applet:</label>
             <input type="text" id="cs-xlet-search-input" data-search-url="/applets/search" data-search-type="applets">
-            <div id="cs-xlet-search-results-container" class="search-results" style="display: none">
-                <ul id="cs-xlet-search-results-list">
-<!--                    <li>-->
-<!--                        <a href="/">-->
-<!--                            <img src="/git/applets/a4techTool@mous/icon.png"/>-->
-<!--                            A4Tech battery checker-->
-<!--                        </a>-->
-<!--                    </li>-->
-<!--                    <li>-->
-<!--                        <img src="/git/applets/AutostartPrograms@spacy01/icon.png"/>-->
-<!--                        <a href="/">Autostart programs</a>-->
-<!--                    </li>-->
-<!--                    <li>-->
-<!--                        <img src="/git/applets/brightness-and-gamma-applet@cardsurf/icon.png"/>-->
-<!--                        <a href="/">Brightness and gamma applet</a>-->
-<!--                    </li>-->
-                </ul>
+            <div id="cs-xlet-search-results-container" class="cs-xlet-search-results-container" style="display: none">
+                <ul id="cs-xlet-search-results-list"></ul>
             </div>
         </li>
     </ul>

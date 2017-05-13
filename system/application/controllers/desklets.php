@@ -200,6 +200,30 @@ class Desklets extends Controller
         redirect("/desklets/view/$id", "location");
     }
 
+    function search($q='') {
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $q = $_POST['q'];
+        }
+        $dbname = 'newdesklets';
+        $itemtype = 'desklets';
+        $this->db->select('*');
+        $this->db->like('name',$q);
+        $this->db->or_like('description',$q);
+        $this->db->or_like('author',$q);
+        $server_path = realpath(BASEPATH.'/../');
+        $res = $this->db->get($dbname);
+        $items = [];
+        foreach ($res->result() as $item) {
+            $uuid = $item->uuid;
+            if (file_exists("$server_path/git/$itemtype/$uuid/icon.png")) {
+                $item->icon = "/git/$itemtype/$uuid/icon.png";
+            }
+            $items[] = $item;
+        }
+        header('Content-Type: application/json');
+        echo json_encode($items);
+    }
+
 
     function comment($id)
     {

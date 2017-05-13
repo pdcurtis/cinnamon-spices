@@ -39,15 +39,17 @@
                     line-height: 50px;
                 }
 
-                .search-results {
+                .cs-xlet-search-results-container {
                     border: solid 1px silver;
                     padding: 0.25rem;
                     overflow: hidden;
                     position: absolute;
                     background-color: white;
-                    margin-left: 95px;
+                    margin-left: 100px;
+                    min-width: 195px;
                     border-radius: 0.25rem;
                     margin-top:-6px;
+                    z-index: 10;
 
                     ul {
                         padding: 0;
@@ -70,6 +72,7 @@
                             }
                             &:hover, &.active {
                                 background-color: lightgrey;
+                                border: none;
                             }
                         }
                     }

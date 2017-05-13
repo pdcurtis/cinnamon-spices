@@ -574,25 +574,27 @@ textarea:focus {
         .cs-content-filter ul li.search label {
           color: #161616;
           line-height: 50px; }
-        .cs-content-filter ul li.search .search-results {
+        .cs-content-filter ul li.search .cs-xlet-search-results-container {
           border: solid 1px silver;
           padding: 0.25rem;
           overflow: hidden;
           position: absolute;
           background-color: white;
-          margin-left: 95px;
+          margin-left: 100px;
+          min-width: 195px;
           border-radius: 0.25rem;
-          margin-top: -6px; }
-          .cs-content-filter ul li.search .search-results ul {
+          margin-top: -6px;
+          z-index: 10; }
+          .cs-content-filter ul li.search .cs-xlet-search-results-container ul {
             padding: 0; }
-            .cs-content-filter ul li.search .search-results ul li {
+            .cs-content-filter ul li.search .cs-xlet-search-results-container ul li {
               float: none;
               margin: 0;
               display: -ms-flexbox;
               display: flex;
               -ms-flex-direction: row;
                   flex-direction: row; }
-              .cs-content-filter ul li.search .search-results ul li a {
+              .cs-content-filter ul li.search .cs-xlet-search-results-container ul li a {
                 padding: .5rem 0;
                 display: -ms-flexbox;
                 display: flex;
@@ -600,12 +602,13 @@ textarea:focus {
                     flex-direction: row;
                 line-height: 2rem;
                 width: 100%; }
-                .cs-content-filter ul li.search .search-results ul li a img {
+                .cs-content-filter ul li.search .cs-xlet-search-results-container ul li a img {
                   width: 2rem;
                   height: 2rem;
                   margin-right: 1rem; }
-              .cs-content-filter ul li.search .search-results ul li:hover, .cs-content-filter ul li.search .search-results ul li.active {
-                background-color: lightgrey; }
+              .cs-content-filter ul li.search .cs-xlet-search-results-container ul li:hover, .cs-content-filter ul li.search .cs-xlet-search-results-container ul li.active {
+                background-color: lightgrey;
+                border: none; }
 
 .cs-header {
   color: #fff;
