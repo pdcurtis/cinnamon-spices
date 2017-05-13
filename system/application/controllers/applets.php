@@ -120,6 +120,27 @@ class Applets extends Controller
 		}
 	}
 
+	function search($q='') {
+	    $dbname = 'newapplets';
+	    $itemtype = 'applets';
+	    $this->db->select('*');
+	    $this->db->like('name',$q);
+	    $this->db->or_like('description',$q);
+	    $this->db->or_like('author',$q);
+        $server_path = realpath(BASEPATH.'/../');
+	    $res = $this->db->get($dbname);
+	    $items = [];
+	    foreach ($res->result() as $item) {
+	        $uuid = $item->uuid;
+            if (file_exists("$server_path/git/$itemtype/$uuid/icon.png")) {
+                $item->icon = "/git/$itemtype/$uuid/icon.png";
+            }
+            $items[] = $item;
+        }
+        header('Content-Type: application/json');
+	    echo json_encode($items);
+    }
+
 	function _json()
     {
 		// $this->db->select('applets.*, users.id as user_id, users.username, users.signature, users.biography');
