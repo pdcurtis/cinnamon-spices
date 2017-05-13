@@ -569,6 +569,43 @@ textarea:focus {
           color: #161616; }
       .cs-content-filter ul li.active {
         border-bottom: 0.3125rem solid #646464; }
+      .cs-content-filter ul li.search {
+        font-size: 14px; }
+        .cs-content-filter ul li.search label {
+          color: #161616;
+          line-height: 50px; }
+        .cs-content-filter ul li.search .search-results {
+          border: solid 1px silver;
+          padding: 0.25rem;
+          overflow: hidden;
+          position: absolute;
+          background-color: white;
+          margin-left: 95px;
+          border-radius: 0.25rem;
+          margin-top: -6px; }
+          .cs-content-filter ul li.search .search-results ul {
+            padding: 0; }
+            .cs-content-filter ul li.search .search-results ul li {
+              float: none;
+              margin: 0;
+              display: -ms-flexbox;
+              display: flex;
+              -ms-flex-direction: row;
+                  flex-direction: row; }
+              .cs-content-filter ul li.search .search-results ul li a {
+                padding: .5rem 0;
+                display: -ms-flexbox;
+                display: flex;
+                -ms-flex-direction: row;
+                    flex-direction: row;
+                line-height: 2rem;
+                width: 100%; }
+                .cs-content-filter ul li.search .search-results ul li a img {
+                  width: 2rem;
+                  height: 2rem;
+                  margin-right: 1rem; }
+              .cs-content-filter ul li.search .search-results ul li:hover, .cs-content-filter ul li.search .search-results ul li.active {
+                background-color: lightgrey; }
 
 .cs-header {
   color: #fff;

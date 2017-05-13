@@ -11,4 +11,4 @@ module.exports = {
         src: 'js/**/*.js',
         dest: './'
     }
-}
+};

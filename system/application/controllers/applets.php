@@ -121,6 +121,9 @@ class Applets extends Controller
 	}
 
 	function search($q='') {
+	    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+	        $q = $_POST['q'];
+        }
 	    $dbname = 'newapplets';
 	    $itemtype = 'applets';
 	    $this->db->select('*');
