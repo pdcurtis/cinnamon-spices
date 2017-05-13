@@ -1054,7 +1054,11 @@ textarea:focus {
 
 .cs-details-head h1 {
   font-size: 1.9rem;
+  line-height: 3rem;
   margin-right: .5rem; }
+
+.cs-details-head .cs-details-head-author-name {
+  line-height: 3rem; }
 
 .cs-details-head > div > img {
   height: 3rem;

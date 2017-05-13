@@ -29,4 +29,14 @@ $time_actual = date("Y-m-d, H:i", $last_edited);
         <?php echo $Parsedown->text($markdown); ?>
         </div>
     <?php } ?>
+    <?php
+    $server_path = realpath(BASEPATH.'/../');
+    if (file_exists("$server_path/git/$type/$uuid/CHANGELOG.md")) {
+        $markdown = file_get_contents("$server_path/git/$type/$uuid/CHANGELOG.md");
+        $Parsedown = new Parsedown();
+    ?>
+        <div class="cs-item-details-description">
+        <?php echo $Parsedown->text($markdown); ?>
+        </div>
+    <?php } ?>
 </div>

@@ -1,10 +1,17 @@
+<?php
+
+$server_path = realpath(BASEPATH.'/../');
+if (file_exists("$server_path/git/$type/$uuid/icon.png")) {
+    $icon = "/git/$type/$uuid/icon.png";
+}
+?>
 <div class="cs-flex cs-details-head">
     <div class="cs-flex cs-flex-grow cs-flex-wrap cs-flex-center">
         <?php if (isset($icon)) { ?>
             <img src='<?= $icon ?>'/>
         <?php } ?>
         <h1><?= $name ?></h1>
-        <div>
+        <div class="cs-details-head-author-name">
             <?php if ($author != "" && $author != "none") { ?>
                 by <?= $author ?>
             <?php } ?>
