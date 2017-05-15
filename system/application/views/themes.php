@@ -3,21 +3,22 @@ $wwwroot = realpath(BASEPATH.'/../');
 ?>
 <div class="cs-content-filter">
     <ul>
-        <!--        <li class="active">-->
-        <!--            <a href="/themes/featured">Featured</a>-->
-        <!--        </li>-->
         <li class="<?= $mode == 'popular' ? 'active' : '' ?>">
             <a href="/themes/popular">Popular</a>
         </li>
         <li class="<?= $mode == 'latest' ? 'active' : '' ?>">
             <a href="/themes/latest">Latest</a>
         </li>
-        <!--        <li>-->
-        <!--            <a href="/themes/all">See All</a>-->
-        <!--        </li>-->
-        <!--        <li>-->
-        <!--            <a href="#">Upload your theme</a>-->
-        <!--        </li>-->
+        <li class="search">
+            <label>Search Theme:</label>
+            <input type="text" id="cs-xlet-search-input"
+                   data-search-url="/themes/search"
+                   data-search-key="uuid"
+                   data-search-type="themes">
+            <div id="cs-xlet-search-results-container" class="cs-xlet-search-results-container" style="display: none">
+                <ul id="cs-xlet-search-results-list"></ul>
+            </div>
+        </li>
     </ul>
 </div>
 
