@@ -423,6 +423,9 @@ a {
       a:not(.cs-button).cs-link-alternate:hover, a:not(.cs-button).cs-link-alternate:active {
         color: #dc6830; }
 
+ul {
+  padding: 0; }
+
 .cs-inline-list {
   list-style: none;
   margin: 0;
@@ -551,64 +554,68 @@ textarea:focus {
   border-radius: .25rem;
   margin: 0 0 0 1.25rem;
   overflow: hidden; }
-  .cs-content-filter ul {
+  .cs-content-filter > ul {
     list-style: none;
     margin: 0;
     padding: 0 1.125rem; }
-    .cs-content-filter ul li {
+    .cs-content-filter > ul > li {
       float: left;
       margin: 0 1.125rem; }
-      .cs-content-filter ul li a {
+      .cs-content-filter > ul > li > a {
         color: #161616;
         display: block;
         font-size: .875rem;
         line-height: 3.125rem;
         padding: 0;
         text-decoration: none; }
-        .cs-content-filter ul li a:hover {
+        .cs-content-filter > ul > li > a:hover {
           color: #161616; }
-      .cs-content-filter ul li.active {
+      .cs-content-filter > ul > li.active {
         border-bottom: 0.3125rem solid #646464; }
-      .cs-content-filter ul li.search {
-        font-size: 14px; }
-        .cs-content-filter ul li.search label {
+      .cs-content-filter > ul > li.search {
+        font-size: .875rem; }
+        .cs-content-filter > ul > li.search input {
+          margin-left: .25rem; }
+        .cs-content-filter > ul > li.search label {
           color: #161616;
           line-height: 50px; }
-        .cs-content-filter ul li.search .cs-xlet-search-results-container {
-          background-color: #fff;
-          border: solid 1px #c0c0c0;
-          border-radius: .25rem;
-          margin-left: 100px;
-          margin-top: -6px;
-          min-width: 195px;
-          overflow: hidden;
-          padding: .25rem;
-          position: absolute;
-          z-index: 10; }
-          .cs-content-filter ul li.search .cs-xlet-search-results-container ul {
-            padding: 0; }
-            .cs-content-filter ul li.search .cs-xlet-search-results-container ul li {
-              display: -ms-flexbox;
-              display: flex;
-              -ms-flex-direction: row;
-                  flex-direction: row;
-              float: none;
-              margin: 0; }
-              .cs-content-filter ul li.search .cs-xlet-search-results-container ul li a {
-                display: -ms-flexbox;
-                display: flex;
-                -ms-flex-direction: row;
-                    flex-direction: row;
-                line-height: 2rem;
-                padding: .5rem 0;
-                width: 100%; }
-                .cs-content-filter ul li.search .cs-xlet-search-results-container ul li a img {
-                  height: 2rem;
-                  margin-right: 1rem;
-                  width: 2rem; }
-              .cs-content-filter ul li.search .cs-xlet-search-results-container ul li:hover, .cs-content-filter ul li.search .cs-xlet-search-results-container ul li.active {
-                background-color: #ddd;
-                border: 0; }
+
+.cs-xlet-search-results-container {
+  background-color: #fff;
+  border: solid 1px #c0c0c0;
+  border-radius: .25rem;
+  margin-left: 6.625rem;
+  margin-top: -.375rem;
+  min-width: 12rem;
+  overflow: hidden;
+  position: absolute;
+  z-index: 10; }
+  .cs-xlet-search-results-container ul li {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: row;
+        flex-direction: row;
+    float: none;
+    margin: 0; }
+    .cs-xlet-search-results-container ul li a {
+      -ms-flex-align: center;
+          align-items: center;
+      color: #161616;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-direction: row;
+          flex-direction: row;
+      padding: .5rem;
+      width: 100%; }
+      .cs-xlet-search-results-container ul li a:hover, .cs-xlet-search-results-container ul li a.active {
+        color: #161616; }
+      .cs-xlet-search-results-container ul li a img {
+        height: 2rem;
+        margin-right: 1rem;
+        width: 2rem; }
+    .cs-xlet-search-results-container ul li:hover, .cs-xlet-search-results-container ul li.active {
+      background-color: #ddd;
+      border: 0; }
 
 .cs-header {
   color: #fff;

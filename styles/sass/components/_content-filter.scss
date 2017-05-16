@@ -5,16 +5,16 @@
     margin: 0 0 0 1.25rem;
     overflow: hidden;
 
-    ul {
+    & > ul {
         list-style: none;
         margin: 0;
         padding: 0 1.125rem;
 
-        li {
+        & > li {
             float: left;
             margin: 0 1.125rem;
 
-            a {
+            & > a {
                 color: $filter-link-color;
                 display: block;
                 font-size: .875rem;
@@ -32,56 +32,63 @@
             }
 
             &.search {
-                font-size: 14px;
+                font-size: .875rem;
+
+                input {
+                    margin-left: .25rem;
+                }
 
                 label {
                     color: $filter-link-color;
                     line-height: 50px;
                 }
+            }
+        }
+    }
+}
 
-                .cs-xlet-search-results-container {
-                    background-color: $color-white;
-                    border: solid 1px $color-silver;
-                    border-radius: .25rem;
-                    margin-left: 100px;
-                    margin-top: -6px;
-                    min-width: 195px;
-                    overflow: hidden;
-                    padding: .25rem;
-                    position: absolute;
-                    z-index: 10;
+.cs-xlet-search-results-container {
+    background-color: $color-white;
+    border: solid 1px $color-silver;
+    border-radius: .25rem;
+    margin-left: 6.625rem;
+    margin-top: -.375rem;
+    min-width: 12rem;
+    overflow: hidden;
+    position: absolute;
+    z-index: 10;
 
-                    ul {
-                        padding: 0;
+    ul {
+        li {
+            display: flex;
+            flex-direction: row;
+            float: none;
+            margin: 0;
 
-                        li {
-                            display: flex;
-                            flex-direction: row;
-                            float: none;
-                            margin: 0;
+            a {
+                align-items: center;
+                color: $filter-link-color;
+                display: flex;
+                flex-direction: row;
+                padding: .5rem;
+                width: 100%;
 
-                            a {
-                                display: flex;
-                                flex-direction: row;
-                                line-height: 2rem;
-                                padding: .5rem 0;
-                                width: 100%;
-
-                                img {
-                                    height: 2rem;
-                                    margin-right: 1rem;
-                                    width: 2rem;
-                                }
-                            }
-
-                            &:hover,
-                            &.active {
-                                background-color: $color-gray-4;
-                                border: 0;
-                            }
-                        }
-                    }
+                &:hover,
+                &.active {
+                    color: $filter-link-color;
                 }
+
+                img {
+                    height: 2rem;
+                    margin-right: 1rem;
+                    width: 2rem;
+                }
+            }
+
+            &:hover,
+            &.active {
+                background-color: $color-gray-4;
+                border: 0;
             }
         }
     }
