@@ -7,7 +7,7 @@
             <a href="/applets/latest">Latest</a>
         </li>
         <li class="search">
-            <label>Search Applet:</label>
+            <label>Search:</label>
             <input type="text" id="cs-xlet-search-input" data-search-url="/applets/search" data-search-type="applets">
             <div id="cs-xlet-search-results-container" class="cs-xlet-search-results-container" style="display: none">
                 <ul id="cs-xlet-search-results-list"></ul>

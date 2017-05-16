@@ -10,7 +10,7 @@ $wwwroot = realpath(BASEPATH.'/../');
             <a href="/themes/latest">Latest</a>
         </li>
         <li class="search">
-            <label>Search Theme:</label>
+            <label>Search:</label>
             <input type="text" id="cs-xlet-search-input"
                    data-search-url="/themes/search"
                    data-search-key="uuid"

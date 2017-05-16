@@ -553,13 +553,13 @@ textarea:focus {
   border: solid 0.0625rem #c0c0c0;
   border-radius: .25rem;
   margin: 0 0 0 1.25rem;
-  overflow: hidden; }
+  position: relative; }
   .cs-content-filter > ul {
     list-style: none;
     margin: 0;
     padding: 0 1.125rem; }
     .cs-content-filter > ul > li {
-      float: left;
+      display: inline-block;
       margin: 0 1.125rem; }
       .cs-content-filter > ul > li > a {
         color: #161616;
@@ -575,7 +575,8 @@ textarea:focus {
       .cs-content-filter > ul > li.search {
         font-size: .875rem; }
         .cs-content-filter > ul > li.search input {
-          margin-left: .25rem; }
+          margin-left: .25rem;
+          min-width: 12rem; }
         .cs-content-filter > ul > li.search label {
           color: #161616;
           line-height: 50px; }
@@ -584,10 +585,9 @@ textarea:focus {
   background-color: #fff;
   border: solid 1px #c0c0c0;
   border-radius: .25rem;
-  margin-left: 6.625rem;
+  margin-left: 3.625rem;
   margin-top: -.375rem;
   min-width: 12rem;
-  overflow: hidden;
   position: absolute;
   z-index: 10; }
   .cs-xlet-search-results-container ul li {
