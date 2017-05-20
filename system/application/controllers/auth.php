@@ -29,7 +29,7 @@ class Auth extends Controller
 		$this->load->helper('url');
 //		$this->load->helper('form');
 	}
-	
+
 	function index()
 	{
 		//$this->login();
@@ -216,11 +216,13 @@ class Auth extends Controller
 
             $user = json_decode($userResponse);
 
+            $name = ($user->name === null ? $user->login : $user->name);
+
             $this->session->set_userdata([
                 'oauth'=>true,
                 'type'=>'github',
                 'avatar'=>$user->avatar_url,
-                'name'=>$user->name,
+                'name'=>$name,
                 'link'=>$user->html_url
             ]);
 
@@ -240,7 +242,7 @@ if(window.name==='CinnamonSpicesOAuthLoginWindow'){
     }
 
     /* Callback function */
-	
+
 //	function username_check($username)
 //	{
 //		$result = $this->dx_auth->is_username_available($username);
@@ -292,7 +294,7 @@ if(window.name==='CinnamonSpicesOAuthLoginWindow'){
 //
 //		return $result;
 //	}
-	
+
 	/* End of Callback function */
 
 	function login() {
@@ -305,7 +307,7 @@ if(window.name==='CinnamonSpicesOAuthLoginWindow'){
 	        redirect('/');
         }
     }
-	
+
 //	function login()
 //	{
 //		if ( ! $this->dx_auth->is_logged_in())
