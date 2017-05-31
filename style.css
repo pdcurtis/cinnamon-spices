@@ -423,9 +423,6 @@ a {
       a:not(.cs-button).cs-link-alternate:hover, a:not(.cs-button).cs-link-alternate:active {
         color: #dc6830; }
 
-ul {
-  padding: 0; }
-
 .cs-inline-list {
   list-style: none;
   margin: 0;
@@ -590,32 +587,34 @@ textarea:focus {
   min-width: 12rem;
   position: absolute;
   z-index: 10; }
-  .cs-xlet-search-results-container ul li {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: row;
-        flex-direction: row;
-    float: none;
-    margin: 0; }
-    .cs-xlet-search-results-container ul li a {
-      -ms-flex-align: center;
-          align-items: center;
-      color: #161616;
+  .cs-xlet-search-results-container ul {
+    padding-left: 0; }
+    .cs-xlet-search-results-container ul li {
       display: -ms-flexbox;
       display: flex;
       -ms-flex-direction: row;
           flex-direction: row;
-      padding: .5rem;
-      width: 100%; }
-      .cs-xlet-search-results-container ul li a:hover, .cs-xlet-search-results-container ul li a.active {
-        color: #161616; }
-      .cs-xlet-search-results-container ul li a img {
-        height: 2rem;
-        margin-right: 1rem;
-        width: 2rem; }
-    .cs-xlet-search-results-container ul li:hover, .cs-xlet-search-results-container ul li.active {
-      background-color: #ddd;
-      border: 0; }
+      float: none;
+      margin: 0; }
+      .cs-xlet-search-results-container ul li a {
+        -ms-flex-align: center;
+            align-items: center;
+        color: #161616;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: row;
+            flex-direction: row;
+        padding: .5rem 1rem;
+        width: 100%; }
+        .cs-xlet-search-results-container ul li a:hover, .cs-xlet-search-results-container ul li a.active {
+          color: #161616; }
+        .cs-xlet-search-results-container ul li a img {
+          height: 2rem;
+          margin-right: 1rem;
+          width: 2rem; }
+      .cs-xlet-search-results-container ul li:hover, .cs-xlet-search-results-container ul li.active {
+        background-color: #ddd;
+        border: 0; }
 
 .cs-header {
   color: #fff;
@@ -1101,19 +1100,18 @@ textarea:focus {
 
 .cs-details-head h1 {
   font-size: 1.9rem;
-  line-height: 3rem;
   margin-right: .5rem; }
-
-.cs-details-head .cs-details-head-author-name {
-  line-height: 3rem; }
-
-.cs-details-head > div > img {
-  height: 3rem;
-  margin-right: .5rem;
-  width: 3rem; }
 
 .cs-details-head .cs-button:not(.cs-button-outline) {
   border: .0625rem solid transparent; }
+
+.cs-details-icon {
+  -ms-flex: 0 0 3rem;
+      flex: 0 0 3rem;
+  margin-right: .5rem; }
+  .cs-details-icon img {
+    height: 3rem;
+    width: 3rem; }
 
 .cs-details-body {
   border-bottom: 0.0625rem solid #414141;
@@ -1131,6 +1129,8 @@ textarea:focus {
   border-radius: .5rem;
   margin-top: 1.25rem;
   padding: 1rem; }
+  .cs-item-details-description pre {
+    overflow-x: auto; }
 
 .cs-comment-login .cs-button-social {
   margin: 0 1rem 0 0; }

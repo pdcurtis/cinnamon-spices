@@ -6,10 +6,12 @@ if (file_exists("$server_path/git/$type/$uuid/icon.png")) {
 }
 ?>
 <div class="cs-flex cs-details-head">
-    <div class="cs-flex cs-flex-grow cs-flex-wrap cs-flex-center">
-        <?php if (isset($icon)) { ?>
+    <?php if (isset($icon)) { ?>
+        <div class="cs-details-icon cs-flex-center">
             <img src='<?= $icon ?>'/>
-        <?php } ?>
+        </div>
+    <?php } ?>
+    <div class="cs-flex cs-flex-grow cs-flex-wrap cs-flex-center">
         <h1><?= $name ?></h1>
         <div class="cs-details-head-author-name">
             <?php if ($author != "" && $author != "none") { ?>

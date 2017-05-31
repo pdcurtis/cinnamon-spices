@@ -2,26 +2,22 @@
 
     h1 {
         font-size: 1.9rem;
-        line-height: 3rem;
         margin-right: .5rem;
-    }
-
-    .cs-details-head-author-name {
-        line-height: 3rem;
-    }
-
-    & > div {
-        & > img {
-            height: 3rem;
-            margin-right: .5rem;
-            width: 3rem;
-        }
     }
 
     .cs-button {
         &:not(.cs-button-outline) {
             border: .0625rem solid transparent;
         }
+    }
+}
+
+.cs-details-icon {
+    flex: 0 0 3rem;
+    margin-right: .5rem;
+    img {
+        height: 3rem;
+        width: 3rem;
     }
 }
 
@@ -43,4 +39,8 @@
     border-radius: .5rem;
     margin-top: 1.25rem;
     padding: 1rem;
+
+    pre {
+        overflow-x: auto;
+    }
 }
