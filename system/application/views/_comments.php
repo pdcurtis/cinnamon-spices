@@ -5,7 +5,7 @@
         <div class="cs-comment-form">
             <?php
                 $attributes = array('id'=>'comment_form');
-                echo form_open("$type/comment/$id", $attributes);
+                echo form_open("comment/submit/$type/$id", $attributes);
             ?>
             <textarea name="body" style="width:100%" rows="5" placeholder="comment here....."></textarea>
             <input name="parent_id" value="0" id="parent_id" style="display: none;"/>

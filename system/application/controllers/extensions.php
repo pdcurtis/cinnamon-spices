@@ -225,36 +225,4 @@ class Extensions extends Controller
         }
         redirect("/extensions/view/$id", "location");
     }
-
-    function comment($id)
-    {
-        $id = intval($id);
-        if ($this->session->userdata('oauth') && isset($_POST['body']) && !empty($_POST['body']))
-        {
-            $this->db->where('newextensions.id', $id);
-            $records = $this->db->get('newextensions');
-            if ($records->num_rows() > 0)
-            {
-                $data = $records->row_array();
-                $this->db->set('uuid', $data['uuid']);
-                $this->db->set('user_full_name', $this->session->userdata('name'));
-                $this->db->set('user_link', $this->session->userdata('link'));
-                $this->db->set('user_avatar', $this->session->userdata('avatar'));
-                $this->db->set('timestamp', now());
-                $this->db->set('message', $_POST['body']);
-                $this->db->set('parent_id', $_POST['parent_id']);
-                $this->db->insert('newextensions_comments');
-            }
-        }
-
-        //		if ($this->dx_auth->is_logged_in()) {
-//			$this->db->set('user', $this->dx_auth->get_user_id());
-//			$this->db->set('extension', $id);
-//			$this->db->set('timestamp', now());
-//			$this->db->set('body', $_POST['body']);
-//			$this->db->insert('extensions_comments');
-//		}
-        redirect("/extensions/view/$id", "location");
-    }
-
 }

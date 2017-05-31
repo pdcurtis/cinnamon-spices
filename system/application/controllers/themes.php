@@ -224,26 +224,4 @@ class Themes extends Controller
         }
 		redirect("/themes/view/$uuid", "location");
 	}
-
-    function comment($id)
-    {
-		if($this->session->userdata('oauth') && isset($_POST['body']) && !empty($_POST['body']))
-        {
-            $this->db->where('newthemes.uuid', $id);
-            $records = $this->db->get('newthemes');
-            if ($records->num_rows() > 0)
-            {
-                $data = $records->row_array();
-                $this->db->set('uuid',$data['uuid']);
-                $this->db->set('user_full_name',$this->session->userdata('name'));
-                $this->db->set('user_link',$this->session->userdata('link'));
-                $this->db->set('user_avatar',$this->session->userdata('avatar'));
-                $this->db->set('timestamp', now());
-                $this->db->set('message', $_POST['body']);
-                $this->db->set('parent_id', $_POST['parent_id']);
-                $this->db->insert('newthemes_comments');
-            }
-		}
-        redirect("/themes/view/$id", "location");
-	}
 }
