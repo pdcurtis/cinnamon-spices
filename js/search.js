@@ -45,7 +45,7 @@
                     link.click();
                 }
             } else {
-                ajaxCall({q: e.target.value}, searchUrl, buildResult);
+                ajaxCall({q: e.target.value}, 'POST', searchUrl, buildResult);
             }
         }
     }

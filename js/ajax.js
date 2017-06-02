@@ -1,8 +1,7 @@
 // Universal Ajax function
-// Currently Only set up to use POST
 // Query NEEDS to be submitted as an object
 
-function ajaxCall(query, url, callback) {
+function ajaxCall(query, type, url, callback) {
     var httpRequest = new XMLHttpRequest(),
         builtQuery = [];
 
@@ -19,7 +18,7 @@ function ajaxCall(query, url, callback) {
         }
     };
 
-    httpRequest.open('POST', url);
+    httpRequest.open(type, url);
     httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     httpRequest.send(builtQuery);
 }
