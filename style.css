@@ -1177,18 +1177,25 @@ textarea:focus {
 
 .cs-comment-date {
   color: #c0c0c0;
+  margin: 0 1rem; }
+
+.cs-comment-reply {
   margin-left: 1rem; }
 
 .cs-comment-form {
-  border-bottom: 0.0625rem solid #414141;
-  margin-bottom: 1rem;
-  padding: 0 0 1.25rem; }
+  margin-bottom: 1rem; }
   .cs-comment-form > form {
     margin-bottom: 0;
     max-width: 55rem; }
     .cs-comment-form > form > textarea {
       display: block;
-      margin-bottom: 1rem; }
+      margin-bottom: .5rem;
+      width: 100%; }
+    .cs-comment-form > form a {
+      margin-right: .5rem; }
+  .cs-comment-form-main {
+    border-bottom: 0.0625rem solid #414141;
+    padding: 0 0 1.25rem; }
 
 .cs-button-sm {
   font-size: .75rem;
