@@ -1189,6 +1189,7 @@ textarea:focus {
     max-width: 55rem; }
     .cs-comment-form > form > textarea {
       display: block;
+      resize: vertical;
       margin-bottom: 1rem;
       width: 100%; }
     .cs-comment-form > form a {
