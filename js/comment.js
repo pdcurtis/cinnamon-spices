@@ -1,50 +1,79 @@
 (function() {
-    // Check for comment-box
     var form = document.getElementById('comment-form-master');
 
-    function createForm(parent) {
-        var form_wrapper = document.createElement('div'),
-            new_form = document.createElement('form'),
-            send_button = document.createElement('a')
-            cancel_button = send_button.cloneNode(false),
-            new_textarea = document.createElement('textarea');
+    // Create Reply Form
+    function createForm(parent, userInfo) {
+        var formWrapper = document.createElement('div'),
+            newForm = document.createElement('form'),
+            newTextarea = document.createElement('textarea'),
+            buttonSend = document.createElement('a')
+            buttonCancel = buttonSend.cloneNode(false),
+            userLink = buttonSend.cloneNode(false),
+            userAvatar = document.createElement('img')
+            userWrapper = formWrapper.cloneNode(false);
 
-        // form wrapper
-        form_wrapper.setAttribute('class', 'cs-comment-form cs-comment-child');
-        form_wrapper.setAttribute('id', 'comment-form-reply');
+        // Form Wrapper
+        formWrapper.setAttribute('class', 'cs-comment-form cs-comment-form-reply cs-comment-child cs-media');
+        formWrapper.setAttribute('id', 'comment-form-reply');
 
         if (parent.getAttribute('data-depth') >= 2) {
-            form_wrapper.classList.add('cs-comment-no-indent');
+            formWrapper.classList.add('cs-comment-no-indent');
         }
 
+        // Form
+        newForm.setAttribute('class', 'cs-media-content');
+
+        // User Avatar
+        userWrapper.setAttribute('class', 'cs-comment-image cs-media-image');
+
+        userLink.setAttribute('class', 'url');
+        userLink.setAttribute('target', '_blank');
+        userLink.href = user.link;
+
+        userAvatar.setAttribute('class', 'avatar avatar-50 photo');
+        userAvatar.setAttribute('alt', user.name);
+        userAvatar.src = user.avatar;
+
+        userLink.appendChild(userAvatar);
+        userWrapper.appendChild(userLink);
+
         // Send Button
-        send_button.setAttribute('class', 'cs-button cs-button-sm');
-        send_button.innerHTML = 'Submit';
+        buttonSend.setAttribute('class', 'cs-button cs-button-sm');
+        buttonSend.innerHTML = 'Submit';
 
         // Cancel Button
-        cancel_button.setAttribute('class', 'cs-button cs-button-sm cs-button-cancel');
-        cancel_button.innerHTML = 'Cancel';
+        buttonCancel.setAttribute('class', 'cs-button cs-button-sm cs-button-cancel');
+        buttonCancel.innerHTML = 'Cancel';
 
         // Text box
-        new_textarea.setAttribute('name', 'reply_body');
-        new_textarea.setAttribute('rows', '4');
-        new_textarea.setAttribute('placeholder', 'Reply here.....');
+        newTextarea.setAttribute('name', 'reply_body');
+        newTextarea.setAttribute('rows', '4');
+        newTextarea.setAttribute('placeholder', 'Reply here.....');
 
         // Build Form
-        new_form.appendChild(new_textarea);
-        new_form.appendChild(send_button);
-        new_form.appendChild(cancel_button);
-        form_wrapper.appendChild(new_form);
+        newForm.appendChild(newTextarea);
+        newForm.appendChild(buttonSend);
+        newForm.appendChild(buttonCancel);
+
+        formWrapper.appendChild(userWrapper);
+        formWrapper.appendChild(newForm);
 
         // Insert after original post
-        parent.insertBefore(form_wrapper, parent.firstElementChild.nextSibling);
+        parent.insertBefore(formWrapper, parent.firstElementChild.nextSibling);
     }
 
     if (form) {
         var container = document.getElementById('comments'),
             // clear = document.getElementById('form_clear'),
             header = document.getElementById('form_header'),
-            parent_id = document.getElementById('parent_id');
+            parent_id = document.getElementById('parent_id'),
+            user;
+
+        function assignUser(data) {
+            user = data;
+        }
+
+        ajaxCall({}, 'GET', '/comment/get_user', assignUser);
 
         // Reply link functionality
         container.addEventListener('click', function(e) {
@@ -64,7 +93,7 @@
                     reply_form.parentNode.removeChild(reply_form);
                 }
 
-                createForm(container);
+                createForm(container, user);
 
                 // var comment = target.getAttribute('data-id'),
                 //     name = target.getAttribute('data-name');

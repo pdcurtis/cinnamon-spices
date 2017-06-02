@@ -53,4 +53,16 @@ class Comment extends Controller
         }
         redirect("/$type/view/$id", "location");
 	}
+
+    function get_user()
+    {
+        $user = [];
+
+        $user['avatar'] = $this->session->userdata('avatar');
+        $user['link'] = $this->session->userdata('link');
+        $user['name'] = $this->session->userdata('name');
+
+        header('Content-Type: application/json');
+        echo json_encode($user);
+    }
 }
