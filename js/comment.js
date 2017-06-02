@@ -1,15 +1,31 @@
 (function() {
-    var form = document.getElementById('comment-form-master');
+    var form = document.getElementById('form-master');
+
+
+    // Create SUBMIT / CANCEL buttons
+    function createButtons(parent) {
+        var buttonSend = document.createElement('a'),
+            buttonCancel = buttonSend.cloneNode(false);
+
+        // Send Button
+        buttonSend.setAttribute('class', 'cs-button cs-button-sm submit');
+        buttonSend.innerHTML = 'Submit';
+
+        // Cancel Button
+        buttonCancel.setAttribute('class', 'cs-button cs-button-sm cs-button-cancel cancel');
+        buttonCancel.innerHTML = 'Cancel';
+
+        parent.appendChild(buttonSend);
+        parent.appendChild(buttonCancel);
+    }
 
     // Create Reply Form
     function createForm(parent, userInfo) {
         var formWrapper = document.createElement('div'),
             newForm = document.createElement('form'),
             newTextarea = document.createElement('textarea'),
-            buttonSend = document.createElement('a')
-            buttonCancel = buttonSend.cloneNode(false),
-            userLink = buttonSend.cloneNode(false),
-            userAvatar = document.createElement('img')
+            userLink = document.createElement('a'),
+            userAvatar = document.createElement('img'),
             userWrapper = formWrapper.cloneNode(false);
 
         // Form Wrapper
@@ -28,22 +44,14 @@
 
         userLink.setAttribute('class', 'url');
         userLink.setAttribute('target', '_blank');
-        userLink.href = user.link;
+        userLink.href = userInfo.link;
 
         userAvatar.setAttribute('class', 'avatar avatar-50 photo');
-        userAvatar.setAttribute('alt', user.name);
-        userAvatar.src = user.avatar;
+        userAvatar.setAttribute('alt', userInfo.name);
+        userAvatar.src = userInfo.avatar;
 
         userLink.appendChild(userAvatar);
         userWrapper.appendChild(userLink);
-
-        // Send Button
-        buttonSend.setAttribute('class', 'cs-button cs-button-sm');
-        buttonSend.innerHTML = 'Submit';
-
-        // Cancel Button
-        buttonCancel.setAttribute('class', 'cs-button cs-button-sm cs-button-cancel');
-        buttonCancel.innerHTML = 'Cancel';
 
         // Text box
         newTextarea.setAttribute('name', 'reply_body');
@@ -52,8 +60,7 @@
 
         // Build Form
         newForm.appendChild(newTextarea);
-        newForm.appendChild(buttonSend);
-        newForm.appendChild(buttonCancel);
+        createButtons(newForm);
 
         formWrapper.appendChild(userWrapper);
         formWrapper.appendChild(newForm);
@@ -63,10 +70,7 @@
     }
 
     if (form) {
-        var container = document.getElementById('comments'),
-            // clear = document.getElementById('form_clear'),
-            header = document.getElementById('form_header'),
-            parent_id = document.getElementById('parent_id'),
+        var comments = document.getElementById('comment-box'),
             user;
 
         function assignUser(data) {
@@ -76,7 +80,7 @@
         ajaxCall({}, 'GET', '/comment/get_user', assignUser);
 
         // Reply link functionality
-        container.addEventListener('click', function(e) {
+        comments.addEventListener('click', function(e) {
             var target = e.target,
                 container = target.parentNode.parentNode.parentNode.parentNode.parentNode, // What a magical beast!!
                 reply_form = document.getElementById("comment-form-reply");
@@ -94,12 +98,6 @@
                 }
 
                 createForm(container, user);
-
-                // var comment = target.getAttribute('data-id'),
-                //     name = target.getAttribute('data-name');
-                //
-                // Set parent_id for reply post
-                // parent_id.setAttribute('value', comment);
             }
         });
     }
