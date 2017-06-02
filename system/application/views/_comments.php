@@ -11,7 +11,7 @@
         </div>
     <?php } else { ?>
         <h2 class="cs-comments-title">Log In To Comment!</h2>
-        <div class="cs-comment-form-main">
+        <div class="cs-comment-form cs-comment-form-main">
             <div class="cs-comment-login cs-flex-row">
                 <?php $this->view('oauth/_login-button') ?>
             </div>
