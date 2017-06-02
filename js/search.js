@@ -45,7 +45,7 @@
                     link.click();
                 }
             } else {
-                getResults(e.target.value, buildResult)
+                ajaxCall({q: e.target.value}, searchUrl, buildResult);
             }
         }
     }
@@ -83,18 +83,6 @@
         } else {
             container.style.display = 'none';
         }
-    }
-
-    function getResults(q, callback) {
-        var httpRequest = new XMLHttpRequest();
-        httpRequest.onreadystatechange = function () {
-            if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-                callback(JSON.parse(httpRequest.responseText));
-            }
-        };
-        httpRequest.open('POST', searchUrl);
-        httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        httpRequest.send('q=' + encodeURIComponent(q));
     }
 
     document.querySelector('body').onclick = function () {
