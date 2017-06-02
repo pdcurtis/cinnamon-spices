@@ -4,9 +4,7 @@
         <h2 class="cs-comments-title">Leave A Comment.</h2>
         <div class="cs-comment-form cs-comment-form-main">
             <form id="form-master">
-                <textarea name="body" rows="5" placeholder="comment here....."></textarea>
-                <a href="#" id="form_clear" class="cs-button cs-button-sm">Submit</a><!--
-                --><a href="#" id="form_clear" class="cs-button cs-button-sm cs-button-cancel">Cancel</a>
+                <textarea id="master-body" name="body" rows="5" placeholder="comment here....."></textarea>
             </form>
         </div>
     <?php } else { ?>

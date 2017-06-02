@@ -94,8 +94,22 @@ function ajaxCall(query, type, url, callback) {
         parent.insertBefore(formWrapper, parent.firstElementChild.nextSibling);
     }
 
+    function removeButtons(sibling) {
+        var buttonList = sibling.parentNode.querySelectorAll('.cs-button'),
+            i;
+
+        for (i = 0; i < buttonList.length; i++) {
+            buttonList[i].parentNode.removeChild(buttonList[i]);
+        }
+
+        sibling.parentNode.classList.remove('active');
+    }
+
     if (form) {
         var comments = document.getElementById('comment-box'),
+            masterBody = document.getElementById('master-body'),
+            replyForm = document.getElementById("comment-form-reply"),
+            masterButtons,
             user;
 
         function assignUser(data) {
@@ -104,22 +118,51 @@ function ajaxCall(query, type, url, callback) {
 
         ajaxCall({}, 'GET', '/comment/get_user', assignUser);
 
+        // Master Comment functionality
+        masterBody.addEventListener('focus', function(e) {
+            replyForm = document.getElementById("comment-form-reply");
+            
+            if (!masterButtons) {
+                createButtons(masterBody.parentNode);
+                masterBody.parentNode.classList.add('active');
+                masterButtons = masterBody.parentNode.querySelectorAll('.cs-button');
+
+                if (replyForm) {
+                    replyForm.parentNode.removeChild(replyForm);
+                }
+            }
+        });
+
         // Reply link functionality
         comments.addEventListener('click', function(e) {
             var target = e.target,
-                container = target.parentNode.parentNode.parentNode.parentNode.parentNode, // What a magical beast!!
-                reply_form = document.getElementById("comment-form-reply");
+                replyForm = document.getElementById("comment-form-reply"),
+                container = target.parentNode.parentNode.parentNode.parentNode.parentNode; // What a magical beast!!
 
-            if (target.classList.contains('cs-button-cancel') && target.parentNode.parentNode === reply_form) {
-                reply_form.parentNode.removeChild(reply_form);
+            if (target.classList.contains('cancel')) {
+                if (target.parentNode.parentNode === replyForm) {
+                    console.log('fire');
+                    replyForm.parentNode.removeChild(replyForm);
+                }
+
+                if (target.parentNode === form) {
+                    console.log('fire 2')
+                    removeButtons(masterBody);
+                    masterButtons = null;
+                }
             }
 
             if (target.classList.contains('reply')) {
                 e.preventDefault();
 
+                if (form.classList.contains('active')) {
+                    removeButtons(masterBody);
+                    masterButtons = null;
+                }
+
                 // Remove existing reply form
-                if (reply_form) {
-                    reply_form.parentNode.removeChild(reply_form);
+                if (replyForm) {
+                    replyForm.parentNode.removeChild(replyForm);
                 }
 
                 createForm(container, user);
