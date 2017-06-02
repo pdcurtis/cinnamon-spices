@@ -1189,13 +1189,18 @@ textarea:focus {
     max-width: 55rem; }
     .cs-comment-form > form > textarea {
       display: block;
-      margin-bottom: .5rem;
+      margin-bottom: 1rem;
       width: 100%; }
     .cs-comment-form > form a {
       margin-right: .5rem; }
   .cs-comment-form-main {
     border-bottom: 0.0625rem solid #414141;
     padding: 0 0 1.25rem; }
+  .cs-comment-form-reply {
+    margin-bottom: 0;
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+    padding-top: 1rem; }
 
 .cs-button-sm {
   font-size: .75rem;

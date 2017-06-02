@@ -81,7 +81,7 @@
 
         & > textarea {
             display: block;
-            margin-bottom: .5rem;
+            margin-bottom: 1rem;
             width: 100%;
         }
 
@@ -93,5 +93,12 @@
     &-main {
         border-bottom: .0625rem solid $color-gray-3;
         padding: 0 0 1.25rem;
+    }
+
+    &-reply {
+        margin-bottom: 0;
+        margin-top: 1rem;
+        padding-bottom: 1rem;
+        padding-top: 1rem;
     }
 }
