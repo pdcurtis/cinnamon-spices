@@ -2,6 +2,7 @@
 <head>
     <title>Spices : Cinnamon</title>
     <!-- Stylesheet & Favicon -->
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <link rel="shortcut icon" href="/favicon.ico"/>
     <link rel="stylesheet" href="/style.css?<?= time() ?>">
 </head>
