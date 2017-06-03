@@ -26,7 +26,6 @@ function ajaxCall(query, type, url, callback) {
 (function() {
     var form = document.getElementById('form-master');
 
-
     // Create SUBMIT / CANCEL buttons
     function createButtons(parent) {
         var buttonSend = document.createElement('a'),
@@ -45,7 +44,7 @@ function ajaxCall(query, type, url, callback) {
     }
 
     // Create Reply Form
-    function createForm(parent, userInfo) {
+    function createForm(parent, userInfo, parentUser, parentId) {
         var formWrapper = document.createElement('div'),
             newForm = document.createElement('form'),
             newTextarea = document.createElement('textarea'),
@@ -81,7 +80,7 @@ function ajaxCall(query, type, url, callback) {
         // Text box
         newTextarea.setAttribute('name', 'reply_body');
         newTextarea.setAttribute('rows', '4');
-        newTextarea.setAttribute('placeholder', 'Reply here.....');
+        newTextarea.setAttribute('placeholder', 'Reply to ' + parentUser + ' here.....' + parentId);
 
         // Build Form
         newForm.appendChild(newTextarea);
@@ -95,21 +94,26 @@ function ajaxCall(query, type, url, callback) {
     }
 
     function removeButtons(sibling) {
-        var buttonList = sibling.parentNode.querySelectorAll('.cs-button'),
-            i;
+        var buttonList = sibling.parentNode.querySelectorAll('.cs-button');
 
-        for (i = 0; i < buttonList.length; i++) {
+        for (var i = 0; i < buttonList.length; i++) {
             buttonList[i].parentNode.removeChild(buttonList[i]);
         }
 
-        sibling.parentNode.classList.remove('active');
+        masterButtons = null;
     }
 
+    function removeForm(item) {
+        item.parentNode.removeChild(item);
+    }
+
+    // Check to see if master form exists.
+    // This implies the user is logged in going forward.
     if (form) {
         var comments = document.getElementById('comment-box'),
             masterBody = document.getElementById('master-body'),
             replyForm = document.getElementById("comment-form-reply"),
-            masterButtons,
+            masterButtons = null,
             user;
 
         function assignUser(data) {
@@ -121,51 +125,48 @@ function ajaxCall(query, type, url, callback) {
         // Master Comment functionality
         masterBody.addEventListener('focus', function(e) {
             replyForm = document.getElementById("comment-form-reply");
-            
+
             if (!masterButtons) {
                 createButtons(masterBody.parentNode);
-                masterBody.parentNode.classList.add('active');
                 masterButtons = masterBody.parentNode.querySelectorAll('.cs-button');
 
                 if (replyForm) {
-                    replyForm.parentNode.removeChild(replyForm);
+                    removeForm(replyForm);
                 }
             }
         });
 
-        // Reply link functionality
+
         comments.addEventListener('click', function(e) {
             var target = e.target,
                 replyForm = document.getElementById("comment-form-reply"),
                 container = target.parentNode.parentNode.parentNode.parentNode.parentNode; // What a magical beast!!
 
+            // Cancel Button functionality
             if (target.classList.contains('cancel')) {
                 if (target.parentNode.parentNode === replyForm) {
-                    console.log('fire');
-                    replyForm.parentNode.removeChild(replyForm);
-                }
-
-                if (target.parentNode === form) {
-                    console.log('fire 2')
+                    removeForm(replyForm);
+                } else if (target.parentNode === form) {
                     removeButtons(masterBody);
-                    masterButtons = null;
                 }
             }
 
+            // Reply link functionality
             if (target.classList.contains('reply')) {
+                var replyParentName = target.getAttribute('data-name'),
+                    replyParentId = target.getAttribute('data-id');
+
                 e.preventDefault();
 
-                if (form.classList.contains('active')) {
+                if (masterButtons) {
                     removeButtons(masterBody);
-                    masterButtons = null;
                 }
 
-                // Remove existing reply form
                 if (replyForm) {
-                    replyForm.parentNode.removeChild(replyForm);
+                    removeForm(replyForm);
                 }
 
-                createForm(container, user);
+                createForm(container, user, replyParentName, replyParentId);
             }
         });
     }
