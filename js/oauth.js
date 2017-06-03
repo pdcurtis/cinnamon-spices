@@ -20,22 +20,22 @@
         link.addEventListener('click', function(e) {
             e.preventDefault();
 
-            var target = e.target,
+            var target = this,
                 lnkFB = document.getElementById('lnkLoginFacebook'),
                 lnkGg = document.getElementById('lnkLoginGoogle'),
                 lnkGH = document.getElementById('lnkLoginGitHub');
 
-            if (target.id = lnkFB) {
+            if (target === lnkFB) {
                 openCinnamonSpicesOAuthLoginWindow('/auth/facebook');
             }
 
-            if (target.id = lnkGg) {
+            if (target === lnkGg) {
                 openCinnamonSpicesOAuthLoginWindow('/auth/google');
             }
 
-            if (target.id = lnkGH) {
+            if (target === lnkGH) {
                 openCinnamonSpicesOAuthLoginWindow('/auth/github');
             }
-        })
+        });
     }
 })();
