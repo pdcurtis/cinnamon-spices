@@ -1,5 +1,5 @@
 <!-- START comments-box -->
-<div id="comment-box" class="cs-comment-box">
+<div id="comment-box" class="cs-comment-box" data-type="<?= $type ?>" data-spice="<?= $id ?>">
     <?php if ($this->session->userdata('oauth')) { ?>
         <h2 class="cs-comments-title">Leave A Comment.</h2>
         <div class="cs-comment-form cs-comment-form-main">

@@ -14,7 +14,9 @@ function ajaxCall(query, type, url, callback) {
 
     httpRequest.onreadystatechange = function () {
         if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-            callback(JSON.parse(httpRequest.responseText));
+            if (callback) {
+                callback(JSON.parse(httpRequest.responseText));
+            }
         }
     };
 

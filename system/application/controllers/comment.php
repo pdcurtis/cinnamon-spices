@@ -38,6 +38,8 @@ class Comment extends Controller
             $this->db->where($db_id, $id);
             $records = $this->db->get($db_type);
 
+            //$message = htmlspecialchars(trim($_POST['body']));
+
             if ($records->num_rows() > 0)
             {
                 $data = $records->row_array();
@@ -46,12 +48,12 @@ class Comment extends Controller
                 $this->db->set('user_link',$this->session->userdata('link'));
                 $this->db->set('user_avatar',$this->session->userdata('avatar'));
                 $this->db->set('timestamp', now());
-                $this->db->set('message', $_POST['body']);
+                $this->db->set('message', $_POST['body']); //$message);
                 $this->db->set('parent_id', $_POST['parent_id']);
                 $this->db->insert($db_comment);
             }
         }
-        redirect("/$type/view/$id", "location");
+        //redirect("/$type/view/$id", "location");
 	}
 
     function get_user()
