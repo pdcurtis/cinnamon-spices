@@ -15,7 +15,7 @@
             </div>
         </div>
     <?php } ?>
-    <h3 class="cs-comments-amount"><?= $count ?> Comments</h3>
+    <h3 class="cs-comments-amount"><span id="count"><?= $count ?></span> Comments</h3>
     <div id="comments">
         <?php echo $comments ?>
     </div>

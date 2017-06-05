@@ -27,6 +27,7 @@ function ajaxCall(query, type, url, callback) {
 
 (function() {
     var form = document.getElementById('form-master'),
+        count = document.getElementById('count'),
 
         // Blank Nodes for cloning
         a = document.createElement('a'),
@@ -190,6 +191,12 @@ function ajaxCall(query, type, url, callback) {
         item.parentNode.removeChild(item);
     }
 
+    function updateCount() {
+        var current = Number(count.textContent);;
+        current += 1;
+        count.innerHTML = current;
+    }
+
     // Check to see if master form exists.
     // This implies the user is logged in going forward.
     if (form) {
@@ -263,8 +270,10 @@ function ajaxCall(query, type, url, callback) {
                     }
 
                     createReply(submitLocation, user, submitMessage, submitBefore);
-                    
+
                     ajaxCall(submit, 'POST', '/comment/submit/'+type+'/'+spice);
+
+                    updateCount();
                 }
             }
 

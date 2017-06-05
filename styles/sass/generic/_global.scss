@@ -13,7 +13,10 @@ body {
 
 * {
     box-sizing: border-box;
-    font-family: $font-open-sans;
+
+    &:not(span) {
+        font-family: $font-open-sans;
+    }
 }
 
 img {

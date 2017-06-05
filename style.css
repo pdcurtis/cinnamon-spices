@@ -405,8 +405,9 @@ body {
   overflow-y: scroll; }
 
 * {
-  box-sizing: border-box;
-  font-family: "Open Sans", sans-serif; }
+  box-sizing: border-box; }
+  *:not(span) {
+    font-family: "Open Sans", sans-serif; }
 
 img {
   max-width: 100%; }
