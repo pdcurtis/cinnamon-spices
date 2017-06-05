@@ -2,7 +2,8 @@
 <html>
 <head>
     <title>Cinnamon Spices</title>
-
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <link rel="shortcut icon" href="/favicon.ico"/>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
