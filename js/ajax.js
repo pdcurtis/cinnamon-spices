@@ -13,9 +13,13 @@ function ajaxCall(query, type, url, callback) {
     builtQuery = builtQuery.join('&').replace(/%20/g, '+');
 
     httpRequest.onreadystatechange = function () {
-        if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-            if (callback) {
-                callback(JSON.parse(httpRequest.responseText));
+        if (httpRequest.readyState === 4) {
+            if (httpRequest.status === 200) {
+                if (callback) {
+                    callback(JSON.parse(httpRequest.responseText));
+                }
+            } else {
+                callback(httpRequest.status);
             }
         }
     };

@@ -13,9 +13,13 @@ function ajaxCall(query, type, url, callback) {
     builtQuery = builtQuery.join('&').replace(/%20/g, '+');
 
     httpRequest.onreadystatechange = function () {
-        if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-            if (callback) {
-                callback(JSON.parse(httpRequest.responseText));
+        if (httpRequest.readyState === 4) {
+            if (httpRequest.status === 200) {
+                if (callback) {
+                    callback(JSON.parse(httpRequest.responseText));
+                }
+            } else {
+                callback(httpRequest.status);
             }
         }
     };
@@ -114,6 +118,9 @@ function ajaxCall(query, type, url, callback) {
     }
 
     function createReply(parent, userInfo, userMessage, before) {
+
+        console.log(userInfo);
+
         var replyWrapper = div.cloneNode(false),
             commentWrapper = div.cloneNode(false),
             commentAuthor = div.cloneNode(false),
@@ -127,51 +134,85 @@ function ajaxCall(query, type, url, callback) {
             message = document.createTextNode(userMessage),
             isChild = (before === true) ? 'cs-comment-parent' : 'cs-comment-child';
 
-        replyWrapper.setAttribute('class', isChild);
-        if (parent.getAttribute('data-depth') >= 2) {
-            replyWrapper.classList.add('cs-comment-no-indent');
-        }
-
-        commentWrapper.setAttribute('class', 'cs-comment cs-media');
-
         avatarWrapper.setAttribute('class', 'cs-media-image cs-comment-image');
-
-        contentWrapper.setAttribute('class', 'cs-media-content cs-flex-column cs-flex-grow');
-        commentAuthor.setAttribute('class', 'cs-comment-author cs-flex-row');
-
-        authorLink.setAttribute('class', 'url');
-        authorLink.setAttribute('target', '_blank');
-        authorLink.href = userInfo.link;
+        createAvatar(avatarWrapper, userInfo);
 
         authorName.setAttribute('class', 'cs-comment-author-name');
-        authorName.appendChild(document.createTextNode(user.name));
+        authorName.appendChild(document.createTextNode(userInfo.name));
 
         authorDate.setAttribute('class', 'cs-comment-date');
         authorDate.appendChild(document.createTextNode('1 second ago'));
 
+        authorLink.setAttribute('class', 'url');
+        authorLink.setAttribute('target', '_blank');
+        authorLink.href = userInfo.link;
         authorLink.appendChild(authorName);
+
+        commentAuthor.setAttribute('class', 'cs-comment-author cs-flex-row');
         commentAuthor.appendChild(authorLink);
         commentAuthor.appendChild(authorSpacer);
         commentAuthor.appendChild(authorDate);
 
         commentBody.setAttribute('class', 'cs-comment-text');
-
         commentBody.appendChild(message);
 
+        contentWrapper.setAttribute('class', 'cs-media-content cs-flex-column cs-flex-grow');
         contentWrapper.appendChild(commentAuthor);
         contentWrapper.appendChild(commentBody);
 
-        createAvatar(avatarWrapper, userInfo);
-
+        commentWrapper.setAttribute('class', 'cs-comment cs-media');
         commentWrapper.appendChild(avatarWrapper);
         commentWrapper.appendChild(contentWrapper);
 
+        replyWrapper.setAttribute('class', isChild);
+        if (parent.getAttribute('data-depth') >= 2) {
+            replyWrapper.classList.add('cs-comment-no-indent');
+        }
         replyWrapper.appendChild(commentWrapper);
 
         if (before) {
             parent.insertBefore(replyWrapper, parent.firstElementChild);
         } else {
             parent.insertBefore(replyWrapper, parent.firstElementChild.nextSibling);
+        }
+
+        updateCount();
+    }
+
+    function createLoader(location, user, before) {
+        var loader = div.cloneNode(false),
+            avatar = div.cloneNode(false),
+            wrapper = div.cloneNode(false),
+            content = div.cloneNode(false),
+            comment = div.cloneNode(false),
+            isChild = (before === true) ? 'cs-comment-parent' : 'cs-comment-child';
+
+        avatar.setAttribute('class', 'cs-media-image cs-comment-image');
+        createAvatar(avatar, user);
+
+        loader.setAttribute('class', 'loader');
+        loader.appendChild(document.createTextNode('Loading...'));
+
+
+        wrapper.setAttribute('class', isChild);
+        wrapper.setAttribute('id', 'loader');
+
+        if (location.getAttribute('data-depth') >= 2) {
+            wrapper.classList.add('cs-comment-no-indent');
+        }
+
+        content.setAttribute('class', 'cs-media-content cs-flex-column cs-flex-grow');
+        content.appendChild(loader);
+
+        comment.setAttribute('class', 'cs-comment cs-media');
+        comment.appendChild(avatar);
+        comment.appendChild(content)
+        wrapper.appendChild(comment);
+
+        if (before) {
+            location.insertBefore(wrapper, location.firstElementChild);
+        } else {
+            location.insertBefore(wrapper, location.firstElementChild.nextSibling);
         }
     }
 
@@ -187,7 +228,7 @@ function ajaxCall(query, type, url, callback) {
         sibling.value = "";
     }
 
-    function removeForm(item) {
+    function removeSelf(item) {
         item.parentNode.removeChild(item);
     }
 
@@ -202,7 +243,7 @@ function ajaxCall(query, type, url, callback) {
     if (form) {
         var comments = document.getElementById('comment-box'),
             masterBody = document.getElementById('master-body'),
-            replyForm = document.getElementById("form-reply"),
+            replyForm,
             type = comments.getAttribute('data-type'),
             spice = comments.getAttribute('data-spice'),
             masterButtons = null,
@@ -223,7 +264,7 @@ function ajaxCall(query, type, url, callback) {
                 masterButtons = masterBody.parentNode.querySelectorAll('.cs-button');
 
                 if (replyForm) {
-                    removeForm(replyForm);
+                    removeSelf(replyForm);
                 }
             }
         });
@@ -231,16 +272,17 @@ function ajaxCall(query, type, url, callback) {
 
         comments.addEventListener('click', function(e) {
             var target = e.target,
-                replyForm = document.getElementById("form-reply"),
                 replyParentId = target.getAttribute('data-id') || target.parentNode.getAttribute('data-parent'),
                 container = target.parentNode.parentNode.parentNode.parentNode.parentNode; // What a magical beast!!
+
+            replyForm = document.getElementById("form-reply");
 
             // Cancel Button functionality
             if (target.classList.contains('cancel')) {
                 e.preventDefault();
 
                 if (target.parentNode.parentNode === replyForm) {
-                    removeForm(replyForm);
+                    removeSelf(replyForm);
                 } else if (target.parentNode === form) {
                     removeButtons(masterBody);
                 }
@@ -248,32 +290,49 @@ function ajaxCall(query, type, url, callback) {
 
             // Submit Button functionality
             if (target.classList.contains('submit')) {
-                var commentBody = document.getElementById('comments');
-                    submitName = user.name,
-                    submitParent = (target.parentNode === form) ? '0' : replyParentId,
-                    submitMessage = target.parentNode.body.value,
+                var commentBody = document.getElementById('comments'),
+                    replyForm = document.getElementById("form-reply"),
                     submit = {
-                        name: submitName,
-                        parent_id: submitParent,
-                        body: submitMessage
+                        before: false,
+                        category: type,
+                        message: target.parentNode.body.value,
+                        name:  user.name,
+                        parent: (target.parentNode === form) ? '0' : replyParentId,
+                        spice: spice
+                    },
+
+                    post = {
+                        name: submit.name,
+                        parent_id: submit.parent,
+                        body: submit.message
                     };
 
                 e.preventDefault();
-                if (submitMessage) {
-                    var submitLocation = (target.parentNode === form) ? commentBody : target.parentNode.parentNode.parentNode,
-                        submitBefore = false;
-                    if (target.parentNode === form) {
-                        removeButtons(masterBody);
-                        submitBefore = true;
-                    } else {
-                        removeForm(replyForm);
+
+                if (submit.message) {
+                    submit['location'] = (target.parentNode === form) ? commentBody : target.parentNode.parentNode.parentNode;
+
+                    function errorTest(data) {
+                        var loader = document.getElementById('loader');
+
+                        if (!(data >= 200 && data < 300)) {
+                            submit.message = "An error was encountered while submiting your comment, Please try again later";
+                        }
+
+                        removeSelf(loader);
+                        createReply(submit.location, user, submit.message, submit.before);
                     }
 
-                    createReply(submitLocation, user, submitMessage, submitBefore);
+                    if (target.parentNode === form) {
+                        removeButtons(masterBody);
+                        submit.before = true;
+                    } else {
+                        removeSelf(replyForm);
+                    }
 
-                    ajaxCall(submit, 'POST', '/comment/submit/'+type+'/'+spice);
+                    createLoader(submit.location, user, submit.before);
 
-                    updateCount();
+                    ajaxCall(post, 'POST', '/comment/submit/'+type+'/'+spice, errorTest);
                 }
             }
 
@@ -287,7 +346,7 @@ function ajaxCall(query, type, url, callback) {
                 }
 
                 if (replyForm) {
-                    removeForm(replyForm);
+                    removeSelf(replyForm);
                 }
 
                 createForm(container, user, replyParentName, replyParentId);

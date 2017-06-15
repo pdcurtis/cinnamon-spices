@@ -54,6 +54,9 @@ class Comment extends Controller
             }
         }
         //redirect("/$type/view/$id", "location");
+
+        header('Content-Type: application/json');
+        echo json_encode(http_response_code());
 	}
 
     function get_user()

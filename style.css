@@ -1204,6 +1204,43 @@ textarea:focus {
     padding-bottom: 1rem;
     padding-top: 1rem; }
 
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: .5rem;
+  width: 1rem;
+  height: 1rem;
+  animation-fill-mode: both;
+  animation: loader .75s infinite ease-in-out; }
+
+.loader {
+  color: #dc6830;
+  font-size: .75rem;
+  text-indent: -9999em;
+  transform: translateX(3rem);
+  animation-delay: -0.1s; }
+
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0; }
+
+.loader:before {
+  left: -2rem;
+  animation-delay: -0.2s; }
+
+.loader:after {
+  left: 2rem; }
+
+@keyframes loader {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2rem 0 -2em; }
+  40% {
+    box-shadow: 0 2em 0 0; } }
+
 .cs-button-sm {
   font-size: .75rem;
   padding: .625rem 1rem; }
