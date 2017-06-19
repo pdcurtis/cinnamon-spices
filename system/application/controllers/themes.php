@@ -176,7 +176,7 @@ class Themes extends Controller
     {
         // Calculate the score
         $this->db->where('uuid', $uuid);
-        $this->db->where('FROM_UNIXTIME(timestamp) >= DATE_SUB(NOW(), INTERVAL 1 MONTH)');
+        $this->db->where('FROM_UNIXTIME(timestamp) >= DATE_SUB(NOW(), INTERVAL 1 YEAR)');
         $score = $this->db->get('newthemes_ratings')->num_rows();
         // Update the score field
         // $id = intval($id);
