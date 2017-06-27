@@ -44,11 +44,11 @@ class Themes extends Controller
 
         $this->pagination->initialize($config);
         $this->db->order_by('score DESC, name ASC');
-        $data['themes'] = $this->db->get('newthemes', $config['per_page'], $this->uri->segment(3));
+        $data['items'] = $this->db->get('newthemes', $config['per_page'], $this->uri->segment(3));
 		$data['mode'] = 'popular';
 
 		$this->load->view('header');
-		$this->load->view('themes', $data);
+		$this->load->view('spice_list', $data);
 		$this->load->view('footer');
 	}
 
@@ -64,11 +64,11 @@ class Themes extends Controller
         $this->pagination->initialize($config);
         $this->db->order_by('last_edited DESC, name ASC');
 
-        $data['themes'] = $this->db->get('newthemes', $config['per_page'], $this->uri->segment(3));
+        $data['items'] = $this->db->get('newthemes', $config['per_page'], $this->uri->segment(3));
 		$data['mode'] = 'latest';
 
 		$this->load->view('header', $data);
-		$this->load->view('themes', $data);
+		$this->load->view('spice_list', $data);
 		$this->load->view('footer', $data);
 	}
 

@@ -48,7 +48,7 @@ class Extensions extends Controller
         $data['mode'] = 'popular';
 
         $this->load->view('header', $data);
-        $this->load->view('extensions', $data);
+        $this->load->view('spice_list', $data);
         $this->load->view('footer', $data);
     }
 
@@ -67,7 +67,7 @@ class Extensions extends Controller
         $data['mode'] = 'latest';
 
         $this->load->view('header', $data);
-        $this->load->view('extensions', $data);
+        $this->load->view('spice_list', $data);
         $this->load->view('footer', $data);
     }
 

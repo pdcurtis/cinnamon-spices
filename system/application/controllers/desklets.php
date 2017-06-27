@@ -33,7 +33,6 @@ class Desklets extends Controller
         $this->popular();
     }
 
-
     function popular()
     {
         $data = $this->data;
@@ -49,7 +48,7 @@ class Desklets extends Controller
         $data['mode'] = 'popular';
 
         $this->load->view('header', $data);
-        $this->load->view('desklets', $data);
+        $this->load->view('spice_list', $data);
         $this->load->view('footer', $data);
     }
 
@@ -68,7 +67,7 @@ class Desklets extends Controller
         $data['mode'] = 'latest';
 
         $this->load->view('header', $data);
-        $this->load->view('desklets', $data);
+        $this->load->view('spice_list', $data);
         $this->load->view('footer', $data);
     }
 

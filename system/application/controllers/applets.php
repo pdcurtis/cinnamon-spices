@@ -48,7 +48,7 @@ class Applets extends Controller
         $data['mode'] = 'latest';
 
 		$this->load->view('header');
-		$this->load->view('applets', $data);
+		$this->load->view('spice_list', $data);
 		$this->load->view('footer');
 	}
 
@@ -67,7 +67,7 @@ class Applets extends Controller
         $data['mode'] = 'popular';
 
 		$this->load->view('header');
-		$this->load->view('applets', $data);
+		$this->load->view('spice_list', $data);
 		$this->load->view('footer');
 	}
 

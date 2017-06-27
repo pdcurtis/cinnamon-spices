@@ -17,11 +17,13 @@
         if (input.dataset['searchUrl']) {
             searchUrl = input.dataset['searchUrl'];
         }
+        
         if (input.dataset['searchType']) {
             searchType = input.dataset['searchType'];
         }
-        if (input.dataset['searchKey']) {
-            searchKey = input.dataset['searchKey'];
+
+        if (searchType === 'themes') {
+            searchKey = 'uuid';
         }
     }
 
