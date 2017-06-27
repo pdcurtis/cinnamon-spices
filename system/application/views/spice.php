@@ -2,4 +2,4 @@
 
 <?php $this->view('_item_info') ?>
 
-<?php $this->view('_comments'); ?>
+<?php $this->view('_comments', ['type' => $type]) ?>
