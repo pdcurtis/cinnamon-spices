@@ -1,10 +1,25 @@
-﻿<html>
+<html>
 <head>
     <title>Spices : Cinnamon</title>
     <!-- Stylesheet & Favicon -->
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <link rel="shortcut icon" href="/favicon.ico"/>
     <link rel="stylesheet" href="/style.css?<?= time() ?>">
+
+    <meta property="og:title" content="Spices: <?= ucfirst($type) ?>" />
+    <?php if (preg_match('|^/themes.*?|',$_SERVER['REQUEST_URI'])) { ?>
+        <meta property="og:description" content="Change the look and feel of Cinnamon with themes!" />
+    <?php } elseif (preg_match('|^/applets.*?|',$_SERVER['REQUEST_URI'])) { ?>
+        <meta property="og:description" content="Add applets to your Cinnamon panel!" />
+    <?php } elseif (preg_match('|^/desklets.*?|',$_SERVER['REQUEST_URI'])) { ?>
+        <meta property="og:description" content="Add desklets on top of your desktop wallpaper!" />
+    <?php } elseif (preg_match('|^/extensions.*?|',$_SERVER['REQUEST_URI'])) { ?>
+        <meta property="og:description" content="Change the way Cinnamon works with extensions!" />
+    <?php } ?>
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://cinnamon-spices.linuxmint.com/<?= $type ?>" />
+    <meta property="og:image" content="https://cinnamon-spices.linuxmint.com/resources/og.jpg" />
+
 </head>
 <body>
 
@@ -17,43 +32,31 @@
         <?php require('header_links.php') ?>
     </div>
     <div class="cs-jumbotron-content cs-flex-column">
+    <h1 class="cs-heading-large"><?= ucfirst($type); ?></h1>
     <?php if (preg_match('|^/themes.*?|',$_SERVER['REQUEST_URI'])) { ?>
-        <h1 class="cs-heading-large">Themes</h1>
         <p>
             Change the look and feel of Cinnamon with themes!
             <br>
             <span class="cs-jumbotron-highlight">To install a theme: Download it and decompress it in ~/.themes.</span>
-            <br>
-            You can also download and install themes straight from within Cinnamon, using the "Themes" configuration tool in the "System Settings".
-        </p>
     <?php } elseif (preg_match('|^/applets.*?|',$_SERVER['REQUEST_URI'])) { ?>
-        <h1 class="cs-heading-large">Applets</h1>
         <p>
             Add applets to your Cinnamon panel!
             <br>
             <span class="cs-jumbotron-highlight">To install an applet: Download it and decompress it in ~/.local/share/cinnamon/applets.</span>
-            <br>
-            You can also download and install applets straight from within Cinnamon, using the "Applets" configuration tool in the "System Settings".
-        </p>
     <?php } elseif (preg_match('|^/desklets.*?|',$_SERVER['REQUEST_URI'])) { ?>
-        <h1 class="cs-heading-large">Desklets</h1>
         <p>
             Add desklets on top of your desktop wallpaper!
             <br>
             <span class="cs-jumbotron-highlight">To install a desklet: Download it and decompress it in ~/.local/share/cinnamon/desklets.</span>
-            <br>
-            You can also download and install desklets straight from within Cinnamon, using the "Desklets" configuration tool in the "System Settings".
-        </p>
     <?php } elseif (preg_match('|^/extensions.*?|',$_SERVER['REQUEST_URI'])) { ?>
-        <h1 class="cs-heading-large">Extensions</h1>
         <p>
             Change the way Cinnamon works with extensions!
             <br>
             <span class="cs-jumbotron-highlight">To install an extension: Download it and decompress it in ~/.local/share/cinnamon/extensions.</span>
-            <br>
-            You can also download and install extensions straight from within Cinnamon, using the "Extensions" configuration tool in the "System Settings".
-        </p>
     <?php } ?>
+            <br>
+            You can also download and install <?= $type ?> straight from within Cinnamon, using the "<?= ucfirst($type) ?>" configuration tool in the "System Settings".
+        </p>
     </div>
 </div>
 

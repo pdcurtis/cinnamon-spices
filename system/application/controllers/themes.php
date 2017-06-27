@@ -47,7 +47,7 @@ class Themes extends Controller
         $data['items'] = $this->db->get('newthemes', $config['per_page'], $this->uri->segment(3));
 		$data['mode'] = 'popular';
 
-		$this->load->view('header');
+		$this->load->view('header', $data);
 		$this->load->view('spice_list', $data);
 		$this->load->view('footer');
 	}
