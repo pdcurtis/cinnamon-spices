@@ -17,4 +17,4 @@
 </div>
 
 <?php
-$this->view('applet_desklet_extension_list', ['items' => $items,'type'=>'applets']);
+$this->view('applet_desklet_extension_list', ['items' => $items]);

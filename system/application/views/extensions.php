@@ -18,4 +18,4 @@
 
 
 <?php
-$this->view('applet_desklet_extension_list', ['items' => $items,'type'=>'extensions']);
+$this->view('applet_desklet_extension_list', ['items' => $items]);
