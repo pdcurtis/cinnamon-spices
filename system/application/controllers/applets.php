@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Applets
  *
@@ -12,6 +13,7 @@
  */
 class Applets extends Controller
 {
+    var $data;
 
 	function __construct()
     {
@@ -20,6 +22,10 @@ class Applets extends Controller
 		$this->load->helper('form');
 		$this->load->helper('date');
 		$this->load->library('email');
+
+        $this->data = array(
+            'type' => 'applets'
+        );
 	}
 
 	function index()
@@ -29,6 +35,7 @@ class Applets extends Controller
 
 	function latest()
     {
+        $data = $this->data;
         $this->load->library('pagination');
 
         $config['base_url'] = '/applets/latest';
@@ -47,6 +54,7 @@ class Applets extends Controller
 
 	function popular()
     {
+        $data = $this->data;
         $this->load->library('pagination');
 
         $config['base_url'] = '/applets/popular';
@@ -75,7 +83,7 @@ class Applets extends Controller
 
 		if ($records->num_rows() > 0)
         {
-			$data = $records->row_array();
+			$data = array_merge($this->data, $records->row_array());
 
             $data['liked'] = false;
             if ($this->session->userdata('oauth'))
@@ -108,13 +116,13 @@ class Applets extends Controller
             $data['comments'] = $this->comments->arrange($comments, $auth);
 
             $this->load->view('header_short');
-			$this->load->view('applet', $data);
+			$this->load->view('spice', $data);
 			$this->load->view('footer');
 		}
 		else{
 			$data["error"] = "Not found";
 			$data["details"] = "This applet does not exist.";
-			$this->load->view("header_short");
+			$this->load->view('header_short');
 			$this->load->view('error', $data);
 			$this->load->view("footer");
 		}
@@ -125,7 +133,7 @@ class Applets extends Controller
 	        $q = $_POST['q'];
         }
 	    $dbname = 'newapplets';
-	    $itemtype = 'applets';
+	    $itemtype = $this->data['type'];
 	    $this->db->select('*');
 	    $this->db->like('name',$q);
 	    $this->db->or_like('description',$q);

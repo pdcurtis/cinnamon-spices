@@ -13,6 +13,7 @@
  */
 class Themes extends Controller
 {
+    var $data;
 
 	function __construct()
     {
@@ -22,8 +23,9 @@ class Themes extends Controller
 		$this->load->helper('date');
 		$this->load->library('email');
 
-		error_reporting(E_ALL);
-		ini_set('display_errors', '1');
+        $this->data = array(
+            'type' => 'themes'
+        );
 	}
 
 	function index()
@@ -33,6 +35,7 @@ class Themes extends Controller
 
 	function popular()
     {
+        $data = $this->data;
         $this->load->library('pagination');
 
         $config['base_url'] = '/themes/popular';
@@ -51,6 +54,7 @@ class Themes extends Controller
 
 	function latest()
     {
+        $data = $this->data;
         $this->load->library('pagination');
 
         $config['base_url'] = '/themes/latest';
@@ -79,7 +83,8 @@ class Themes extends Controller
 
 		if ($records->num_rows() > 0)
         {
-            $data = $records->row_array();
+            $data = array_merge($this->data, $records->row_array());
+
             $data['liked'] = false;
 
             if ($this->session->userdata('oauth'))
@@ -113,13 +118,13 @@ class Themes extends Controller
             $data['id'] = $data['uuid'];
 
 			$this->load->view('header_short');
-			$this->load->view('theme', $data);
+			$this->load->view('spice', $data);
 			$this->load->view('footer');
 		}
 		else {
 			$data["error"] = "Not found";
 			$data["details"] = "This theme does not exist.";
-			$this->load->view("header_short");
+			$this->load->view('header_short');
 			$this->load->view('error', $data);
 			$this->load->view("footer");
 		}
@@ -130,7 +135,7 @@ class Themes extends Controller
             $q = $_POST['q'];
         }
         $dbname = 'newthemes';
-        $itemtype = 'themes';
+        $itemtype = $this->data['type'];
         $this->db->select('*');
         $this->db->like('name',$q);
         $this->db->or_like('description',$q);
