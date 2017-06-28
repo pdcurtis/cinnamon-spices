@@ -115,14 +115,14 @@ class Applets extends Controller
             $data['count'] = $count;
             $data['comments'] = $this->comments->arrange($comments, $auth);
 
-            $this->load->view('header_short');
+            $this->load->view('header_short', $data);
 			$this->load->view('spice', $data);
 			$this->load->view('footer');
 		}
 		else{
 			$data["error"] = "Not found";
 			$data["details"] = "This applet does not exist.";
-			$this->load->view('header_short');
+			$this->load->view('header_short', $data);
 			$this->load->view('error', $data);
 			$this->load->view("footer");
 		}

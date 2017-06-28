@@ -49,7 +49,7 @@ class Extensions extends Controller
 
         $this->load->view('header', $data);
         $this->load->view('spice_list', $data);
-        $this->load->view('footer', $data);
+        $this->load->view('footer');
     }
 
     function latest()
@@ -68,7 +68,7 @@ class Extensions extends Controller
 
         $this->load->view('header', $data);
         $this->load->view('spice_list', $data);
-        $this->load->view('footer', $data);
+        $this->load->view('footer');
     }
 
     function view($id)
@@ -115,14 +115,14 @@ class Extensions extends Controller
             $data['count'] = $count;
             $data['comments'] = $this->comments->arrange($comments, $auth);
 
-            $this->load->view('header_short');
+            $this->load->view('header_short', $data);
             $this->load->view('spice', $data);
             $this->load->view('footer');
         }
         else {
             $data["error"] = "Not found";
             $data["details"] = "This extension does not exist.";
-            $this->load->view('header_short');
+            $this->load->view('header_short', $data);
             $this->load->view('error', $data);
             $this->load->view("footer");
         }

@@ -1,12 +1,13 @@
 <html>
 <head>
-    <title>Spices : Cinnamon</title>
+    <title><?= ucfirst($type) ?> : Cinnamon Spices</title>
     <!-- Stylesheet & Favicon -->
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <link rel="shortcut icon" href="/favicon.ico"/>
     <link rel="stylesheet" href="/style.css?<?= time() ?>">
 
-    <meta property="og:title" content="Spices: <?= ucfirst($type) ?>" />
+    <meta property="og:site_name" content="Cinnamon Spices" />
+    <meta property="og:title" content="<?= ucfirst($type) ?>" />
     <?php if (preg_match('|^/themes.*?|',$_SERVER['REQUEST_URI'])) { ?>
         <meta property="og:description" content="Change the look and feel of Cinnamon with themes!" />
     <?php } elseif (preg_match('|^/applets.*?|',$_SERVER['REQUEST_URI'])) { ?>

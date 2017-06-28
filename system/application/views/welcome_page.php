@@ -6,6 +6,7 @@
     <link rel="shortcut icon" href="/favicon.ico"/>
     <link rel="stylesheet" href="/style.css?<?= time() ?>">
 
+    <meta property="og:site_name" content="Cinnamon Spices" />
     <meta property="og:title" content="Cinnamon Spices" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="http://cinnamon-spices.linuxmint.com" />
