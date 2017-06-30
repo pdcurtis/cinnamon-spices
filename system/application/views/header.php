@@ -18,7 +18,7 @@
         <meta property="og:description" content="Change the way Cinnamon works with extensions!" />
     <?php } ?>
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="http://cinnamon-spices.linuxmint.com/<?= $type ?>" />
+    <meta property="og:url" content="https://cinnamon-spices.linuxmint.com/<?= $type ?>" />
     <meta property="og:image" content="https://cinnamon-spices.linuxmint.com/resources/og.jpg" />
 
 </head>

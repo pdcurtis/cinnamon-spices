@@ -9,7 +9,7 @@
     <meta property="og:site_name" content="Cinnamon Spices" />
     <meta property="og:title" content="Cinnamon Spices" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="http://cinnamon-spices.linuxmint.com" />
+    <meta property="og:url" content="https://cinnamon-spices.linuxmint.com" />
     <meta property="og:description" content="Modify your Cinnamon desktop environment and extend its features with Cinnamon Spices.
     Cinnamon supports the following types of spices: Themes, applets, desklets and extensions." />
     <meta property="og:image" content="https://cinnamon-spices.linuxmint.com/resources/og.jpg" />

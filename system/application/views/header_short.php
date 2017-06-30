@@ -22,7 +22,7 @@
     <meta property="og:site_name" content="Cinnamon Spices" />
     <meta property="og:title" content="<?= ucfirst($type) ?> : <?= $name ?>" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="http://cinnamon-spices.linuxmint.com/<?= $type ?>/view/<?= $og_url ?>" />
+    <meta property="og:url" content="https://cinnamon-spices.linuxmint.com/<?= $type ?>/view/<?= $og_url ?>" />
     <meta property="og:description" content="<?= $og_description ?>" />
     <?php if (isset($og_icon)) { ?>
         <meta property="og:image" content="https://cinnamon-spices.linuxmint.com/<?= $og_icon ?>" />
