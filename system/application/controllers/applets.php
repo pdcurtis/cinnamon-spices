@@ -47,7 +47,7 @@ class Applets extends Controller
         $data['items'] = $this->db->get('newapplets', $config['per_page'], $this->uri->segment(3));
         $data['mode'] = 'latest';
 
-		$this->load->view('header');
+		$this->load->view('header', $data);
 		$this->load->view('spice_list', $data);
 		$this->load->view('footer');
 	}
@@ -66,7 +66,7 @@ class Applets extends Controller
         $data['items'] = $this->db->get('newapplets', $config['per_page'], $this->uri->segment(3));
         $data['mode'] = 'popular';
 
-		$this->load->view('header');
+		$this->load->view('header', $data);
 		$this->load->view('spice_list', $data);
 		$this->load->view('footer');
 	}
@@ -115,14 +115,14 @@ class Applets extends Controller
             $data['count'] = $count;
             $data['comments'] = $this->comments->arrange($comments, $auth);
 
-            $this->load->view('header_short');
+            $this->load->view('header_short', $data);
 			$this->load->view('spice', $data);
 			$this->load->view('footer');
 		}
 		else{
 			$data["error"] = "Not found";
 			$data["details"] = "This applet does not exist.";
-			$this->load->view('header_short');
+			$this->load->view('header_short', $data);
 			$this->load->view('error', $data);
 			$this->load->view("footer");
 		}
